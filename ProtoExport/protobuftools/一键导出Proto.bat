@@ -1,15 +1,20 @@
-rem ç”Ÿæˆprotoè¾“å‡ºæ–‡ä»¶
+rem Éú³ÉprotoÊä³öÎÄ¼ş
 python run.py
 
-rem ç”Ÿæˆçš„csè¾“å‡ºè·¯å¾„
+rem Éú³ÉµÄcsÊä³öÂ·¾¶
 set cs_file=E:\GitProjects\GF_Demo\ProtoExport\output\csharp
-rem é¡¹ç›®è·¯å¾„
-set file=E:\GitProjects\GF_Demo\GF_3_1_3_Demo\Assets\GameMain\Scripts\Network\Packet\ProtoGen
+set py_file=E:\GitProjects\GF_Demo\ProtoExport\output\python
 
-rem æ¸…ç†é¡¹ç›®æ—§æ–‡ä»¶å¤¹
-rd /s /q %file%
+rem ÏîÄ¿Â·¾¶
+set project_cs=E:\GitProjects\GF_Demo\GF_3_1_3_Demo\Assets\GameMain\Scripts\Network\Packet\ProtoGen
+set project_py=E:\GitProjects\GF_Demo\PythonServer\pb
 
-rem æ‹·è´åˆ°é¡¹ç›®è·¯å¾„
-xcopy /e/s/i %cs_file% %file%	
+rem ÇåÀíÏîÄ¿¾ÉÎÄ¼ş¼Ğ
+rd /s /q %project_cs%
+rd /s /q %project_py%
+
+rem ¿½±´µ½ÏîÄ¿Â·¾¶
+xcopy /e/s/i %cs_file% %project_cs%	
+xcopy /e/s/i %py_file% %project_py%	
 
 pause

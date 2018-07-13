@@ -5,13 +5,20 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.Network;
 using ProtoBuf;
+using System.Net;
 using System.IO;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
+using GameFramework.Event;
+using System;
+using network;
 
 public class ProcedurePreload : GameProcedureBase
 {
+    private INetworkChannel channel;
+
     protected override void OnEnter(ProcedureOwner procedureOwner)
     {
         base.OnEnter(procedureOwner);
@@ -28,6 +35,19 @@ public class ProcedurePreload : GameProcedureBase
     private void TestProto()
     {
         NetworkChannelHelper helper = new NetworkChannelHelper();
-        GameManager.Network.CreateNetworkChannel(NetworkExtension.GAME_SERVER_IN_SIDE,helper);
+        channel = GameManager.Network.CreateNetworkChannel(NetworkExtension.GAME_SERVER_IN_SIDE,helper);
+        channel.Connect(IPAddress.Parse("127.0.0.1"),4455);
+
+        GameManager.Event.Subscribe(UnityGameFramework.Runtime.NetworkConnectedEventArgs.EventId,OnNetworkConneted);
+    }
+
+    private void OnNetworkConneted(object sender, GameEventArgs e)
+    {
+        Log.Info("连接上服务器~~~");
+
+        cs_login loginInfo = new cs_login();
+        loginInfo.account = "1234";
+        loginInfo.password = "abc";
+        channel.Send<cs_login>(loginInfo);
     }
 }
