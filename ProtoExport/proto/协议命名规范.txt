@@ -1,0 +1,27 @@
+
+
+-----
+1、公用的数据结构放到unit.proto
+2、各功能模块的协议放到各自文件：login.proto、player.proto
+3、字符串类型使用string。
+4、整数类型使用 uint32、uint64。
+
+
+-----
+协议命名：
+客户端：cs_文件名_功能
+服务端：sc_文件名_功能
+    例：
+        cs_login
+        sc_login
+
+-----
+结构命名：
+pb_功能
+    例：
+        message pb_player_data
+        {
+            required uint32 player_level = 1;
+            required bytes player_name = 2;
+        }
+

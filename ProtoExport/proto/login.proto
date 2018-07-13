@@ -1,0 +1,23 @@
+package network;
+// -----
+// 账号登录
+// -----
+message cs_login{
+    // 账号信息
+	required string account = 2;		// 账号
+	required string password = 3;       // 密码
+}
+
+// -----
+// 账号登录返回
+// -----
+message sc_login{
+	required uint32 result = 1;			// 0失败 1成功
+	required string reason = 2;			// 失败原因
+}
+
+message ClearUserAccountDataReq {
+    optional int64 userId = 1;
+    optional string userName = 2;
+}
+

@@ -1,0 +1,2033 @@
+package network;
+
+enum EHttpMsgTypes {
+    HttpHeartBeat = 0;
+    HttpRetErr = 1;
+    Login = 2;
+    UpdateLevel = 3;
+
+}
+
+enum EResultCode {
+    OK = 0;
+    UserNameOrPassErr = 1;
+    NoAuth = 2;
+    DuplicateName = 3;
+    InvalidData = 4; //非法数据
+    EquipExpNotEnough = 5;
+    EquipHasPuton = 6;
+    EquipHasGetoff = 7;
+    EquipConfigNotExist = 8;
+    NoItemAndEquipChange = 9;
+    ItemNotEnough = 10;
+    TableCofnigErr = 11;
+    RecastMaterialNotEnough = 12;
+    HeroShareExpNotEnough = 13;
+    LowGenBookNotEnough = 14;
+    HighGenBookNotEnough = 15;
+    NoNextHeroStage = 16;
+    QualityNotEnough = 17;
+    UpgradeQualitySparNotEnough = 18;
+    TransformSparNotEnough = 19;
+    GoldNotEnough = 20;
+    InvalideOperate = 21;
+    MainlevelNoExit = 22; //关卡数据不存在
+    MysteryrunesNoExit = 23; //符文数据不存在
+    PlayerItemNoExit = 24; //道具不足
+}
+
+
+enum EReqMsgType {
+    HeartBeat = 1;
+	RegisterUser=2;
+    VistortLogin = 3;
+    UserLogin = 4;
+    EnterGame = 5;
+    SetPlayerName = 6;
+    ShowHeroList = 7;
+    StrengthenEquip = 8;
+    PreRecastEquip = 9;
+    RecastEquip = 10;
+    PutonEquip = 11;
+    GetoffEquip = 12;
+    AddAllItems = 13;
+    AddItem = 14;
+    AddEquip = 15;
+    ChangeQuaEquip = 16;
+    TransformEquip = 17;
+    UpgradeHeroStage = 18;
+    UpgradeHeroSkill = 19;
+    GetNormalLevelInfo = 20;
+    ReadyBattle = 21;
+    BeginBattle = 22;
+    SettlementBattle = 23;
+    AddHero = 24;
+    AddItems = 25;//添加多个道具
+	ShowTalent=26;
+	UpgradeTalent=27;
+	ResetTalentStrategy=28;
+	AddTalentStrategy=29;
+	Decompose_Hero=30;
+	SetPlayerPic=31;
+	GetPhoneVerificationCode=32;
+	CommitPhoneVerificationCode=33;
+	RedeemCode=34;
+	ExchangeHeroPiece = 35; // 兑换英雄碎片
+    CallHero = 36; //召唤英雄
+	FinishUnlockHeroStory=37;
+    LogOff=100;
+
+
+    GetDungeonInfo = 101; //显示大秘境列表
+    EnterBattle = 102; //大秘境进入战斗
+    DungeonBeginBattle = 103; //大秘境开始战斗
+    DungeonSettlementBattle = 104; //大秘境战斗结算
+    WaveBattleSettlement = 105;//普通关卡波次结算
+    DungeonWaveBattleSettlement = 106;//大秘境波次结算
+
+    SmallDungeonGetInfo = 107; //显示小秘境列表
+    SmallDungeonEnterBattle = 108; //小秘境进入战斗
+    SmallDungeonBeginBattle = 109; //小秘境开始战斗
+    SmallDungeonWaveSettlementBattle = 110;//小秘境关卡波次结算
+    SmallDungeonSettlementBattle = 111; //小秘境战斗结算
+	
+	RewardTaskShowInfo = 112;//请求悬赏任务
+	RewardTaskReceiveReward = 113;//领取悬赏任务奖励
+	RewardTaskUnlockBox = 114;//解锁宝箱
+	RewardTaskReceiveBoxReward = 115;//领取宝箱奖励
+    RewardTaskRefresh = 116;	//刷新悬赏任务
+    RewardTaskReceiveBox = 117;//领取悬赏任务宝箱
+	
+	ShopShowInfo = 118;//获取商店信息
+	ShopRefresh = 119;//刷新商店
+	ShopPurchase = 120;//购买商店商品信息
+    
+    RecruitShowinfo = 121;//显示招募信息
+    RecruitHero = 122;//招募英雄
+    
+    
+    
+    EmailShow = 123;//获取邮件列表
+    EmailRead = 124;//读取邮件
+    EmailGetaccessory = 125;//获取邮件附件
+    EmailComplete = 126;//一键领取邮件
+    
+    
+    FriendsShow = 127;//获取好友列表
+    FriendsShow_apply = 128;//获取好友申请列表
+    FriendsApply_info = 129;//申请加好友信息
+    FriendsOperation_info = 130;//处理加好友信息（拒绝或接受）
+    FriendsZan = 131;//好友点赞信息
+    FriendsRecommend = 132;//好友推荐信息
+    FriendsSearch = 133;//好友搜索信息
+    FriendsDelete = 134;//好友搜索信息
+    Shield = 135;//屏蔽信息
+    RecoveryShield = 136;//恢复屏蔽信息
+    ShieldList = 137;//屏蔽列表信息
+	
+	RankingListInfo = 138;//获取排行榜信息
+	GetUserDetailedInfo = 139;//获取角色详细信息
+	ClearUserAccountData = 140; //清除用户数据
+	
+	SendPrivateChatMsg =141;//发送私聊消息
+	PlayerEnterserver = 142;//玩家进入聊天服
+	SendWorldChatMsg = 143;//发送世界聊天请求
+	GetAllBriefPrivateChatInfo = 144;//获取所有私聊消息
+	GetPrivateChatHistory=145;//获得某个好友的私聊历史
+	SendSystemWorldChat = 146; //GM指令请求发送系统消息
+	SendSociatyChat = 147; //发送公会聊天请求
+	GetSociatyChatHistory=148;//获取公会聊天历史请求
+	
+	/******公会消息号开始******/
+    EnterSociatyModule = 150; //进入公会功能
+    CreateSociaty = 151; //创建公会
+    SearchSociaty = 152; //搜索公会
+    ApplyJoinSociaty = 153; //申请加入公会
+    ShowApplyJoinHistory = 154; //查看申请历史
+    QuickJoinSociaty = 155; //快速加入公会
+    SetCheckApplyOption = 156; //设置申请审核项
+    ShowCheckApplyList = 157; //申请审核列表
+    PassApplySociaty = 158; //通过申请
+    RefuseApplySociaty = 159; //拒绝申请
+    SetSociatyMemberJob = 160; //设置公会成员职位
+    DismissSociaty = 161; //解散公会
+    QuitSociaty = 162; //退出公会
+    ImpeachChairman = 163; //弹劾会长
+    ReleaseDeclaration = 164; //发布宣言
+    ShowSociatyRankList = 165; //查看公会排行版
+    ShowSocaityLog = 166; //公会日志
+		KickedSocaity = 167; //踢出公会
+    ExchangeSocaityMaster = 168; //转让会长
+    CancelApplyjoinSociaty = 169; //取消申请加入公会
+    ConfirmQuickJoinSociaty=170; //确认快速加入
+    GetAllSignHero=171; //获取英雄图鉴
+    DailyTaskShowInfo=172; //获取每日任务信息
+    DailyTaskLivenessBox=173; //领取活跃度宝箱
+    DailyTaskReceiveReward=174; //领取每日任务奖励
+    AchieveTaskShowInfo=175; //获取成就任务信息
+    AchieveTaskReceiveReward=176; //领取成就任务奖励    
+    
+    AppointTaskShowInfo=177;//委派任务列表
+    ReceiveTask=178;//委派任务
+    CompleteAppointTask=179;//完成委派任务
+    RecallAppointTask=180;//召回委派任务
+	ReceiveChest=181;//开启刷新宝箱
+	
+	FinishNoviceguide=182;//新手引导
+    
+    
+    /******公会消息号结束******/
+    
+    /******功能开启消息号开始******/
+    GetFunctionOpenList=190;
+    /******功能开启消息号结束******/
+}
+
+enum SysMsgType {
+    ItemChange = 1000; //物品更新
+    EquipChange = 1001; //装备更新
+    ItemAndEquipChange = 1002; //装备和物品都有更新
+    HeroUpgrade = 1003; //英雄升级
+	RewardTaskFinish = 1004;	//完成悬赏任务推送消息
+    RoleUpgrade = 1005;//更新角色等级变化
+    FriendsUpgrade = 1006;//更新好友变化
+    SociatyUpgrade = 1007;//更新公会变化
+    EmailUpgrade = 1008;//更新邮件变化
+    RewardTaskOpenUpgrade = 1009;//悬赏任务开启难度推送
+    DailyTaskFinishUpgrade = 1010;//每日任务完成推送
+    AchieveTaskFinishUpgrade = 1011;//成就任务完成推送
+    OpenFunctionUpgrade = 1012;//功能开启推送
+    UnlockHeroHistory=1020;
+	PushChatMsg=2000;
+	PushNoviceguide=2001;//新手引导
+
+	
+}
+message ClearUserAccountDataReq {
+    optional int64 userId = 1;
+    optional string userName = 2;
+}
+
+message ItemChangeResp {
+    repeated ItemInfoMsg itemInfos = 1;
+}
+
+message EquipChangeResp {
+    repeated int64 delInfos = 1;
+    repeated EquipInfoMsg itemInfos = 2;
+}
+
+message HeroUpgradeResp {
+    optional int64 playerHeroId = 1;
+    optional int32 heroLv = 2;
+    optional int32 heroExp = 3;
+    optional HeroBattleAttriUpdate heroBattleAttribute = 4;
+    optional HeroBattleAttriUpdate groupAdditionAttribute = 5;
+}
+
+message RoleUpgradeResp {
+    optional int32 playerLv = 1;//角色等级
+    optional int32 peakLv = 2;//角色巅峰等级
+    optional int32 exp = 3;//角色经验
+}
+
+
+message ItemAndEquipChangeResp {
+    optional ItemChangeResp itemChange = 1;
+    optional EquipChangeResp equipChange = 2;
+}
+
+message HeartBeatResp {
+    optional string contextStr = 1;
+}
+
+message VisitorLoginReq {
+    optional string devId = 1;
+    optional int32 platform = 2;
+    optional string deviceName = 5;
+    optional string deviceModel = 6;
+    optional string deviceType = 7;
+    optional string operationSystem = 8;
+    optional string processorType = 9;
+    optional string graphicsDeviceName = 10;
+    optional string graphicsDeviceType = 11;
+
+}
+
+message UserLoginReq {
+    optional string devId = 1;
+    optional int32 platform = 2;
+    optional string platformAcc = 3;
+    optional string accPass = 4;
+    optional string deviceName = 5;
+    optional string deviceModel = 6;
+    optional string deviceType = 7;
+    optional string operationSystem = 8;
+    optional string processorType = 9;
+    optional string graphicsDeviceName = 10;
+    optional string graphicsDeviceType = 11;
+}
+
+message RegisterUserReq
+{
+	optional string platformAcc=1;
+	optional string pass=2;
+    optional int32 platform=3;
+}
+
+message RegisterUserResp
+{
+	optional int32 resultCode=1;
+}
+
+message LoginHistory {
+    optional int32 serverId = 1;
+    optional int32 level = 2;
+}
+
+message GameSeverInfo {
+    optional int32 serverId = 1;
+    optional string name = 2;
+    optional string serverIp = 3;
+    optional int32 serverPort = 4;
+    optional string groupName = 5;
+    optional int32 statues = 6;
+    optional int32 popularLevel = 7;//火爆程度
+    optional int32 isRecommend = 8;//推荐
+}
+
+message LoginResp {
+    optional int32 resultCode = 1;
+    optional int64 userId = 2;
+    repeated GameSeverInfo gameServerList = 3;
+    repeated LoginHistory loginHistory = 4;
+    optional int32 lastLoginServer = 5;
+}
+
+
+message TcpClientHeartBeat {
+    optional string contextStr = 1;
+}
+
+message EnterGameServerReq {
+    optional int64 userId = 1;
+	optional int32 noviceSwitch=2;// 0不需要新手引导 1需要新手引导
+}
+
+message EnterGameServerResp {
+    optional int32 resultCode = 1;
+    optional string playerName = 2;
+    optional int32 exp = 3;
+    optional int32 level = 4 [default = 1];
+    repeated ItemInfoMsg itemMap = 5;
+    optional int32 isFirstEnter = 6;
+    optional int64 loginTimestamp = 7;
+    repeated ConfigInfoMsg configInfos = 8;
+    optional int32 peakLv = 9;//角色巅峰等级
+	optional string chatServerIp = 10;
+    optional int32 chatServerPort = 11;
+	optional int64 sociatyId=12;
+	optional int32 pic = 13;//角色头像
+	repeated int64 showHeroids = 14;//英雄展示（大秘境上阵英雄）
+	optional string node=15;//节点
+    repeated HeroInfoMsg heroInfos=16;//引导英雄属性
+	optional int32 guideLevel = 17;//引导关卡ID
+	
+}
+message SetPlayerNameReq {
+    optional string playerName = 1;
+}
+message SetPlayerNameResp {
+    optional int32 resultCode = 1;
+}
+
+message SetPlayerPicReq {
+    optional int32 playerPic = 1;
+}
+message SetPlayerPicResp {
+    optional int32 resultCode = 1;
+}
+
+message ItemInfoMsg {
+    optional int32 itemId = 1;
+    optional int32 itemNum = 2;
+}
+
+
+message SkillInfoMsg {
+    optional int32 skillId = 1;
+    optional int32 skillLv = 2;
+}
+
+message SuitInfoMsg {
+    optional int32 suitId = 1;
+    optional int32 suitNum = 2;
+}
+
+//装备属性消息
+message AttributeInfoMsg {
+    optional int32 attributeId = 1;
+    optional int32 attributeLv = 2;
+    optional float attributeVal = 3;
+    optional int32 recastFlag = 4;
+}
+
+//装备信息
+message EquipInfoMsg {
+    optional int64 id = 1;
+    optional int32 equipId = 2;
+    optional int32 equipExp = 3;
+    optional int32 equipLv = 4;
+    optional int32 equipQua = 5;
+    optional int32 recastTimes = 6;
+    repeated AttributeInfoMsg firstAttributeInfos = 7;
+    repeated AttributeInfoMsg secondAttributeInfos = 8;
+    repeated int32 recastChoseAttributeIds = 9; //重铸可选择的副属性
+}
+
+//英雄信息
+message HeroInfoMsg {
+    optional int64 id = 1;
+    optional int32 heroId = 2;
+    optional int32 heroExp = 3;
+    optional int32 heroLv = 4;
+    optional int32 quality = 5;
+    optional int32 statge = 6;
+    optional int32 activeSkillLv = 7;
+    optional int32 passiveSkillLv = 8;
+    optional HeroBattleAttriUpdate heroBattleAttriUpdate = 9;//最终属性成长
+    repeated EquipInfoMsg suitEquipMap = 10;
+    repeated SuitInfoMsg suitInfo = 11;
+    optional HeroBattleAttriUpdate equipAddition = 12;//装备带来的属性成长
+    optional HeroBattleAttriUpdate growUpAddition = 13;//成长带来的属性成长
+	repeated StoryMsg storyMsg=14;//英雄传记
+    
+}
+
+//英雄战斗属性变化
+message HeroBattleAttriUpdate {
+    optional int32 damage = 1;
+    optional float attackSpeed = 2;
+    optional float critRate = 3;
+    optional float critDamage = 4;
+    optional float shield = 5;
+    optional float shieldDeflection = 6;
+    optional float CDTime = 7;
+}
+
+message ShowHeroListReq {
+
+}
+
+//英雄展示应答
+message ShowHeroListResp {
+    optional int32 resultCode = 1;
+    repeated HeroInfoMsg heroInfos = 2;
+    repeated EquipInfoMsg equipInfos = 3; //没有被穿上的装备
+}
+
+
+message StrengthenEquipReq {
+    optional int64 id = 1;
+    repeated int64 consumeEquipIds = 3;
+}
+
+message EquipUpdateResp {
+    optional int32 resultCode = 1;
+    optional EquipInfoMsg equipInfo = 2;
+    optional HeroBattleAttriUpdate heroBattleAttriUpdate = 3;
+    optional HeroBattleAttriUpdate equipAddition = 4;//装备带来的属性成长
+}
+
+//重铸 请求选择副属性
+message PreRecastEquipReq {
+    optional int64 id = 1;
+    optional int32 attributeId = 2;
+}
+//重铸 请求选择副属性应答
+message PreRecastEquipResp {
+    optional int32 resultCode = 1;
+    optional int64 id = 2;
+    optional int32 attributeId = 3;
+    repeated int32 forSelectAttributes = 4; //随机待选择2条属性
+}
+
+//执行重铸请求
+message RecastEquipReq {
+    optional int64 id = 1;
+    optional int32 attributeId = 2;
+    optional int32 choseAttributeId = 3;
+}
+
+//执行升等
+message ChangeQuaEquipReq {
+    optional int64 id = 1;
+}
+
+//执行转化
+message TransformEquipReq {
+    optional int64 id = 1;
+}
+
+//穿上装备请求
+message PutonEquipReq {
+    optional int64 heroId = 1;
+    optional int64 id = 2;
+}
+
+//穿上或脱下装备应答
+message PutonOrOffEquipResp {
+    optional int32 resultCode = 1;
+    optional int64 id = 2;
+    optional int64 retId = 3; //挤下装备id
+    optional HeroBattleAttriUpdate heroBattleAttriUpdate = 4;
+    repeated SuitInfoMsg suitInfo = 5;
+    optional HeroBattleAttriUpdate equipAddition = 6;//装备带来的属性成长
+	optional int64 playerHeroId=7;
+}
+
+//脱下装备请求
+message GetoffEquipReq {
+    optional int64 heroId = 1;
+    optional int64 id = 2;
+}
+
+//一键加所有道具
+message AddAllItemsReq {
+    optional int32 num = 1;
+}
+
+//添加道具非装备
+message AddItemReq {
+    optional int32 id = 1;
+    optional int32 num = 2;
+}
+
+//批量添加道具非装备
+message AddItemsReq {
+    repeated ItemInfoMsg itemInfos = 1;
+}
+
+//添加装备
+message AddEquipReq {
+    optional int32 id = 1;
+    optional int32 num = 2;
+    optional int32 lv = 3;
+}
+
+//英雄升阶
+message UpgradeStageReq {
+    optional int64 id = 1;
+}
+
+message UpgradeStageResp {
+    optional int32 resultCode = 1;
+    optional int64 id = 2;
+    optional int32 stage = 3;
+    optional HeroBattleAttriUpdate heroBattleAttribute = 4;
+}
+
+message UpgradeHeroSkillReq {
+    optional int64 id = 1;
+    optional int32 skillType =2;
+}
+
+message UpgradeHeroSkillResp {
+    optional int32 resultCode = 1;
+    optional int64 id = 2;
+    optional SkillInfoMsg skillInfo = 3;
+}
+
+message ExchangeHeroPieceReq {
+    optional int32 heroId = 1;
+    optional int32 exchangeNum = 2;
+}
+message ExchangeHeroPieceResp {
+    optional int32 resultCode = 1;
+}
+
+message CallHeroReq {
+    optional int32 heroId = 1;
+}
+
+message CallHeroResp {
+    optional int32 resultCode = 1;
+    optional HeroInfoMsg heroInfoMsg = 2;
+}
+
+message StoryMsg
+{
+    optional int32 storyId=1;
+    optional int32 progress=2;
+    optional int32 unlockStatus=3;//0 未解锁1 已解锁  2 已完成解锁
+}
+message UnlockStoryMsg
+{
+    optional int64 id=1;
+    repeated StoryMsg storyMsg =3;
+}
+
+message FinishUnlockHeroStoryReq {
+    optional int64 id = 1;
+    optional int32 storyId = 2;
+}
+
+message FinishUnlockHeroStoryResp {
+    optional int32 resultCode = 1;
+}
+
+
+//关卡信息
+message LevelInfoMsg {
+    optional int32 mainLevelId = 1;
+    optional int32 passTimes = 2;
+    repeated int32 ordinaryEntryList = 3;//普通怪物词条列表
+    repeated int32 bossEntryList = 4;//boss怪物词条列表
+}
+
+//章节信息
+message ChapterInfoMsg {
+    optional int32 chapterId = 1;
+    repeated LevelInfoMsg levelInfos = 2;
+}
+//进入关卡请求
+message ShowNormalLevelInfoReq {
+}
+
+//进入关卡请求回应
+message ShowNormalLevelInfoResp {
+    optional int32 resultCode = 1;
+    repeated ChapterInfoMsg chapterInfos = 2;
+}
+
+//进入战场请求
+message GetReadyReq {
+    optional int32 mainLevelId = 1;
+    optional int32 isRewardTest = 2;//是否是悬赏任务,0普通副本，1悬赏任务
+}
+
+////进入战场请求回应
+message GetReadyResp {
+    optional int32 resultCode = 1;
+    optional int32 levelMonsterBrushID = 2; //刷怪levelid
+}
+
+//开始战斗请求
+message BeginBattleReq {
+    repeated int64 playerHeroIds = 1; //出站英雄ids
+}
+
+message HeroBattleAttributeMsg {
+    optional int64 heroId = 1;
+    optional HeroBattleAttriUpdate heroBattleAtrribute = 2;
+}
+
+//开始战斗回应
+message BeginBattleResp {
+    optional int32 resultCode = 1;
+    repeated HeroBattleAttributeMsg heroBattleAttribute = 2;
+    repeated MonsterWaveMsg monsterWaves = 3; //怪物波次
+    optional int32 addHeroExp = 4;//该关卡怪物增加英雄经验总和
+}
+
+//战斗波次结算请求
+message WaveBattleSettlementReq {
+    optional int32 wave = 1;//波次id
+}
+
+//战斗结算请求
+message BattleSettlementReq {
+    optional int32 result = 1;//战斗结果，1胜利，0失败，2未开始战斗退出
+    optional MonsterWaveResultMsg monsterWaveResults = 2; //胜利时为空，失败时为战斗最后一波已经消灭的怪物列表
+}
+//战斗结算回应
+message BattleSettlementResp {
+    optional int32 resultCode = 1;
+    repeated HeroExpChargeMsg heroChargeList = 2;//怪物掉落和关卡掉落的英雄经验总和
+}
+
+message AddHeroReq {
+    optional int32 heroId = 1;
+    optional int32 num = 2;
+}
+
+message AddHeroResp {
+    optional int32 resultCode = 1;
+    repeated HeroInfoMsg heroInfos = 2;
+}
+
+//========大秘境消息结构开始=======================//
+//请求关卡数据
+message ShowDungeonInfoReq {
+}
+//返回请求关卡数据
+message ShowDungeonInfoResp {
+    optional int32 resultCode = 1;
+    repeated PassInfoMsg passInfos = 2; //层列表
+}
+//层信息
+message PassInfoMsg {
+    optional int32 chapterId = 1; //层id
+    optional int32 passTimes = 2; //完成次数
+    optional int64 minBattleTime = 3; //最小战斗时间
+    repeated int32 ordinaryEntryList = 4;//普通怪物词条列表
+    repeated int32 bossEntryList = 5;//boss怪物词条列表
+}
+//进入战斗请求
+message EnterBattleReq {
+    optional int32 mainLevelId = 1; //层id
+    optional int32 mysteryRunesId = 2; //符文id，0为不使用符文
+}
+//返回进入战斗请求
+message EnterBattleResp {
+    optional int32 resultCode = 1;
+    optional int32 mysteryRunesId = 2; //符文id，0为不使用符文
+    optional int32 levelMonsterBrushID = 3; //刷怪levelid
+    
+}
+//开始战斗请求
+message DungeonBeginBattleReq {
+    repeated int64 playerHeroIds = 1; //出站英雄ids
+}
+//返回开始战斗请求
+message DungeonBeginBattleResp {
+    optional int32 resultCode = 1;
+    repeated HeroBattleAttributeMsg heroBattleAttribute = 2; //上次关卡出战阵容
+    repeated MonsterWaveMsg monsterWaves = 3; //怪物波次列表
+    optional int32 addHeroExp = 4;//该关卡怪物增加英雄经验总和
+}
+
+// 怪物波次
+message MonsterWaveMsg {
+    optional int32 wareid = 1;//波次编号
+    repeated MonsterMsg monsters = 2;//怪物列表
+}
+//怪物信息
+message MonsterMsg {
+    optional int64 id = 1;//怪物唯一id
+    optional int32 monsterid = 2;//怪物编号
+    repeated ItemInfoMsg items = 3;//怪物掉率物品
+}
+
+//战斗波次结算请求
+message DungeonWaveBattleSettlementReq {
+    optional int32 wave = 1;//波次id
+}
+
+//战斗结算请求
+message DungeonBattleSettlementReq {
+    optional int32 result = 1;
+    optional int32 minBattleTime = 2; //战斗时间
+    optional MonsterWaveResultMsg monsterWaveResults = 3; //胜利时为空，失败时为战斗最后一波已经消灭的怪物列表
+}
+// 怪物波次死亡信息
+message MonsterWaveResultMsg {
+    optional int32 wave = 1;//波次序号
+    repeated int64 monsterid = 2;//死亡怪物id列表
+}
+
+//返回战斗结算回应
+message DungeonBattleSettlementResp {
+    optional int32 resultCode = 1;
+    repeated HeroExpChargeMsg heroChargeList = 2;//怪物掉落和关卡掉落的英雄经验总和
+}
+
+message HeroExpChargeMsg {
+    optional int64 id = 1;
+    optional int32 heroId = 2;
+    optional int32 oldExp = 3;
+    optional int32 newExp = 4;
+    optional int32 oldLv = 5;
+    optional int32 newLv = 6;
+}
+//========大秘境消息结构结束=======================//
+
+
+
+
+
+
+//========小秘境消息结构开始=======================//
+//请求关卡数据
+message SmallDungeonShowInfoReq {
+}
+//返回请求关卡数据
+message SmallDungeonShowInfoResp {
+    optional int32 resultCode = 1;
+    repeated SmallDungeonPassInfoMsg passInfos = 2; //层列表
+}
+//层信息
+message SmallDungeonPassInfoMsg {
+    optional int32 chapterId = 1; //层id
+    optional int32 passTimes = 2; //完成次数
+    repeated int32 ordinaryEntryList = 3;//普通怪物词条列表
+    repeated int32 bossEntryList = 4;//boss怪物词条列表
+}
+//进入战斗请求
+message SmallDungeonEnterBattleReq {
+    optional int32 mainLevelId = 1; //层id
+}
+//返回进入战斗请求
+message SmallDungeonEnterBattleResp {
+    optional int32 resultCode = 1;
+    optional int32 levelMonsterBrushID = 2; //刷怪levelid
+}
+//开始战斗请求
+message SmallDungeonBeginBattleReq {
+    repeated int64 playerHeroIds = 1; //出站英雄ids
+}
+//返回开始战斗请求
+message SmallDungeonBeginBattleResp {
+    optional int32 resultCode = 1;
+    repeated HeroBattleAttributeMsg heroBattleAttribute = 2; //上次关卡出战阵容
+    repeated MonsterWaveMsg monsterWaves = 3; //怪物波次列表
+    optional int32 addHeroExp = 4;//该关卡怪物增加英雄经验总和
+}
+
+//战斗波次结算请求
+message SmallDungeonWaveBattleSettlementReq {
+    optional int32 wave = 1;//波次id
+}
+
+//战斗结算请求
+message SmallDungeonBattleSettlementReq {
+    optional int32 result = 1;
+    optional MonsterWaveResultMsg monsterWaveResults = 2; //胜利时为空，失败时为战斗最后一波已经消灭的怪物列表
+}
+
+//返回战斗结算回应
+message SmallDungeonBattleSettlementResp {
+    optional int32 resultCode = 1;
+    repeated HeroExpChargeMsg heroChargeList = 2;//怪物掉落和关卡掉落的英雄经验总和
+}
+
+//========小秘境消息结构结束=======================//
+
+
+//========悬赏任务消息结构开始=======================//
+
+//获取悬赏任务信息
+message RewardTaskShowInfoReq {
+}
+
+//返回获取悬赏任务信息
+message RewardTaskShowInfoResp {
+    optional int32 resultCode = 1;
+    optional int64 freeRefreshTime = 2;//下次免费刷新时间
+    optional int32 luckyValue = 3;//幸运值
+    optional int32 completionTimes = 4;//当前宝箱对应完成悬赏任务次数
+    repeated RewardTaskMsg taskList = 5;//悬赏任务列表
+    repeated RewardTaskBoxMsg taskBoxList = 6;//悬赏任务宝箱列表   
+    optional int32 todayRefreshTime = 7;//今日钻石已刷新次数
+	optional int32 unlockTimes = 8; //解锁悬赏宝箱次数
+}
+
+message RewardTaskMsg {
+		optional int32 taskid = 1;//任务id
+		optional int32 status = 2;//任务状态，0未完成，1可领取奖励，2已完成
+}
+
+message RewardTaskBoxMsg {
+		optional int64 id = 1;//宝箱唯一id
+		optional int32 boxid = 2;//宝箱模板id
+		optional int64 openTime = 3;//解锁完成时间点
+		optional int32 status = 4;//宝箱状态，0未解锁，1解锁中，2可领奖，3已删除
+}
+
+
+//完成悬赏任务推送消息
+message RewardTaskFinishResp {
+	  optional int32 luckyValue = 1;//更新幸运值
+	  optional int32 completionTimes = 2;//更新当前宝箱对应完成任务次数
+		optional RewardTaskMsg task = 3;//更新悬赏任务信息
+		optional RewardTaskBoxMsg taskBox = 4;//更新悬赏任务宝箱信息
+}
+
+//悬赏任务开启新的难度推送消息
+message RewardTaskOpenDifficultyPush {
+	  repeated RewardTaskMsg taskList = 1;//悬赏任务列表
+	  optional int32 difficulty = 2; //难度 T1-T6 分别为1-6
+}
+
+//刷新悬赏任务
+message RewardTaskRefreshReq {
+  optional int32 refreshType = 1;//刷新类型 1：免费手动刷新，2：钻石刷新
+  optional int32 difficulty = 2;//难度 T1-T6 分别为1-6
+}
+
+//返回刷新悬赏任务
+message RewardTaskRefreshResp {
+  optional int32 resultCode = 1;
+  optional int64 freeRefreshTime = 2;//下次免费刷新时间
+  repeated RewardTaskMsg taskList = 3;//悬赏任务列表
+  optional int32 todayRefreshTime = 4;//今日钻石已刷新次数
+}
+
+//领取悬赏任务奖励
+message RewardTaskReceiveRewardReq {
+  optional int32 taskid = 1;//悬赏任务id
+}
+
+//返回领取悬赏任务奖励
+message RewardTaskReceiveRewardResp {
+  optional int32 resultCode = 1;
+  repeated ItemInfoMsg items = 2;//物品列表
+  repeated RewardTaskMsg taskList = 3;//刷新任务列表，不刷新为空
+  optional int32 luckyValue=4; //更新幸运值
+}
+
+
+//领取悬赏任务宝箱
+message RewardTaskReceiveBoxReq {
+}
+
+//返回领取悬赏任务宝箱
+message RewardTaskReceiveBoxResp {
+  optional int32 resultCode = 1;
+  optional int32 luckyValue = 2;//更新幸运值
+  optional int32 completionTimes = 3;//当前宝箱对应完成悬赏任务次数
+  optional RewardTaskBoxMsg taskBoxList = 4;//新获得的宝箱
+}
+
+
+//解锁宝箱
+message RewardTaskUnlockBoxReq {
+  optional int64 id = 1;//宝箱唯一id
+  optional int32 unlockType = 2;//1：解锁中状态进行宝石解锁 2：未解锁状态进行免费解锁，3：未解锁状态进行钻石解锁
+}
+
+//返回解锁宝箱
+message RewardTaskUnlockBoxResp {
+  optional int32 resultCode = 1;
+  optional RewardTaskBoxMsg taskBox = 2;//更新悬赏任务宝箱信息
+  repeated ItemInfoMsg items = 3;//宝箱物品列表
+  optional int32 unlockTimes = 4; //解锁悬赏宝箱次数
+
+}
+
+//领取宝箱奖励
+message RewardTaskReceiveBoxRewardReq {
+  optional int64 id = 1;//宝箱唯一id
+}
+
+//返回领取宝箱奖励
+message RewardTaskReceiveBoxRewardResp {
+  optional int32 resultCode = 1;
+  repeated ItemInfoMsg items = 2;//宝箱物品列表
+}
+
+//========悬赏任务消息结构结束=======================//
+
+
+
+
+
+
+//========每日任务消息结构开始=======================//
+//获取每日任务信息
+message DailyTaskShowInfoReq {
+}
+//返回每日任务信息
+message DailyTaskShowInfoResp {
+	optional int32 resultCode = 1;
+	optional int32 liveness = 2;//活跃度
+	repeated DailyTaskMsg taskList = 3;//每日任务列表
+	repeated int32 livenessBoxs = 4;//已领取的活跃度宝箱列表
+}
+
+message DailyTaskMsg {
+		optional int32 taskid = 1;//每日任务id
+		optional int32 status = 2;//任务状态，0未完成，1可领取奖励，2已完成
+		optional int32 param1 = 3;//param1
+		optional int32 param2 = 4;//param2
+}
+
+//完成每日任务推送消息
+message DailyTaskFinishPush {
+		optional DailyTaskMsg task = 1;//更新悬赏任务信息
+}
+
+//领取活跃度宝箱
+message DailyTaskLivenessBoxReq {
+	optional int32 boxid = 1;//宝箱id
+}
+
+//返回领取活跃度宝箱
+message DailyTaskLivenessBoxResp {
+  optional int32 resultCode = 1;
+  repeated ItemInfoMsg items = 2;//宝箱物品列表
+}
+
+//领取每日任务奖励
+message DailyTaskReceiveRewardReq {
+  optional int32 taskid = 1;//每日任务id
+}
+
+//返回领取每日任务奖励
+message DailyTaskReceiveRewardResp {
+  optional int32 resultCode = 1;
+  optional int32 liveness = 2;//活跃度
+  repeated ItemInfoMsg items = 3;//物品列表
+}
+
+//========每日任务消息结构结束=======================//
+
+
+
+
+
+
+
+//========成就任务消息结构开始=======================//
+
+//获取成就任务信息
+message AchieveTaskShowInfoReq {
+}
+//返回成就任务信息
+message AchieveTaskShowInfoResp {
+	optional int32 resultCode = 1;
+	repeated AchieveTaskMsg taskList = 2;//成就任务列表
+}
+
+message AchieveTaskMsg {
+		optional int32 taskid = 1;//成就任务id
+		optional int32 status = 2;//任务状态，0未完成，1可领取奖励，2已完成
+		optional int32 param1 = 3;//param1
+		optional int32 param2 = 4;//param2
+}
+
+//完成成就任务推送消息
+message AchieveTaskFinishPush {
+		optional AchieveTaskMsg task = 1;//更新成就任务信息
+}
+
+//领取成就任务奖励
+message AchieveTaskReceiveRewardReq {
+  optional int32 taskid = 1;//成就任务id
+}
+
+//返回领取成就任务奖励
+message AchieveTaskReceiveRewardResp {
+  optional int32 resultCode = 1;
+  repeated ItemInfoMsg items = 2;//物品列表
+}
+//========成就任务消息结构结束=======================//
+
+
+
+
+
+//========商店消息结构开始=======================//
+//获取商店信息
+message ShopShowInfoReq {
+}
+
+//返回商店信息
+message ShopShowInfoResp {
+    optional int32 resultCode = 1;
+    repeated ShopTypeMsg shopTypeList = 2;//商店物品分类列表
+}
+
+//商店分类信息
+message ShopTypeMsg {
+		optional int32 typeId = 1;//商品分类id（1装备#2道具#3礼包#4充值）
+		optional int64 freeRefreshTime = 2;//下次免费刷新时间
+        optional int32 refreshTimes = 3;//已刷新次数
+		repeated ShopItemMsg itemList = 4;//商店物品列表
+	    optional int32 ReceiveChestState = 5;//0 未达到领取次数 1 待领取 2 已领取
+}
+
+
+
+//商店物品
+message ShopItemMsg {
+		optional int64 id = 1;//商品唯一id
+		optional int32 itemId = 2;//商品模板id
+		optional int32 discountPro = 3;//折扣率*100,0为不打折
+		optional int32 status = 4;//状态，0未购买，>0 表示已经买了多少次
+}
+
+//刷新商店
+message ShopRefreshReq {
+   optional int32 refreshType = 1;//刷新类型 1：免费刷新，2：钻石刷新
+   optional int32 shopType = 2;//商品分类id（1装备#2道具#3礼包#4充值）
+}
+
+//返回刷新商店
+message ShopRefreshResp {
+    optional int32 resultCode = 1;
+    optional ShopTypeMsg shopType = 2;//商店类型数据
+    repeated ItemInfoMsg itemList = 3;//50次奖励物品
+	}
+
+
+//开启宝箱
+message ReceiveChestReq{
+   optional int32 typeId = 1;//商品分类id（1装备#2道具#3礼包#4充值）
+}
+//返回开启刷新宝箱
+message ReceiveChestResp {
+   optional int32 resultCode = 1;
+   repeated ItemInfoMsg itemList = 2;//奖励
+}
+
+//购买商店商品信息
+message ShopPurchaseReq {
+	optional int32 shopType = 1;//商品分类id（1装备#2道具#3礼包#4充值）
+	optional int64 id = 2;//商品唯一id
+}
+
+//返回购买商店商品信息
+message ShopPurchaseResp {
+	optional int32 resultCode = 1;
+	optional ShopItemMsg shopItem = 2;//商店物品列表
+	repeated ItemInfoMsg itemList = 3;//获得的物品
+	repeated HeroInfoMsg heroList = 4;//获得的英雄
+}
+
+//========商店消息结构结束=======================//
+
+
+
+//========招募消息结构结束=======================//
+//获取招募信息
+message RecruitShowInfoReq {
+}
+
+//返回招募信息
+message RecruitShowInfoResp {
+    optional int32 resultCode = 1;
+    optional int32 ordinaryRecruitItem = 2;//普通招募道具数量
+    optional int32 seniorRecruitItem = 3;//高级招募道具数量
+}
+
+
+//招募英雄信息
+message RecruitHeroReq {
+	   optional int32 type = 1;//招募类型，1普通招募，2高级招募
+	   optional int32 count = 2;//招募次数
+}
+
+//返回招募英雄信息
+message RecruitHeroResp {
+    optional int32 resultCode = 1;
+    optional int32 ordinaryRecruitItem = 2;//普通招募道具数量
+    optional int32 seniorRecruitItem = 3;//高级招募道具数量
+    repeated RecruitHeroMsg recruitHero = 4;//招募英雄列表
+    repeated HeroInfoMsg heroInfos = 5;//英雄信息
+    repeated ItemInfoMsg itemInfos = 6;//碎片信息
+    
+}
+
+//招募英雄信息
+message RecruitHeroMsg {
+	   optional int32 heroId = 1;//英雄id
+	   optional int32 geneLock = 2;//英雄基因锁
+}
+//推送招募信息变更
+message RecruitHeroInfoPushMsg {
+	  optional int32 ordinaryRecruitItem = 1;//普通招募道具数量
+    optional int32 seniorRecruitItem = 2;//高级招募道具数量
+}
+//========招募消息结构结束=======================//
+
+
+
+//========邮件消息结构开始=======================//
+//获取邮件列表信息
+message EmailShowInfoReq {
+}
+
+//返回邮寄列表信息
+message EmailShowInfoResp {
+    optional int32 resultCode = 1;
+    repeated EmailInfoMsg emailInfoList = 2;//邮件列表
+}
+
+//推送邮件信息
+message EmailInfoPush {
+    optional EmailInfoMsg emailInfo = 1;//邮件
+}
+
+
+//邮件信息
+message EmailInfoMsg {
+		optional int64 id = 1;//邮件唯一id
+		optional int32 type = 2;//邮件类型，1普通邮件，2附件邮件
+		optional int32 modeid = 3;//邮件模板id，为0表示自定义邮件
+		optional string title = 4;//邮件标题（自定义邮件文字部分）
+		repeated string params = 5;//邮件参数列表
+		optional string content = 6;//邮件内容（自定义邮件文字部分）
+		optional string accessory = 7;//邮件附件（物品id_物品数量|物品id_物品数量）
+	  optional int32 status = 8;//邮件状态，0未读，1已读，2已领取
+	  optional int64 expiretime = 9;//过期时间
+	  optional int64 createtime = 10;//创建时间
+}
+
+
+
+//读取邮件
+message EmailReadReq {
+	   optional int64 id = 1;//邮件id
+}
+
+//返回读取邮件
+message EmailReadResp {
+	  optional int32 resultCode = 1;
+}
+
+
+//收取邮件附件
+message EmailGetAccessoryReq {
+	   optional int64 id = 1;//邮件id
+}
+
+//返回收取邮件附件
+message EmailGetAccessoryResp {
+	  optional int32 resultCode = 1;
+}
+
+//一键读取邮件附件
+message EmailCompleteReq {
+}
+
+//返回一键读取邮件附件
+message EmailCompleteResp {
+	  optional int32 resultCode = 1;
+}
+
+//========邮件消息结构结束=======================//
+
+
+//========好友消息结构开始=======================//
+//获取好友列表信息
+message FriendsShowInfoReq {
+}
+
+//返回好友列表信息
+message FriendsShowInfoResp {
+    optional int32 resultCode = 1;
+    repeated FriendsInfoMsg friendsInfoList = 2;//好友列表
+}
+
+//推送好友信息
+message FriendsInfoPush {
+    optional FriendsInfoMsg friendsInfo = 1;//好友信息
+}
+//好友信息
+message FriendsInfoMsg {
+		optional int64 id = 1;//id
+		optional int64 userid = 2;//好友id
+		optional string username = 3;//角色名称
+		optional int32 icon = 4;//角色头像
+		optional int32 lv = 5;//角色等级
+		optional int32 peakLv = 6;//巅峰等级
+		optional int32 dungeonRanking = 7;//单人秘境名次
+		optional int64 lastLoginTime = 8;//最后登录时间，0为当前在线
+	  optional int32 intimateValue = 9;//亲密值
+	  optional int64 lastContactTime = 10;//最后联系时间
+	  optional int32 zan = 11;//是否已给对方点赞，0未点赞，1已点赞
+	  optional int32 type = 12;//0已成为好友,1好友申请2，删除好友
+}
+
+//获取好友申请列表信息
+message FriendsShowApplyInfoReq {
+}
+
+//返回好友申请列表信息
+message FriendsShowApplyInfoResp {
+    optional int32 resultCode = 1;
+    repeated FriendsInfoMsg friendsInfoList = 2;//好友列表
+}
+
+
+//申请加好友信息
+message FriendsApplyInfoReq {
+	optional int64 userid = 1;//好友id
+}
+
+//返回申请加好友信息
+message FriendsApplyInfoResp {
+    optional int32 resultCode = 1;
+    optional int64 userid = 2;//好友id
+}
+
+//处理加好友信息（拒绝或接受）
+message FriendsOperationInfoReq {
+	optional int64 id = 1;//id
+	optional int64 userid = 2;//好友id
+	optional int32 result = 3;//0拒绝，1接受
+}
+
+//返回处理加好友信息（拒绝或接受）
+message FriendsOperationInfoResp {
+    optional int32 resultCode = 1;
+    optional int64 userid = 2;//好友id
+    optional FriendsInfoMsg friendsInfo = 3;//好友信息
+}
+
+
+//好友点赞信息
+message FriendsZanReq {
+	optional int64 id = 1;//id
+	optional int64 userid = 2;//好友id
+}
+
+//返回好友点赞信息
+message FriendsZanResp {
+    optional int32 resultCode = 1;
+    optional int64 userid = 2;//好友id
+    optional int32 intimateValue = 3;//得到亲密值
+    optional int32 friendsValue = 4;//得到友币
+}
+
+
+//好友推荐信息
+message FriendsRecommendReq {
+}
+
+//返回好友推荐信息
+message FriendsRecommendResp {
+    optional int32 resultCode = 1;
+    repeated SimpleUserInfoMsg simpleUserInfoList = 2;//玩家列表
+}
+
+
+//好友搜索信息
+message FriendsSearchReq {
+	optional string name = 1;//搜索关键字
+}
+
+//返回好友搜索信息
+message FriendsSearchResp {
+    optional int32 resultCode = 1;
+    repeated SimpleUserInfoMsg simpleUserInfoList = 2;//列表
+}
+
+//删除好友信息
+message FriendsDeleteReq {
+	optional int64 id = 1;//id
+	optional int64 userid = 2;//好友id
+}
+
+//返回删除好友信息
+message FriendsDeleteResp {
+    optional int32 resultCode = 1;
+    optional int64 userid = 2;//好友id
+}
+
+
+//屏蔽角色信息
+message ShieldReq {
+	optional int64 userid = 1;//角色id
+}
+//返回屏蔽好友信息
+message ShieldResp {
+   optional int32 resultCode = 1;
+   optional ShieldInfoMsg shieldInfo = 2;
+}
+//恢复屏蔽信息
+message RecoveryShieldReq {
+	optional int64 userid = 1;//角色id
+}
+//返回恢复屏蔽信息
+message RecoveryShieldResp {
+   optional int32 resultCode = 1;
+   optional int64 userid = 2;//角色id
+}
+//获取屏蔽列表信息
+message ShieldListReq {
+}
+//返回获取屏蔽列表信息
+message ShieldListResp {
+   optional int32 resultCode = 1;
+   repeated ShieldInfoMsg shieldInfoList = 2;//屏蔽信息列表
+}
+
+//屏蔽信息
+message ShieldInfoMsg {
+		optional int64 userid = 1;//好友id
+		optional string username = 2;//角色名称
+		optional int32 icon = 3;//角色头像
+		optional int32 lv = 4;//角色等级
+		optional int32 peakLv = 5;//巅峰等级
+		optional int64 shieldTime = 6;//屏蔽时间
+}
+
+//简易玩家信息
+message SimpleUserInfoMsg {
+		optional int64 userid = 1;//id
+		optional string username = 2;//角色名称
+		optional int32 icon = 3;//角色头像
+		optional int32 lv = 4;//角色等级
+		optional int32 peakLv = 5;//巅峰等级
+		optional int64 lastLoginTime = 6;//最后登录时间
+		
+}
+
+
+
+//========好友消息结构结束=======================//
+
+
+
+//========排行榜消息结构开始=======================//
+//获取排行榜信息
+message RankingListInfoReq {
+  optional int32 rankClassify = 1;//排行榜分类 1全服，2好友，3战队
+	optional int32 rankType = 2;//排行榜类型 1等级榜，2大秘境单人榜，3大秘境2人榜，4大秘境4人榜
+}
+//返回排行榜信息
+message RankingListInfoResp {
+   optional int32 resultCode = 1;
+   optional int32 rankClassify = 2;//排行榜分类 1全服，2好友，3战队
+   optional int32 rankType = 3;//排行榜类型 1等级榜，2大秘境单人榜，3大秘境2人榜，4大秘境4人榜
+   repeated RankingRoleInfoMsg rankingRoleInfo = 4;//角色列表
+}
+
+message RankingRoleInfoMsg {
+   optional int32 ranking = 1;//排名
+   optional SimpleUserInfoMsg simpleUserInfoList = 2;//角色列表
+   repeated RankingHeroInfoMsg rankingHeroInfo = 3;//角色列表
+   optional int32 dungeonLayer = 4;//大秘境最高层
+   
+}
+
+message RankingHeroInfoMsg {
+    optional int32 heroId = 1;//id
+    optional int32 heroLv = 2;//等级
+    optional int32 quality = 3;//品质
+    optional int32 statge = 4;//品阶
+}
+
+
+
+
+
+//获取角色详细信息
+message GetUserDetailedInfoReq {
+	optional int64 userId = 1;//角色id
+	optional int32 type = 2;//排行榜类型 1等级榜，2大秘境单人榜，3大秘境2人榜，4大秘境4人榜
+}
+
+//返回角色详细信息
+message GetUserDetailedInfoResp {
+  optional int32 resultCode = 1;
+	optional int64 userId = 2;//角色id
+	optional SimpleUserInfoMsg simpleUserInfo = 3;//角色信息
+	repeated SimpleHeroInfoMsg simpleHeroInfo = 4;//英雄列表信息
+	optional SimpleTalentInfoMsg simpleTalentInfo = 5;//天赋信息
+	optional SimplePeakInfoMsg simplePeakInfo = 6;//巅峰信息
+}
+
+
+
+//英雄简易信息
+message SimpleHeroInfoMsg{
+		optional int64 id = 1;
+    optional int32 heroId = 2;//id
+    optional int32 heroLv = 3;//等级
+    optional int32 quality = 4;//品质
+    optional int32 statge = 5;//品阶
+    optional int32 activeSkillLv = 6;//主动技能
+    optional int32 passiveSkillLv = 7;//被动技能
+    repeated EquipInfoMsg suitEquipMap = 8;//装备信息
+}
+//天赋简易信息
+message SimpleTalentInfoMsg{
+	
+}
+//巅峰简易信息
+message SimplePeakInfoMsg{
+
+}
+
+
+
+
+
+
+//========排行榜消息结构结束=======================//
+
+
+//========英雄分解消息结构开始=======================//
+//分解英雄信息
+message DecomposeHeroInfoReq {
+    repeated int64 heroIds = 1; //英雄id列表
+}
+
+//返回角色详细信息
+message DecomposeHeroInfoResp {
+    optional int32 resultCode = 1;
+}
+//========英雄分解消息结构结束=======================//
+
+
+
+
+message EmptyResp {
+}
+message LogoffReq {
+}
+
+
+//===============天赋系统开始===========================//
+message ShowTalentReq {
+}
+
+message TalentInfoMsg {
+    optional int32 talentId = 1;
+    optional int32 level = 2;
+}
+
+message TalentStrategyInfoMsg {
+   optional int32 idx = 1;
+    optional int32 restTalentPoint = 2;
+    repeated TalentInfoMsg talentInfos = 3;
+}
+
+
+message ShowTalentResp {
+    optional int32 resultCode = 1;
+    repeated TalentStrategyInfoMsg talentStrategyInfos = 2;
+}
+
+message UpgradeTalentReq {
+	optional int32 idx=1;
+    optional int32 talentId = 2;
+}
+
+
+message ResetTalentStrategyReq {
+    optional int32 idx = 1;
+}
+
+message UpdateTalentStrategyResp {
+    optional int32 resultCode = 1;
+    optional TalentStrategyInfoMsg talentStrategyInfo = 2;
+}
+
+message AddTalentStrategyReq {
+
+}
+//===============天赋系统结束===========================//
+
+
+
+//===============聊天系统开始===========================//
+message SendPrivateChatReq { //发送聊请求
+                             optional int64 toPlayer = 1;
+                             optional string chatMsg = 2;
+}
+
+message SendWorldChatReq {
+    optional string chatMsg = 1;
+}
+
+
+message PlayerEnterServerReq { //玩家连接上聊天服务器后，请求进入聊天服
+                               optional int64 playerId = 1;
+							   optional int32 serverId = 2;
+}
+
+
+
+//进入好友聊天界面，获取所有好友的消息阅读状态
+message GetAllBriefPrivateChatInfoReq {
+
+}
+
+message BriefPrivateChatInfo {
+    optional int64 toPlayerId = 1;
+    optional int32 isExistNoRead = 2;
+}
+
+message GetAllBriefPrivateChatInfoResp {
+    optional int32 resultCode = 1;
+    repeated BriefPrivateChatInfo briefPrivateChatInfos = 2;
+}
+
+//获得具体私聊信息
+message GetPrivateChatHistoryReq {
+    optional int64 toPlayerId = 1;
+}
+
+message ChatInfoMsg {
+    optional int32 chatChannel = 1;
+    optional int64 fromPlayer = 2;
+    optional int64 toPlayer = 3;
+    optional string chatContent = 4;
+    optional string chatTime = 5;
+    optional string senderName = 6;
+    optional int32 senderHeaderIcon = 7;
+    optional int32 senderLv = 8;
+}
+
+message GetPrivateChatHistoryResp {
+    optional int32 resultCode = 1;
+    repeated ChatInfoMsg chatDatas = 2;
+    optional int64 toPlayerId = 3;
+}
+
+//GM指令请求发送系统消息
+message SendSystemWorldChatReq {
+    optional string msg = 1;
+}
+
+//发送公会聊天
+message SendSociatyChatReq {
+    optional string chatMsg = 1;
+}
+message GetSociatyChatHistryResp
+{
+    optional int32 resultCode = 1;
+    repeated ChatInfoMsg chatDatas = 2;
+}
+
+message GetSociatyHistoryReq
+{
+
+}
+
+//===============聊天系统结束===========================//
+
+
+//************************公会系统开始************************//
+//请求进入公会
+message EnterSociatyModuleReq {
+}
+
+message EnterSociatyModuleResp {
+    optional int32 resultCode = 1;
+    optional RecommendSociatyList recommendSociatyList = 2;
+    optional ShowSociaty showSociaty = 3;
+}
+
+
+//公会成员信息
+message SociatyMemberInfo {
+    optional int64 playerId = 1;//角色id
+    optional string name = 2;//角色名称
+    optional int32 job = 3; //职位1会长，2副会长，3精英，4普通
+    optional int32 playerLv = 4;//角色等级
+    optional int32 contribution = 5;//贡献值
+    optional int64 lastLoginTime = 6;//最后登录时间，0为当前在线
+}
+
+//公会成员展示
+message ShowSociaty {
+    optional SociatyInfo info = 1;
+    repeated SociatyMemberInfo SociatyMemberInfos = 2;
+}
+// 推荐公会信息(公会经验)
+message SociatyInfo {
+    optional int64 id = 1; //id
+    optional string name = 2; //公会名称
+    optional int32 sociatyLv = 3;//公会等级
+    optional int32 memberNum = 4;//成员数量
+    optional int32 activeMemberNum = 5; //活动成员数量
+    optional string chairman = 6; //会长
+    optional string declaration = 7; //宣言
+	optional int32 requireLv=8;// 最低等级要求
+    optional int32 isAuto=9;//是否自动 1自动 0手动
+	optional int32 sociatyExp=10;
+	optional int32 status=11;//当前状态0未加入1已申请2已加入
+}
+
+
+//创建公会
+message CreateSociatyReq {
+    optional string name = 1;
+}
+
+//创建公会
+message CreateSociatyResp {
+    optional int32 resultCode = 1;
+    optional ShowSociaty showSociaty = 2;
+	
+}
+
+
+
+message RecommendSociatyList {
+    repeated SociatyInfo allRecommendSociaty = 1;
+}
+
+//搜索公会
+message SearchSociatyReq {
+    optional string name = 1;
+}
+
+message SearchSociatyResp {
+    optional int32 resultCode = 1;
+    optional SociatyInfo sociatyInfo = 2;
+}
+
+//申请加入公会
+message ApplyJoinSociatyReq {
+    optional int64 id = 1;
+}
+
+//申请加入公会回应
+message ApplyJoinSociatyResp {
+    optional int32 resultCode = 1;
+    optional int64 applyId = 2;
+	optional ShowSociaty showSociaty=3;
+}
+
+//已申请公会展示
+message ShowApplyJoinHistoryReq {
+}
+
+message ShowApplyJoinHistoryResp {
+    optional int32 resultCode = 1;
+    repeated SociatyInfo sociatyInfoList = 2;
+}
+
+//快速申请加入
+message QuickJoinSociatyReq {
+}
+
+message QuickJoinSociatyResp {
+    optional int32 resultCode = 1;
+    optional SociatyInfo sociatyInfo = 2;
+}
+
+
+//确认快速加入
+message ConfirmQuickJoinSociatyReq {
+	optional int64 id = 1;//公会id
+}
+
+message ConfirmQuickJoinSociatyResp {
+    optional int32 resultCode = 1;
+    optional int32 status = 2;//1已解散2已满员3手动等级不够4已申请5已加入
+    optional ShowSociaty sociatyInfo = 3;
+}
+
+
+
+
+//设置申请审核项
+message SetCheckApplyOptionReq {
+    optional int32 isAuto = 1;
+    optional int32 requireLv = 2;
+}
+
+message SetCheckApplyOptionResp {
+    optional int32 resultCode = 1;
+}
+
+
+//获取申请审核列表
+message ShowCheckApplyListReq {
+}
+
+message ApplyUserInfo{
+    optional int64 playerId = 1;
+    optional string name = 2;
+    optional int32 playerLv = 3;
+	  optional int64 lastLogoutTime=4;
+}
+
+message ShowCheckApplyListResp {
+    optional int32 resultCode = 1;
+    repeated ApplyUserInfo applyUserInfoList = 2;
+}
+
+//通过申请
+message PassApplySociatyReq {
+    optional int64 applyId = 1;
+}
+
+//通过申请回应（返回ShowSociaty）
+message PassApplySociatyResp {
+    optional int32 resultCode = 1;
+    optional int64 applyId = 2;
+	optional ShowSociaty showSociaty=3;
+}
+
+//拒绝加入公会
+message RefuseApplySociatyReq {
+    optional int64 applyId = 1;
+}
+
+message RefuseApplySociatyResp {
+    optional int32 resultCode = 1;
+    optional int64 applyId = 2;
+}
+
+//设置成员职位
+message SetSociatyMemberJobReq {
+    optional int64 playerId = 1;
+    optional int32 job = 2;
+}
+
+message SetSociatyMemberJobResp {
+    optional int32 resultCode = 1;
+	optional int64 playerId = 2;
+    optional int32 job = 3;
+}
+
+//解散公会
+message DismissSociatyReq {
+}
+
+message DismissSociatyResp {
+    optional int32 resultCode = 1;
+}
+
+//退出公会
+message QuitSociatyReq {
+}
+
+message QuitSociatyResq {
+    optional int32 resultCode = 1;
+}
+
+//弹劾会长
+message ImpeachChairmanReq {
+    optional int64 id = 1;
+}
+
+message ImpeachChairmanResp {
+    optional int32 resultCode = 1;
+    optional int64 id = 2;
+    optional string newChairman = 3;
+
+}
+
+//发布宣言
+message ReleaseDeclarationReq {
+    optional string declaration = 1;
+}
+
+message ReleaseDeclarationResp {
+    optional int32 resultCode = 1;
+}
+
+//公会排行版展示
+message ShowSociatyRankListReq {
+}
+
+message ShowSociatyRankListResp {
+		optional int32 resultCode = 1;
+    repeated SociatyInfo ShowSociatyRankList = 2;
+}
+
+//公会日志展示
+message ShowSocaityLogReq {
+
+}
+
+message SocaityLogInfo{
+	optional string log = 1;
+	optional int64 createTime = 2;
+}
+
+message ShowSocaityLogResp {
+	optional int32 resultCode = 1;
+	repeated SocaityLogInfo socaityLogList = 2;
+}
+
+
+
+//踢出公会
+message KickedSocaityReq {
+	optional int64 playerId = 1;
+}
+message KickedSocaityResp {
+	optional int32 resultCode = 1;
+	optional int64 playerId = 2;
+}
+
+//转让会长
+message ExchangeSocaityMasterReq {
+	optional int64 playerId = 1;
+}
+message ExchangeSocaityMasterResp {
+	optional int32 resultCode = 1;
+	optional int64 playerId = 2;
+}
+//取消申请加入公会
+message CancelApplyJoinSociatyReq {
+    optional int64 id = 1;
+}
+message CancelApplyJoinSociatyResp {
+	optional int32 resultCode = 1;
+    optional int64 id = 2;
+}
+
+
+//推送公会变化信息
+message PushShowSociaty {
+    optional SociatyInfo sociatyInfo = 1;//公会信息
+    optional SociatyMemberInfo sociatyMemberInfo = 2;//公会成员信息
+    optional ApplyUserInfo applyUserInfo = 3;//公会申请列表
+    optional SocaityLogInfo socaityLogInfo = 4;//公会日志信息，只增加，不删除
+    optional ShowSociaty showSociaty=5;//公会信息
+ 		optional int32 type = 6;//类型1增加或修改2删除3解散公会
+}
+
+
+//=====================公会系统结束=========================//
+
+
+//=====================图鉴系统开始=========================//
+
+//获取所有图鉴英雄
+message GetAllSignHeroReq {
+}
+message GetAllSignHeroResp {
+	optional int32 resultCode = 1;
+    repeated int32 heroId = 2;//英雄模板id
+}
+
+//=====================图鉴系统结束=========================//
+
+
+//=====================游戏设置和兑换码开始=========================//
+//获取手机验证码
+message GetPhoneVerificationCodeReq {
+	optional int64 phoneNum = 1;//手机号
+}
+message GetPhoneVerificationCodeResp {
+	optional int32 resultCode = 1;
+}
+
+//提交手机验证码
+message CommitPhoneVerificationCodeReq {
+	optional int64 phoneNum = 1;//手机号
+	optional int32 verificationCode = 2;//验证码
+}
+message CommitPhoneVerificationCodeResp {
+	optional int32 resultCode = 1;
+}
+
+
+//兑换码兑换物品
+message RedeemCodeReq {
+	optional string code = 1;//兑换码
+}
+message RedeemCodeResp {
+	optional int32 resultCode = 1;
+}
+//=====================游戏设置和兑换码结束=========================//
+
+
+
+//游戏常量配置类型枚举
+enum GameConfigType {
+    maxLevel=1; //玩家最大等级
+    maxTalentStrategyNum=2;//最大天赋页数量
+    resetTalentStrategyConsume=3;//重置天赋页消耗钻石
+    addTalentStrategyConsume=4;//新增天赋页消耗钻石
+	dailyTaskOpenLevel=44;//每日任务开启角色等级
+    achieveTaskOpenLevel=45;//成就任务开启角色等级
+	energyRecover=55;//正常战斗能量回复速度
+    confirmTime=56;//游戏内勾选取消二次确认弹窗的定时时间
+}
+
+message ConfigInfoMsg {
+    optional int32 configType = 1;
+    optional string val = 2;
+}
+
+
+
+//=============委派任务开始=====================================//
+
+//获取委派任务
+message AppointTaskShowInfoReq{
+
+}
+
+//返回委派任务列表信息
+message AppointTaskShowInfoResp{
+  optional int32 resultCode = 1;
+  repeated AppointTaskMsg appointTaskList=2;//委派任务列表
+}
+
+//委派任务信息
+message AppointTaskMsg{
+	optional string reward=2;//奖励
+	optional int32 taskId = 3;//任务ID
+	optional int64  addTime=4;//创建时间
+	optional int64  finishTime=5;//完成时间
+	repeated int64  heroInfo=6;//英雄信息
+}
+
+
+//完成委派任务
+message CompleteAppointTaskReq{
+	  optional int32 taskId = 1;//任务ID
+}
+
+//返回完成委派任务
+message  CompleteAppointTaskResp{
+  optional int32 resultCode = 1;
+  repeated ItemInfoMsg itemInfos = 2;
+}
+
+
+//召回委派任务
+message RecallAppointTaskReq{
+	  optional int32 taskId = 1;//任务ID
+}
+
+//返回召回委派任务
+message  RecallAppointTaskResp{
+  optional int32 resultCode = 1;
+}
+
+
+//委派任务
+message ReceiveTaskReq{
+      optional int32 taskId = 1;//任务ID
+	  repeated int64  hero=2;//参加任务英雄
+}
+
+//返回委派任务
+message ReceiveTaskResp{
+  optional int32 resultCode = 1;
+  optional AppointTaskMsg itemInfo=2;
+}
+
+//=============委派任务结束=====================================//
+
+//=============功能开启开始=====================================//
+//获取功能开启列表
+message GetOpenFunctionReq {
+}
+
+//返回功能开启列表
+message GetOpenFunctionResp {
+    optional int32 resultCode = 1;
+    repeated int32 openFunctionList = 2; //已开启功能列表
+    repeated int32 closeFunctionList = 3; //关闭功能列表
+}
+
+//功能开启推送消息
+message OpenFunctionPush {
+		optional int32 type = 1;//开启或关闭功能，0关闭，1开启
+    repeated int32 openFunctionId = 2; //开启功能列表
+}
+
+//=============功能结束开始=====================================//
+
+//=============新手引导开始=====================================//
+message FinishNoviceguideReq {
+     optional string node=1;
+}
+
+
+message FinishNoviceguideResp {
+    optional int32 resultCode = 1;
+    optional string node=2;
+}
+
+//推送消息
+message FinishNoviceguidePush {
+   optional string node=1;
+}
+//=============功能结束=====================================//
