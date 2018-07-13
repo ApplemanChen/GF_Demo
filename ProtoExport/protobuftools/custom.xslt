@@ -28,6 +28,10 @@
 	{   
 	  //TODO
 	}
+	<!-- public override Id -->
+	<!-- { -->
+		<!-- get {return (int)EMsgType.<xsl:value-of select="$className"/>} -->
+	<!-- } -->
      	</xsl:when>
      	<xsl:otherwise></xsl:otherwise>
      </xsl:choose>

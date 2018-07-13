@@ -1,13 +1,15 @@
-rem ÇåÀí ProtoBufÎÄ¼ş¼Ğ
-if exist Protobuf (
-	rd /s /q ProtoBuf
-)
+rem ç”Ÿæˆprotoè¾“å‡ºæ–‡ä»¶
+python run.py
 
-rem ´´½¨ProtoBufÎÄ¼ş¼Ğ
-mkdir ProtoBuf
+rem ç”Ÿæˆçš„csè¾“å‡ºè·¯å¾„
+set cs_file=E:\GitProjects\GF_Demo\ProtoExport\output\csharp
+rem é¡¹ç›®è·¯å¾„
+set file=E:\GitProjects\GF_Demo\GF_3_1_3_Demo\Assets\GameMain\Scripts\Network\Packet\ProtoGen
 
-rem Éú³ÉCSÎÄ¼ş
-python3 run.py
-rem ¸´ÖÆµ½ÏîÄ¿Ä¿Â¼
-copyCsharp.bat
+rem æ¸…ç†é¡¹ç›®æ—§æ–‡ä»¶å¤¹
+rd /s /q %file%
+
+rem æ‹·è´åˆ°é¡¹ç›®è·¯å¾„
+xcopy /e/s/i %cs_file% %file%	
+
 pause
