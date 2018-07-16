@@ -91,7 +91,22 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
     {
         // 注意：此函数并不在主线程调用！
         customErrorData = null;
-        return Serializer.DeserializeWithLengthPrefix<SCPacketHeader>(source, PrefixStyle.Fixed32);
+
+        //方式1：直接用字节读id+packtLen
+        SCPacketHeader header = ReferencePool.Acquire<SCPacketHeader>();
+        byte[] idData = new byte[4];
+        byte[] lenData = new byte[4];
+        source.Position = 0;
+        source.Read(idData, 0, 4);
+        source.Read(lenData, 0, 4);
+        int id = BitConverter.ToInt32(idData, 0);
+        int len = BitConverter.ToInt32(lenData, 0);
+        header.Id = id;
+        header.PacketLength = len;
+
+        return header;
+        //方式2：用Proto结构体反序列化包头（暂时没测通）
+        //return Serializer.DeserializeWithLengthPrefix<SCPacketHeader>(source, PrefixStyle.Fixed32);
         //return (IPacketHeader)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire<SCPacketHeader>(), typeof(SCPacketHeader));
     }
 
@@ -133,6 +148,7 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
         {
             Log.Warning("Packet header is invalid. Id : {0}",packetHeaderImpl.Id);
         }
+        ReferencePool.Release(packetHeaderImpl);
 
         return packet;
     }
@@ -171,20 +187,31 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
             CSPacketHeader header = ReferencePool.Acquire<CSPacketHeader>();
             header.Id = packet.Id;
             header.PacketLength = (int)stream.Length - PacketHeaderLength;
-            Serializer.SerializeWithLengthPrefix(stream, header, PrefixStyle.Fixed32);
+
+            Log.Info("序列化的id:" + header.Id);
+            Log.Info("序列化的包体长度：" + header.PacketLength);
+
+            //方式1：直接写入字节数据id+packetLen
+            stream.Write(BitConverter.GetBytes(header.Id), 0, 4);
+            stream.Write(BitConverter.GetBytes(header.PacketLength), 0, 4);
+            //方式2：用头部结构体序列化进去（暂时没测通过）
+            //Serializer.SerializeWithLengthPrefix(stream, header, PrefixStyle.Fixed32);
             ReferencePool.Release<CSPacketHeader>(header);
 
-            //测试服务器下发的数据
-            //stream.Position = 0;
-            //SCPacketHeader header = ReferencePool.Acquire<SCPacketHeader>();
-            //header.Id = packet.Id;
-            //header.PacketLength = (int)stream.Length - PacketHeaderLength;
-            //Serializer.SerializeWithLengthPrefix(stream, header, PrefixStyle.Fixed32);
-            //ReferencePool.Release<SCPacketHeader>(header);
+            //打印发送的字节数据
+            //byte[] data = stream.ToArray();
+            //string str = "";
+            //for (int i = 0; i < data.Length;i++ )
+            //{
+            //    str = str + string.Format("data[{0}]:{1} ,",i,data[i]);
+            //}
+            //Log.Info(str);
 
             return stream.ToArray();
         }
     }
+
+
 
     /// <summary>
     /// 消息包头长度（字节数）

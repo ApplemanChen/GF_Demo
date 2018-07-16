@@ -63,6 +63,9 @@
     <Reference Include="UnityEditor">
       <HintPath>Library\UnityAssemblies\UnityEditor.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\3rd\JsonNet-Lite\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="GameFramework">
       <HintPath>Assets\GameFramework\Libraries\GameFramework.dll</HintPath>
     </Reference>
@@ -74,9 +77,6 @@
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>Assets\GameMain\Libraries\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\3rd\JsonNet-Lite\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -275,9 +275,11 @@
     <Compile Include="Assets\GameMain\Scripts\Base\GameManager.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\SCLoginPacketHandler.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\PacketBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\Packet\ProtoGen\login.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\PacketHandlerBase.cs" />
