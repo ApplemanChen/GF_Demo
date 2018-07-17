@@ -1,0 +1,3 @@
+#	配置名	备注	配置值
+	GameServerIP	游戏服地址	127.0.0.1
+	GameServerPort	游戏服端口	12345

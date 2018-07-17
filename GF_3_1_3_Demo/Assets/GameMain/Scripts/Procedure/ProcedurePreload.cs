@@ -35,8 +35,8 @@ public class ProcedurePreload : GameProcedureBase
     private void TestProto()
     {
         NetworkChannelHelper helper = new NetworkChannelHelper();
-        channel = GameManager.Network.CreateNetworkChannel(NetworkExtension.GAME_SERVER_IN_SIDE,helper);
-        channel.Connect(IPAddress.Parse("127.0.0.1"),4455);
+        channel = GameManager.Network.CreateNetworkChannel(Const.ServerConfigKey.GameServerIP,helper);
+        channel.Connect(IPAddress.Parse(NetworkExtension.GameServerIP),NetworkExtension.GameServerPort);
 
         GameManager.Event.Subscribe(UnityGameFramework.Runtime.NetworkConnectedEventArgs.EventId,OnNetworkConneted);
     }

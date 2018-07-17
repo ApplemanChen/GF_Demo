@@ -25,6 +25,15 @@ public static class AssetUtility {
     }
 
     /// <summary>
+    /// 构建配置资源
+    /// </summary>
+    /// <returns></returns>
+    public static string GetBuildConfigAsset(string assetName)
+    {
+        return string.Format("Assets/GameMain/Config/{0}.txt",assetName);
+    }
+
+    /// <summary>
     /// 数据表资源
     /// </summary>
     /// <param name="assetName"></param>

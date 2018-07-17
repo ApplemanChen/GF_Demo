@@ -1,0 +1,4 @@
+#	配置名	备注	配置值
+	GameVersion	游戏版本号	0.0.0
+	InternalVersion	内部版本号	0
+	CheckVersionUrl	版本检查地址	http://gameframework.cn/starforce/version.txt
