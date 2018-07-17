@@ -1,0 +1,3 @@
+[submodule "PythonExcelToConfig"]
+	path = PythonExcelToConfig
+	url = https://github.com/ApplemanChen/PythonExcelToConfig.git
