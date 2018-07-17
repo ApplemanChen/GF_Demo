@@ -14,6 +14,8 @@ public abstract class GameProcedureBase : ProcedureBase
 
     protected override void OnEnter(GameFramework.Fsm.IFsm<IProcedureManager> procedureOwner)
     {
+        Log.Info("GameProcedureBase ===> Enter {0}",this.GetType().Name);
+
         base.OnEnter(procedureOwner);
     }
 

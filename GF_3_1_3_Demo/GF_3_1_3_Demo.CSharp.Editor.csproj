@@ -88,6 +88,9 @@
     <Reference Include="SyntaxTree.VisualStudio.Unity.Bridge">
       <HintPath>Library\UnityAssemblies\SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>Assets\3rd\JsonNet-Lite\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="GameFramework">
       <HintPath>Assets\GameFramework\Libraries\GameFramework.dll</HintPath>
     </Reference>
@@ -99,9 +102,6 @@
     </Reference>
     <Reference Include="protobuf-net">
       <HintPath>Assets\GameMain\Libraries\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>Assets\3rd\JsonNet-Lite\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +177,8 @@
   <ItemGroup>
     <None Include="Assets\GameFramework\Libraries\GameFramework.xml" />
     <None Include="Assets\GameFramework\Libraries\link.xml" />
+    <None Include="Assets\GameMain\Config\BuildConfig.txt" />
+    <None Include="Assets\GameMain\Config\ServerConfig.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

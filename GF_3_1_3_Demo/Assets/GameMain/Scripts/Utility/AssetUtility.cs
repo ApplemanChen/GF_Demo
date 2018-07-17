@@ -25,10 +25,10 @@ public static class AssetUtility {
     }
 
     /// <summary>
-    /// 构建配置资源
+    /// 基础配置资源
     /// </summary>
     /// <returns></returns>
-    public static string GetBuildConfigAsset(string assetName)
+    public static string GetBaseConfigAsset(string assetName)
     {
         return string.Format("Assets/GameMain/Config/{0}.txt",assetName);
     }
@@ -41,5 +41,35 @@ public static class AssetUtility {
     public static string GetDataTableAsset(string assetName)
     {
         return string.Format("Assets/GameMain/Res/DataTables/{0}.json",assetName);
+    }
+
+    /// <summary>
+    /// 背景音乐资源
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <returns></returns>
+    public static string GetMusicAsset(string assetName)
+    {
+        return string.Format("Assets/GameMain/Res/Music/{0}.mp3",assetName);
+    }
+
+    /// <summary>
+    /// 普通音效资源
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <returns></returns>
+    public static string GetSoundAsset(string assetName)
+    {
+        return string.Format("Assets/GameMain/Res/Sound/{0}.mp3",assetName);
+    }
+
+    /// <summary>
+    /// 界面音效资源
+    /// </summary>
+    /// <param name="assetName"></param>
+    /// <returns></returns>
+    public static string GetUISoundAsset(string assetName)
+    {
+        return string.Format("Assets/GameMain/Res/UISound/{0}.mp3",assetName);
     }
 }

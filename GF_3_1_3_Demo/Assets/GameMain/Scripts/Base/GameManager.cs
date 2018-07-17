@@ -38,6 +38,24 @@ public class GameManager : MonoBehaviour
         get;
     }
 
+    public static LocalizationComponent Localization
+    {
+        private set;
+        get;
+    }
+
+    public static SettingComponent Setting
+    {
+        private set;
+        get;
+    }
+
+    public static SoundComponent Sound
+    {
+        private set;
+        get;
+    }
+
     #endregion
 
     #region 自定义组件
@@ -51,6 +69,9 @@ public class GameManager : MonoBehaviour
         Config = GameEntry.GetComponent<ConfigComponent>();
         Event = GameEntry.GetComponent<EventComponent>();
         Network = GameEntry.GetComponent<NetworkComponent>();
+        Localization = GameEntry.GetComponent<LocalizationComponent>();
+        Setting = GameEntry.GetComponent<SettingComponent>();
+        Sound = GameEntry.GetComponent<SoundComponent>();
     }
 
     private void InitCustomComponents()
