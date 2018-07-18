@@ -1,0 +1,3 @@
+{"Id": 100101, "AssetName": "MenuForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": true}
+{"Id": 100102, "AssetName": "MainForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": true}
+{"Id": 100103, "AssetName": "AboutForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": true}

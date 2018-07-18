@@ -179,6 +179,8 @@
     <None Include="Assets\GameFramework\Libraries\link.xml" />
     <None Include="Assets\GameMain\Config\BuildConfig.txt" />
     <None Include="Assets\GameMain\Config\ServerConfig.txt" />
+    <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
+    <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

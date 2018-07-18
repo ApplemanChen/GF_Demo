@@ -22,6 +22,17 @@ public class ProcedureSplash:GameProcedureBase
     protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
+
+        //TODO:闪屏动画
+
+        if (GameManager.Base.EditorResourceMode)
+        {
+            ChangeState<ProcedurePreload>(procedureOwner);
+        }
+        else
+        {
+            ChangeState<ProcedureCheckVersion>(procedureOwner);
+        }
     }
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

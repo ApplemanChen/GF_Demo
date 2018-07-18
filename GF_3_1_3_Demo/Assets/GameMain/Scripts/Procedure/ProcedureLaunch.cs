@@ -144,6 +144,10 @@ public class ProcedureLaunch:GameProcedureBase
     /// </summary>
     public void InitSoundSetting()
     {
+        GameManager.Sound.AddSoundGroup("Music", 1);
+        GameManager.Sound.AddSoundGroup("Sound",10);
+        GameManager.Sound.AddSoundGroup("UISound",5);
+
         GameManager.Sound.SetMute("Music", GameManager.Setting.GetBool(Const.SettingKey.MusicMuted, false));
         GameManager.Sound.SetMute("Sound", GameManager.Setting.GetBool(Const.SettingKey.SoundMuted, false));
         GameManager.Sound.SetMute("UISound", GameManager.Setting.GetBool(Const.SettingKey.UISoundMuted, false));

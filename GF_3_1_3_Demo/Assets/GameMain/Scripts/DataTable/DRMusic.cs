@@ -42,4 +42,10 @@ public class DRMusic : IDataRow {
 		Asset = model.Asset;
 		
 	}
+
+	//以下方法只是为了避免编译类型JIT,实际无调用
+	private void AvoidJIT()
+	{
+		new Dictionary<int, DRMusic>();
+	}
 }

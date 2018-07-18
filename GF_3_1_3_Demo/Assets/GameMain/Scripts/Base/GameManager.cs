@@ -56,6 +56,24 @@ public class GameManager : MonoBehaviour
         get;
     }
 
+    public static UIComponent UI
+    {
+        private set;
+        get;
+    }
+
+    public static ProcedureComponent Procedure
+    {
+        private set;
+        get;
+    }
+
+    public static ResourceComponent Resource
+    {
+        private set;
+        get;
+    }
+
     #endregion
 
     #region 自定义组件
@@ -72,6 +90,9 @@ public class GameManager : MonoBehaviour
         Localization = GameEntry.GetComponent<LocalizationComponent>();
         Setting = GameEntry.GetComponent<SettingComponent>();
         Sound = GameEntry.GetComponent<SoundComponent>();
+        UI = GameEntry.GetComponent<UIComponent>();
+        Procedure = GameEntry.GetComponent<ProcedureComponent>();
+        Resource = GameEntry.GetComponent<ResourceComponent>();
     }
 
     private void InitCustomComponents()

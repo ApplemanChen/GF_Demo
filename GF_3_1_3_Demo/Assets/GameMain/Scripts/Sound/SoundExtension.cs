@@ -77,7 +77,17 @@ public static class SoundExtension
             SpatialBlend = 0f,
         };
 
-        soundComponent.PlaySound(AssetUtility.GetSoundAsset(assetName),"Sound",entity);
+        soundComponent.PlaySound(AssetUtility.GetSoundAsset(assetName),"Sound",playSoundParams.Priority,playSoundParams);
+    }
+
+    /// <summary>
+    /// 播放界面音效
+    /// </summary>
+    /// <param name="soundComponent"></param>
+    /// <param name="soundId"></param>
+    public static void PlayUISound(this SoundComponent soundComponent,int soundId)
+    {
+        soundComponent.PlayUISound(soundId,null);
     }
 
     /// <summary>
