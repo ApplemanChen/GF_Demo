@@ -29,6 +29,20 @@ public static class UIExtension
         canvasGroup.alpha = alpha;
     }
 
+    public static IEnumerator FadeToScale(this RectTransform rectTransform,Vector3 endScale,float duration)
+    {
+        float time = 0f;
+        Vector3 orginScale = rectTransform.localScale;
+        Vector3 tweenScale;
+        while(time < duration)
+        {
+            time += Time.deltaTime;
+            tweenScale = new Vector3(Mathf.Lerp(orginScale.x, endScale.x, time / duration), Mathf.Lerp(orginScale.y, endScale.y, time / duration), 1);
+            rectTransform.localScale = tweenScale;
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     public static IEnumerator SmoothValue(this Slider slider, float value, float duration)
     {
         float time = 0f;

@@ -5,27 +5,16 @@
 //------------------------------------------------------------
 
 /// <summary>
-/// 界面编号。
+/// 界面渐变类型
 /// </summary>
-public enum UIFormId
+public enum UITweenType
 {
-    Undefined = 0,
-
     /// <summary>
-    /// 弹出框。
+    /// 透明度变化
     /// </summary>
-    DialogForm = 10101,
-
+    Fade = 1,
     /// <summary>
-    /// 主菜单。
+    /// 大小变化
     /// </summary>
-    MenuForm = 100101,
-
-    //
-    MainForm = 100102,
-
-    /// <summary>
-    /// 关于。
-    /// </summary>
-    AboutForm = 100103,
+    Scale,
 }

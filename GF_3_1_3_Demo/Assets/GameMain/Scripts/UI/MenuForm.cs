@@ -27,6 +27,18 @@ public class MenuForm : UGuiForm
 
     private void OnBtnClick()
     {
-        Log.Info("Button Click!!");   
+        Log.Info("Button Click!!");
+        GameManager.UI.OpenDialog(new DialogParams() 
+        {
+            Mode = 2,
+            Title = "对话框标题",
+            Message = "对话框内容",
+            OnClickConfirm = OnDialogConfirm,
+        });
+    }
+
+    private void OnDialogConfirm(object userData)
+    {
+        Log.Info("哈哈哈");
     }
 }

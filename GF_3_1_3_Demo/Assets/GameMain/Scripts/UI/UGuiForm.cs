@@ -13,11 +13,15 @@ using UnityGameFramework.Runtime;
 public abstract class UGuiForm : UIFormLogic
 {
     public const int DepthFactor = 100;
-    private const float FadeTime = 0.3f;
+    private const float FadeTime = 0.2f;
 
     private static Font s_MainFont = null;
     private Canvas m_CachedCanvas = null;
     private CanvasGroup m_CanvasGroup = null;
+    private RectTransform m_RectTrans = null;
+    private RectTransform m_BackgroundRectTrans = null;
+
+    protected UITweenType m_TweenType = UITweenType.Fade;
 
     public int OriginalDepth
     {
@@ -30,6 +34,14 @@ public abstract class UGuiForm : UIFormLogic
         get
         {
             return m_CachedCanvas.sortingOrder;
+        }
+    }
+
+    public RectTransform RectTrans
+    {
+        get
+        {
+            return m_RectTrans;
         }
     }
 
@@ -48,7 +60,7 @@ public abstract class UGuiForm : UIFormLogic
         }
         else
         {
-            StartCoroutine(CloseCo(FadeTime));
+            StartCoroutine(PlayCloseTween(FadeTime));
         }
     }
 
@@ -83,10 +95,17 @@ public abstract class UGuiForm : UIFormLogic
         m_CanvasGroup = gameObject.GetOrAddComponent<CanvasGroup>();
 
         RectTransform transform = GetComponent<RectTransform>();
+        m_RectTrans = transform;
         transform.anchorMin = Vector2.zero;
         transform.anchorMax = Vector2.one;
         transform.anchoredPosition = Vector2.zero;
         transform.sizeDelta = Vector2.zero;
+
+        Transform bgTrans = CachedTransform.Find("Mask/Background");
+        if (bgTrans)
+        {
+            m_BackgroundRectTrans = bgTrans.GetComponent<RectTransform>();
+        }
 
         gameObject.GetOrAddComponent<GraphicRaycaster>();
 
@@ -105,9 +124,7 @@ public abstract class UGuiForm : UIFormLogic
     {
         base.OnOpen(userData);
 
-        m_CanvasGroup.alpha = 0f;
-        StopAllCoroutines();
-        StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+        PlayOpenTween();
     }
 
     protected internal override void OnClose(object userData)
@@ -124,9 +141,7 @@ public abstract class UGuiForm : UIFormLogic
     {
         base.OnResume();
 
-        m_CanvasGroup.alpha = 0f;
-        StopAllCoroutines();
-        StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+        PlayOpenTween();
     }
 
     protected internal override void OnCover()
@@ -161,9 +176,50 @@ public abstract class UGuiForm : UIFormLogic
         }
     }
 
-    private IEnumerator CloseCo(float duration)
+    private IEnumerator PlayCloseTween(float duration)
     {
-        yield return m_CanvasGroup.FadeToAlpha(0f, duration);
+
+        switch (m_TweenType)
+        {
+            case UITweenType.Fade:
+                {
+                    yield return m_CanvasGroup.FadeToAlpha(0f, FadeTime);
+                }
+                break;
+            case UITweenType.Scale:
+                {
+                    if (m_BackgroundRectTrans)
+                    {
+                        yield return m_BackgroundRectTrans.FadeToScale(Vector3.one * 0.1f, FadeTime);
+                    }
+                }
+                break;
+        }
+
         GameManager.UI.CloseUIForm(this);
+    }
+
+    private void PlayOpenTween()
+    {
+        StopAllCoroutines();
+
+        switch (m_TweenType)
+        {
+            case UITweenType.Fade:
+                {
+                    m_CanvasGroup.alpha = 0f;
+                    StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+                }
+                break;
+            case UITweenType.Scale:
+                {
+                    if (m_BackgroundRectTrans)
+                    {
+                        m_BackgroundRectTrans.localScale = Vector3.one * 0.1f;
+                        StartCoroutine(m_BackgroundRectTrans.FadeToScale(Vector3.one, FadeTime));
+                    }
+                }
+                break;
+        }
     }
 }
