@@ -133,6 +133,12 @@ public static class UIExtension
         uiComponent.CloseUIForm(uiForm.UIForm);
     }
 
+    public static void CloseUIForm(this UIComponent uiComponent,UIFormId uiFormId)
+    {
+        UGuiForm uiForm = uiComponent.GetUIForm(uiFormId);
+        uiComponent.CloseUIForm(uiForm);
+    }
+
     public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)
     {
         return uiComponent.OpenUIForm((int)uiFormId, userData);

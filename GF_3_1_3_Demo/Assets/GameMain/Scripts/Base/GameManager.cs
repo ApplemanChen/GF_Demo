@@ -74,9 +74,28 @@ public class GameManager : MonoBehaviour
         get;
     }
 
+    public static EntityComponent Entity
+    {
+        private set;
+        get;
+    }
+
+    public static SceneComponent Scene
+    {
+        private set;
+        get;
+    }
+
     #endregion
 
     #region 自定义组件
+
+    public static CameraComponent Camera
+    {
+        private set;
+        get;
+    }
+
     #endregion
 
 
@@ -93,11 +112,13 @@ public class GameManager : MonoBehaviour
         UI = GameEntry.GetComponent<UIComponent>();
         Procedure = GameEntry.GetComponent<ProcedureComponent>();
         Resource = GameEntry.GetComponent<ResourceComponent>();
+        Entity = GameEntry.GetComponent<EntityComponent>();
+        Scene = GameEntry.GetComponent<SceneComponent>();
     }
 
     private void InitCustomComponents()
     {
-
+        Camera = GameEntry.GetComponent<CameraComponent>();
     }
 
     void Start()

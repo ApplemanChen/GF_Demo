@@ -21,8 +21,10 @@ public enum UIFormId
     /// </summary>
     MenuForm = 100101,
 
-    //
-    MainForm = 100102,
+    /// <summary>
+    /// 加载界面
+    /// </summary>
+    LoadingForm = 100102,
 
     /// <summary>
     /// 关于。

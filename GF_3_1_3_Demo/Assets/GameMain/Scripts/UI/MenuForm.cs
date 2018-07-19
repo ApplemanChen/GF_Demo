@@ -15,19 +15,20 @@ using UnityEngine.UI;
 public class MenuForm : UGuiForm
 {
     private Button _btn;
+    private ProcedureMenu _procedure;
 
     protected internal override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        _btn = CachedTransform.Find("Panel/Button").GetComponent<Button>();
+        _procedure = (ProcedureMenu)userData;
 
+        _btn = CachedTransform.Find("Panel/Button").GetComponent<Button>();
         _btn.onClick.AddListener(OnBtnClick);
     }
 
     private void OnBtnClick()
     {
-        Log.Info("Button Click!!");
         GameManager.UI.OpenDialog(new DialogParams() 
         {
             Mode = 2,
@@ -39,6 +40,8 @@ public class MenuForm : UGuiForm
 
     private void OnDialogConfirm(object userData)
     {
-        Log.Info("哈哈哈");
+        _procedure.IsEnterScene = true;
+
+        Close(true);
     }
 }

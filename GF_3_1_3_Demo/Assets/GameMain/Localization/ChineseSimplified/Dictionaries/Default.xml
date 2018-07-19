@@ -25,5 +25,6 @@
     <String Key="Setting.UISound" Value="界面音效" />
     <String Key="Setting.Language" Value="语言" />
     <String Key="Setting.LanguageTips" Value="更改语言需要重启游戏" />
+    <String Key="Loading.Progress" Value="场景已加载{0},请耐心等待..." />
   </Dictionary>
 </Dictionaries>

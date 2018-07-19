@@ -10,6 +10,11 @@
 public enum UITweenType
 {
     /// <summary>
+    /// 无
+    /// </summary>
+    None = 0,
+
+    /// <summary>
     /// 透明度变化
     /// </summary>
     Fade = 1,

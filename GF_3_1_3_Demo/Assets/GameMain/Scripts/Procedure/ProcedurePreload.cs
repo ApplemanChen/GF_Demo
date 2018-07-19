@@ -66,6 +66,7 @@ public class ProcedurePreload : GameProcedureBase
     {
         LoadDatable("UIForm");
         LoadDatable("Music");
+        LoadDatable("Scene");
 
         LoadDictionary("Default");
 

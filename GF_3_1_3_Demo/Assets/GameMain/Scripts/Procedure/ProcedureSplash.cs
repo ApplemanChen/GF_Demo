@@ -23,7 +23,7 @@ public class ProcedureSplash:GameProcedureBase
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-        //TODO:闪屏动画
+        //TODO:闪屏动画,播放mp4
 
         if (GameManager.Base.EditorResourceMode)
         {
