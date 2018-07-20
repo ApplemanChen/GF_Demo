@@ -26,5 +26,7 @@
     <String Key="Setting.Language" Value="语言" />
     <String Key="Setting.LanguageTips" Value="更改语言需要重启游戏" />
     <String Key="Loading.Progress" Value="场景已加载{0},请耐心等待..." />
+    <String Key="Dialog.Title" Value="提示" />
+    <String Key="Dialog.EnterMessage" Value="是否进入游戏场景？" />
   </Dictionary>
 </Dictionaries>

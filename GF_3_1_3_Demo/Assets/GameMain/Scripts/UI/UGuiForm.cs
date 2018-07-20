@@ -56,6 +56,7 @@ public abstract class UGuiForm : UIFormLogic
 
         if (ignoreFade)
         {
+            Log.Debug("1111 serialId:"+UIForm.SerialId);
             GameManager.UI.CloseUIForm(this);
         }
         else
@@ -196,6 +197,7 @@ public abstract class UGuiForm : UIFormLogic
                 break;
         }
 
+        Log.Debug("2222 serialId:" + UIForm.SerialId);        
         GameManager.UI.CloseUIForm(this);
     }
 

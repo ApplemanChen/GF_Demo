@@ -281,6 +281,7 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ProcedureDataKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ServerConfigKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.SettingKey.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CameraLayer.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\LocalizationExtension.cs" />
@@ -308,7 +309,11 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Scene\CityScene.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Scene\SceneBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Scene\SceneExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Scene\SceneId.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Scene\SceneType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\Data\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
@@ -326,7 +331,9 @@
     <None Include="Assets\GameFramework\Libraries\link.xml" />
     <None Include="Assets\GameMain\Config\BuildConfig.txt" />
     <None Include="Assets\GameMain\Config\ServerConfig.txt" />
-    <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
+    <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />

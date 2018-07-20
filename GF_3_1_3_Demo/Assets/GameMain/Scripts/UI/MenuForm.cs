@@ -32,8 +32,8 @@ public class MenuForm : UGuiForm
         GameManager.UI.OpenDialog(new DialogParams() 
         {
             Mode = 2,
-            Title = "对话框标题",
-            Message = "对话框内容",
+            Title = GameManager.Localization.GetString("Dialog.Title"),
+            Message = GameManager.Localization.GetString("Dialog.EnterMessage"),
             OnClickConfirm = OnDialogConfirm,
         });
     }
@@ -41,7 +41,5 @@ public class MenuForm : UGuiForm
     private void OnDialogConfirm(object userData)
     {
         _procedure.IsEnterScene = true;
-
-        Close(true);
     }
 }

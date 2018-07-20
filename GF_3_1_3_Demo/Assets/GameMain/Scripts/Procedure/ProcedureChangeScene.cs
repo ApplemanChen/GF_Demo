@@ -16,7 +16,7 @@ using GameFramework;
 public class ProcedureChangeScene : GameProcedureBase
 {
     private bool m_IsChangeSceneComplete = false;
-    private int m_BackgroundMusicId = 0;
+    //private int m_BackgroundMusicId = 0;
 
     protected override void OnEnter(ProcedureOwner procedureOwner)
     {
@@ -76,7 +76,7 @@ public class ProcedureChangeScene : GameProcedureBase
                 return;
             }
             GameManager.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), this);
-            m_BackgroundMusicId = drScene.BgmId;
+            //m_BackgroundMusicId = drScene.BgmId;
         }
 
     }

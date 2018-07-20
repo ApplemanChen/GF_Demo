@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
+using System;
 
 /// <summary>
 /// 相机全局组件
@@ -16,24 +17,38 @@ using UnityGameFramework.Runtime;
 [AddComponentMenu("Game Framework/Custom/Camera")]
 public sealed class CameraComponent : GameFrameworkComponent
 {
-    private IDictionary<string, Camera> m_CameraDict;
+    private IDictionary<CameraLayer, Camera> m_CameraDict;
 
 
     protected override void Awake()
     {
         base.Awake();
         
-        m_CameraDict = new Dictionary<string,Camera>();
+        m_CameraDict = new Dictionary<CameraLayer,Camera>();
     }
 
     void Start()
     {
-        Camera[] cameras = transform.GetComponentsInChildren<Camera>(true);
-        int len = cameras.Length;
-        for (int i = 0; i < len;i++ )
+        foreach(CameraLayer layer in Enum.GetValues(typeof(CameraLayer)))
         {
-            m_CameraDict.Add(cameras[i].name,cameras[i]);
+            Transform trans = transform.Find(layer.ToString()+"Camera");
+            if(trans == null)
+            {
+                Log.Warning(string.Format("Camera component can't find the camera game object. The layer is {0}",layer.ToString()));
+                return;
+            }
+
+            Camera camera = trans.GetComponent<Camera>();
+
+            if(camera == null)
+            {
+                Log.Warning(string.Format("Camera component has a game object with no camera. The game object name is {0}.",trans.name));
+                return;
+            }
+
+            m_CameraDict.Add(layer, camera);
         }
+
     }
 
     /// <summary>
@@ -41,10 +56,10 @@ public sealed class CameraComponent : GameFrameworkComponent
     /// </summary>
     /// <param name="name"></param>
     /// <returns></returns>
-    public Camera GetCamera(string name)
+    public Camera GetCamera(CameraLayer layer)
     {
         Camera camera = null;
-        if(m_CameraDict.TryGetValue(name,out camera))
+        if (m_CameraDict.TryGetValue(layer, out camera))
         {
             return camera;
         }else
@@ -52,5 +67,23 @@ public sealed class CameraComponent : GameFrameworkComponent
             Log.Warning("The camera name is invalid.");
             return null;
         }
+    }
+
+    /// <summary>
+    /// 禁用摄像机
+    /// </summary>
+    /// <param name="layer"></param>
+    public void HideCamera(CameraLayer layer)
+    {
+        GetCamera(layer).enabled = false;
+    }
+
+    /// <summary>
+    /// 弃用摄像机
+    /// </summary>
+    /// <param name="layer"></param>
+    public void ShowCamera(CameraLayer layer)
+    {
+        GetCamera(layer).enabled = true;
     }
 }
