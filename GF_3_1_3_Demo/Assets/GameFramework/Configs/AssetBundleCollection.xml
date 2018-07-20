@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnityGameFramework>
+  <AssetBundleCollection>
+    <AssetBundles>
+      <AssetBundle Name="ChineseLocalization" LoadType="0" Packed="False" />
+      <AssetBundle Name="Config" LoadType="0" Packed="False" />
+      <AssetBundle Name="DataTables" LoadType="0" Packed="False" />
+      <AssetBundle Name="EnglishLocalization" LoadType="0" Packed="False" />
+      <AssetBundle Name="Scene1" LoadType="0" Packed="False" />
+      <AssetBundle Name="UIForms" LoadType="0" Packed="False" />
+    </AssetBundles>
+    <Assets>
+      <Asset Guid="0213373decd7fe84fb3a078300397ff9" AssetBundleName="Config" />
+      <Asset Guid="0f4659598a20b944987cc793898dd027" AssetBundleName="DataTables" />
+      <Asset Guid="14869ac0d4433f04db1704e39d03412e" AssetBundleName="EnglishLocalization" />
+      <Asset Guid="2b23bf14be376f14084faac3352c32f9" AssetBundleName="UIForms" />
+      <Asset Guid="3d1a2849397dffc4ba599380170fa793" AssetBundleName="DataTables" />
+      <Asset Guid="70d21757bb132684bbed6d3f2c7aad07" AssetBundleName="DataTables" />
+      <Asset Guid="77cbb7c5404c10242ab59953e0746314" AssetBundleName="ChineseLocalization" />
+      <Asset Guid="809d5922cff253743a3696f4bc24a601" AssetBundleName="UIForms" />
+      <Asset Guid="8e9e4c7191fb77044879a02cb031af30" AssetBundleName="Scene1" />
+      <Asset Guid="9be2e1e45f4edd74c8764538ad306b78" AssetBundleName="ChineseLocalization" />
+      <Asset Guid="bb5503fe5a25f2f498da035f1f3e58ee" AssetBundleName="EnglishLocalization" />
+      <Asset Guid="c73c41657cfec11448e01887fa673f95" AssetBundleName="UIForms" />
+      <Asset Guid="f749ec009dd1d9047a6af5db8fa73dfa" AssetBundleName="Config" />
+    </Assets>
+  </AssetBundleCollection>
+</UnityGameFramework>

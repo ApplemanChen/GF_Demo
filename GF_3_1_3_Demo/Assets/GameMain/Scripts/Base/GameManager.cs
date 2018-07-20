@@ -126,4 +126,13 @@ public class GameManager : MonoBehaviour
         InitBuiltinComponents();
         InitCustomComponents();
     }
+
+    /// <summary>
+    /// 关闭游戏框架
+    /// </summary>
+    /// <param name="shutDownType"></param>
+    public static void ShutDown(ShutdownType shutDownType)
+    {
+        GameEntry.Shutdown(shutDownType);
+    }
 }

@@ -178,6 +178,9 @@
     <Compile Include="Assets\GameFramework\Scripts\Editor\Misc\Type.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Assets\GameFramework\Configs\AssetBundleBuilder.xml" />
+    <None Include="Assets\GameFramework\Configs\AssetBundleCollection.xml" />
+    <None Include="Assets\GameFramework\Configs\AssetBundleEditor.xml" />
     <None Include="Assets\GameFramework\Libraries\GameFramework.xml" />
     <None Include="Assets\GameFramework\Libraries\link.xml" />
     <None Include="Assets\GameMain\Config\BuildConfig.txt" />

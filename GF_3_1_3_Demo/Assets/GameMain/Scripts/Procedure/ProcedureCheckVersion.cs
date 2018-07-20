@@ -19,7 +19,7 @@ public class ProcedureCheckVersion : GameProcedureBase
     {
         base.OnEnter(procedureOwner);
 
-
+        
     }
 
     protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
