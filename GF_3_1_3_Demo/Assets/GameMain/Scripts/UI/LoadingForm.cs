@@ -59,9 +59,9 @@ public class LoadingForm : UGuiForm
 
         UpdatePercent(ne.Progress);
 
-        if(ne.Progress >= 1f)
-        {
-            Close();
-        }
+        //if(ne.Progress >= 1f)
+        //{
+        //    Close();
+        //}
     }
 }
