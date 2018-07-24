@@ -34,3 +34,6 @@ Thumbs.db
 # Custom #
 # ============ #
 APKOutput/
+AssetOutput/BuildReport/
+AssetOutput/Package/
+AssetOutput/Working/
