@@ -197,7 +197,6 @@ public abstract class UGuiForm : UIFormLogic
                 break;
         }
 
-        Log.Debug("2222 serialId:" + UIForm.SerialId);        
         GameManager.UI.CloseUIForm(this);
     }
 

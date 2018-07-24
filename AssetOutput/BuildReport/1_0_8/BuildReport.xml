@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<UnityGameFramework>
+  <BuildReport>
+    <Summary>
+      <ProductName>GF_3_0_9_Demo</ProductName>
+      <CompanyName>DefaultCompany</CompanyName>
+      <GameIdentifier>com.chenhua.gfdemo</GameIdentifier>
+      <ApplicableGameVersion>1.0</ApplicableGameVersion>
+      <InternalResourceVersion>8</InternalResourceVersion>
+      <UnityVersion>5.4.1f1</UnityVersion>
+      <WindowsSelected>False</WindowsSelected>
+      <MacOSXSelected>False</MacOSXSelected>
+      <IOSSelected>False</IOSSelected>
+      <AndroidSelected>True</AndroidSelected>
+      <WindowsStoreSelected>False</WindowsStoreSelected>
+      <ZipSelected>True</ZipSelected>
+      <RecordScatteredDependencyAssetsSelected>False</RecordScatteredDependencyAssetsSelected>
+      <BuildAssetBundleOptions>272</BuildAssetBundleOptions>
+    </Summary>
+    <AssetBundles Count="5">
+      <AssetBundle Name="chineselocalization" LoadType="0" Packed="False">
+        <Assets Count="2">
+          <Asset Guid="77cbb7c5404c10242ab59953e0746314" Name="Assets/GameMain/Localization/ChineseSimplified/Fonts/MainFont.ttf" Length="7070444" HashCode="-1495042615" />
+          <Asset Guid="9be2e1e45f4edd74c8764538ad306b78" Name="Assets/GameMain/Localization/ChineseSimplified/Dictionaries/Default.xml" Length="2114" HashCode="-913217133" />
+        </Assets>
+        <Codes>
+          <Android Length="4650252" HashCode="1283085739" ZipLength="4065592" ZipHashCode="255813542" />
+        </Codes>
+      </AssetBundle>
+      <AssetBundle Name="datatables" LoadType="0" Packed="False">
+        <Assets Count="3">
+          <Asset Guid="0f4659598a20b944987cc793898dd027" Name="Assets/GameMain/Res/DataTables/UIForm.json" Length="486" HashCode="855649617" />
+          <Asset Guid="3d1a2849397dffc4ba599380170fa793" Name="Assets/GameMain/Res/DataTables/Music.json" Length="270" HashCode="-2094778552" />
+          <Asset Guid="70d21757bb132684bbed6d3f2c7aad07" Name="Assets/GameMain/Res/DataTables/Scene.json" Length="54" HashCode="381500145" />
+        </Assets>
+        <Codes>
+          <Android Length="1469" HashCode="-1642954539" ZipLength="1233" ZipHashCode="-252613797" />
+        </Codes>
+      </AssetBundle>
+      <AssetBundle Name="englishlocalization" LoadType="0" Packed="False">
+        <Assets Count="2">
+          <Asset Guid="14869ac0d4433f04db1704e39d03412e" Name="Assets/GameMain/Localization/English/Dictionaries/Default.xml" Length="1975" HashCode="-2087646321" />
+          <Asset Guid="bb5503fe5a25f2f498da035f1f3e58ee" Name="Assets/GameMain/Localization/English/Fonts/MainFont.ttf" Length="135848" HashCode="819456747" />
+        </Assets>
+        <Codes>
+          <Android Length="94241" HashCode="-2099762310" ZipLength="82199" ZipHashCode="-1065098799" />
+        </Codes>
+      </AssetBundle>
+      <AssetBundle Name="scene1" LoadType="0" Packed="False">
+        <Assets Count="1">
+          <Asset Guid="8e9e4c7191fb77044879a02cb031af30" Name="Assets/GameMain/Res/Scenes/Scene1.unity" Length="13840" HashCode="1270625865" />
+        </Assets>
+        <Codes>
+          <Android Length="747983" HashCode="-1174739709" ZipLength="616285" ZipHashCode="364249746" />
+        </Codes>
+      </AssetBundle>
+      <AssetBundle Name="uiforms" LoadType="0" Packed="False">
+        <Assets Count="3">
+          <Asset Guid="2b23bf14be376f14084faac3352c32f9" Name="Assets/GameMain/Res/UI/UIForms/DialogForm.prefab" Length="34016" HashCode="409462700" />
+          <Asset Guid="809d5922cff253743a3696f4bc24a601" Name="Assets/GameMain/Res/UI/UIForms/MenuForm.prefab" Length="20284" HashCode="-255135698" />
+          <Asset Guid="c73c41657cfec11448e01887fa673f95" Name="Assets/GameMain/Res/UI/UIForms/LoadingForm.prefab" Length="23120" HashCode="-1776895502" />
+        </Assets>
+        <Codes>
+          <Android Length="15973" HashCode="420890000" ZipLength="13506" ZipHashCode="-869268903" />
+        </Codes>
+      </AssetBundle>
+    </AssetBundles>
+  </BuildReport>
+</UnityGameFramework>

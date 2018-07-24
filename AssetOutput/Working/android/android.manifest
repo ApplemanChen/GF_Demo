@@ -1,0 +1,19 @@
+ManifestFileVersion: 0
+CRC: 2367055208
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: chineselocalization
+      Dependencies: {}
+    Info_1:
+      Name: datatables
+      Dependencies: {}
+    Info_2:
+      Name: englishlocalization
+      Dependencies: {}
+    Info_3:
+      Name: scene1
+      Dependencies: {}
+    Info_4:
+      Name: uiforms
+      Dependencies: {}

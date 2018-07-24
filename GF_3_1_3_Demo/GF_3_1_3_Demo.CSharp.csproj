@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -267,6 +269,7 @@
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestFailureEventArgs.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestStartEventArgs.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestSuccessEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameManager.cs" />
     <Compile Include="Assets\GameMain\Scripts\Camera\CameraComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\CustomDataTableHelper.cs" />
@@ -281,6 +284,7 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CameraLayer.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\LocalizationExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
@@ -306,6 +310,7 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureUpdateResource.cs" />
     <Compile Include="Assets\GameMain\Scripts\Scene\CityScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\Scene\SceneBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Scene\SceneExtension.cs" />
@@ -335,5 +340,6 @@
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

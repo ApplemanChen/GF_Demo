@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 1370021718
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c75bd2c8add50b43760621a34dc63b46
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: db3608062a458c153fa2d2bbe9649662
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+Assets:
+- Assets/GameMain/Localization/English/Dictionaries/Default.xml
+- Assets/GameMain/Localization/English/Fonts/MainFont.ttf
+Dependencies: []

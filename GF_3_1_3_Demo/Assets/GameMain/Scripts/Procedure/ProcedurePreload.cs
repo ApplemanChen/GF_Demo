@@ -25,13 +25,18 @@ public class ProcedurePreload : GameProcedureBase
 {
     private INetworkChannel channel;
     //加载资源标识
-    private Dictionary<string, bool> _loadResFlag = new Dictionary<string, bool>();
+    private Dictionary<string, bool> m_LoadResFlag = new Dictionary<string, bool>();
 
     protected override void OnEnter(ProcedureOwner procedureOwner)
     {
         base.OnEnter(procedureOwner);
 
         SubscribeEvents();
+
+        if(!GameManager.Base.EditorResourceMode && GameManager.Resource.ResourceMode == ResourceMode.Package)
+        {
+            GameManager.Resource.InitResources();
+        }
 
         PreloadResources();
     }
@@ -40,7 +45,7 @@ public class ProcedurePreload : GameProcedureBase
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
         
-        foreach(bool item in _loadResFlag.Values)
+        foreach(bool item in m_LoadResFlag.Values)
         {
             if(!item)
             {
@@ -55,7 +60,7 @@ public class ProcedurePreload : GameProcedureBase
     {
         UnsubscribeEvents();
 
-        _loadResFlag.Clear();
+        m_LoadResFlag.Clear();
         base.OnLeave(procedureOwner, isShutdown);
     }
 
@@ -76,25 +81,25 @@ public class ProcedurePreload : GameProcedureBase
     //加载数据表
     private void LoadDatable(string dataTableName)
     {
-        _loadResFlag.Add(string.Format("Datable.{0}",dataTableName),false);
+        m_LoadResFlag.Add(string.Format("Datable.{0}",dataTableName),false);
         GameManager.DataTable.LoadDataTable(dataTableName);
     }
 
     //加载本地化字典
     private void LoadDictionary(string dictionaryName)
     {
-        _loadResFlag.Add(string.Format("Dictionary.{0}",dictionaryName),false);
+        m_LoadResFlag.Add(string.Format("Dictionary.{0}",dictionaryName),false);
         GameManager.Localization.LoadDictionary(dictionaryName);
     }
 
     //加载字体
     private void LoadFont(string fontName)
     {
-        _loadResFlag.Add(string.Format("Font.{0}", fontName), false);
+        m_LoadResFlag.Add(string.Format("Font.{0}", fontName), false);
         GameManager.Resource.LoadAsset(AssetUtility.GetFontAsset(fontName), new LoadAssetCallbacks(
             (assetName, asset, duration, userData) =>
             {
-                _loadResFlag[string.Format("Font.{0}", fontName)] = true;
+                m_LoadResFlag[string.Format("Font.{0}", fontName)] = true;
                 UGuiForm.SetMainFont((Font)asset);
                 Log.Info("Load font '{0}' OK.", fontName);
             },
@@ -110,6 +115,7 @@ public class ProcedurePreload : GameProcedureBase
         GameManager.Event.Subscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
         GameManager.Event.Subscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
         GameManager.Event.Subscribe(LoadDictionarySuccessEventArgs.EventId,OnLoadDictionarySuccess);
+        GameManager.Event.Subscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
     }
 
     private void UnsubscribeEvents()
@@ -117,6 +123,14 @@ public class ProcedurePreload : GameProcedureBase
         GameManager.Event.Unsubscribe(LoadDataTableSuccessEventArgs.EventId, OnLoadDataTableSuccess);
         GameManager.Event.Unsubscribe(LoadDataTableFailureEventArgs.EventId, OnLoadDataTableFailure);
         GameManager.Event.Unsubscribe(LoadDictionarySuccessEventArgs.EventId, OnLoadDictionarySuccess);
+        GameManager.Event.Unsubscribe(LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
+    }
+
+    private void OnLoadConfigSuccess(object sender, GameFramework.Event.GameEventArgs e)
+    {
+        LoadConfigSuccessEventArgs evt = (LoadConfigSuccessEventArgs)e;
+        string flagKey = string.Format("Config.{0}",evt.ConfigName);
+        m_LoadResFlag[flagKey] = true;
     }
 
     private void OnLoadDataTableSuccess(object sender, GameEventArgs e)
@@ -124,7 +138,7 @@ public class ProcedurePreload : GameProcedureBase
         LoadDataTableSuccessEventArgs evt = (LoadDataTableSuccessEventArgs)e;
 
         string flagKey = string.Format("Datable.{0}", evt.DataTableName);
-        _loadResFlag[flagKey] = true;
+        m_LoadResFlag[flagKey] = true;
     }
     private void OnLoadDataTableFailure(object sender, GameEventArgs e)
     {
@@ -138,7 +152,7 @@ public class ProcedurePreload : GameProcedureBase
         LoadDictionarySuccessEventArgs evt = (LoadDictionarySuccessEventArgs)e;
 
         string flagKey = string.Format("Dictionary.{0}", evt.DictionaryName);
-        _loadResFlag[flagKey] = true;
+        m_LoadResFlag[flagKey] = true;
     }
 
     private void InitNetwork()

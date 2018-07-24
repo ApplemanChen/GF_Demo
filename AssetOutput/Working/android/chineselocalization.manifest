@@ -1,0 +1,25 @@
+ManifestFileVersion: 0
+CRC: 655908645
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 92194fcb71f1e557f5ce97aaaea9c181
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: db3608062a458c153fa2d2bbe9649662
+HashAppended: 0
+ClassTypes:
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 128
+  Script: {instanceID: 0}
+Assets:
+- Assets/GameMain/Localization/ChineseSimplified/Dictionaries/Default.xml
+- Assets/GameMain/Localization/ChineseSimplified/Fonts/MainFont.ttf
+Dependencies: []

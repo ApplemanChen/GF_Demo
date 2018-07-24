@@ -86,11 +86,23 @@ public class GameManager : MonoBehaviour
         get;
     }
 
+    public static WebRequestComponent WebRequest
+    {
+        private set;
+        get;
+    }
+
     #endregion
 
     #region 自定义组件
 
     public static CameraComponent Camera
+    {
+        private set;
+        get;
+    }
+
+    public static BaseConfigComponent BaseConfig
     {
         private set;
         get;
@@ -114,6 +126,8 @@ public class GameManager : MonoBehaviour
         Resource = GameEntry.GetComponent<ResourceComponent>();
         Entity = GameEntry.GetComponent<EntityComponent>();
         Scene = GameEntry.GetComponent<SceneComponent>();
+        WebRequest = GameEntry.GetComponent<WebRequestComponent>();
+        BaseConfig = GameEntry.GetComponent<BaseConfigComponent>();
     }
 
     private void InitCustomComponents()

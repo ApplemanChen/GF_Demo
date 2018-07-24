@@ -7,6 +7,7 @@
 using System;
 using System.Collections.Generic;
 using GameFramework;
+using GameFramework.Resource;
 using GameFramework.Localization;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -17,10 +18,6 @@ using UnityEngine;
 /// </summary>
 public class ProcedureLaunch:GameProcedureBase
 {
-    private string[] _configs = new string[] { "BuildConfig", "ServerConfig" };
-    private List<string> _loadedConfigList = new List<string>();
-
-    private bool _isConfigInitComplete = false;
     private bool _isLanguageInitComplete = false;
     private bool _isQualityInitComplete = false;
     private bool _isSoundInitComplete = false;
@@ -29,29 +26,26 @@ public class ProcedureLaunch:GameProcedureBase
     {
         base.OnEnter(procedureOwner);
 
-        _isConfigInitComplete = false;
         _isLanguageInitComplete = false;
         _isQualityInitComplete = false;
         _isSoundInitComplete = false;
 
         SubscribeEvents();
 
-        //游戏基础配置信息：把一些数据以 Json 的格式写入 Config.txt，供游戏逻辑读取。
-        InitBaseConfig();
-        //语言配置初始化
-        InitLanguageSetting();
-        //画质配置初始化：
-        InitQualitySetting();
-        //声音配置初始化
-        InitSoundSetting();
-        //TODO:其他初始化工作
+        if(!GameManager.Base.EditorResourceMode && GameManager.Resource.ResourceMode == ResourceMode.Package)
+        {
+            GameManager.Resource.InitResources();
+        }else
+        {
+            InitAll();
+        }
     }
 
     protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-        if(_isConfigInitComplete && _isLanguageInitComplete && _isQualityInitComplete && _isSoundInitComplete)
+        if( _isLanguageInitComplete && _isQualityInitComplete && _isSoundInitComplete)
         {
             ChangeState<ProcedureSplash>(procedureOwner);
         }
@@ -66,12 +60,30 @@ public class ProcedureLaunch:GameProcedureBase
 
     private void SubscribeEvents()
     {
-        GameManager.Event.Subscribe(UnityGameFramework.Runtime.LoadConfigSuccessEventArgs.EventId,OnLoadConfigSuccess);
+        GameManager.Event.Subscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId,OnResourceInitComplete);
     }
+
 
     private void UnsubscribEvents()
     {
-        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.LoadConfigSuccessEventArgs.EventId, OnLoadConfigSuccess);
+        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId, OnResourceInitComplete);
+    }
+
+    private void OnResourceInitComplete(object sender, GameFramework.Event.GameEventArgs e)
+    {
+        InitAll();
+    }
+
+    private void InitAll()
+    {
+        InitBaseConfig();
+        //语言配置初始化
+        InitLanguageSetting();
+        //画质配置初始化：
+        InitQualitySetting();
+        //声音配置初始化
+        InitSoundSetting();
+        //TODO:其他初始化工作
     }
 
     /// <summary>
@@ -79,11 +91,10 @@ public class ProcedureLaunch:GameProcedureBase
     /// </summary>
     private void InitBaseConfig()
     {
-        for (int i = 0; i < _configs.Length;i++ )
-        {
-            GameManager.Config.LoadConfig(_configs[i], AssetUtility.GetBaseConfigAsset(_configs[i]));
-        }
+        GameManager.BaseConfig.InitBuildConfig();
+        GameManager.BaseConfig.InitServerConfig();
     }
+
 
     /// <summary>
     /// 初始化语言配置
@@ -157,26 +168,5 @@ public class ProcedureLaunch:GameProcedureBase
 
         _isSoundInitComplete = true;
         Log.Info("PrecedureLaunch ==> Sound setting init complete!");
-    }
-
-    private void OnLoadConfigSuccess(object sender, GameFramework.Event.GameEventArgs e)
-    {
-        LoadConfigSuccessEventArgs evt = (LoadConfigSuccessEventArgs)e;
-        if(!_loadedConfigList.Contains(evt.ConfigName))
-        {
-            _loadedConfigList.Add(evt.ConfigName);
-        }
-
-        //配置加载完成，给程序内部字段赋值
-        if(_loadedConfigList.Count == _configs.Length)
-        {
-            GameManager.Base.GameVersion = GameManager.Config.GetString(Const.BuildConfigKey.GameVersion);
-            GameManager.Base.InternalApplicationVersion = GameManager.Config.GetInt(Const.BuildConfigKey.InternalVersion);
-            NetworkExtension.GameServerIP = GameManager.Config.GetString(Const.ServerConfigKey.GameServerIP);
-            NetworkExtension.GameServerPort = GameManager.Config.GetInt(Const.ServerConfigKey.GameServerPort);
-
-            _isConfigInitComplete = true;
-            Log.Info("PrecedureLaunch ==> Base config init complete!");
-        }
     }
 }
