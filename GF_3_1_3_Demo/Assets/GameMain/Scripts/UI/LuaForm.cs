@@ -6,6 +6,7 @@
 
 using UnityEngine;
 using UnityGameFramework.Runtime;
+using XLua;
 
 /// <summary>
 /// Lua界面
@@ -16,7 +17,7 @@ public class LuaForm : UGuiForm
     {
         base.OnInit(userData);
         
-
+        
     }
 
     protected internal override void OnOpen(object userData)

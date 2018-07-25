@@ -1,5 +1,20 @@
+-- Lua_Files = 
+-- {
+-- 	"main",
+-- 	"xlua/util",
+-- 	"perf/memory",
+-- 	"perf/profiler",
+-- 	"",	
+-- }
+require "xlua/util"
+require "perf/memory"
+require "perf/profiler"
+require "Manager.LuaWindowManager"
+
 function main(  )
-	print("main.lua is running...")
+	print("main.lua running...")
+
+	LuaWindowManager:Init()
 end
 
 main()

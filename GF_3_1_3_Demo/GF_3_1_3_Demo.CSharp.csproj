@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -269,8 +267,8 @@
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestFailureEventArgs.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestStartEventArgs.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestSuccessEventArgs.cs" />
-    <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameManager.cs" />
+    <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Camera\CameraComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\CustomDataTableHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRMusic.cs" />
@@ -287,6 +285,10 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\LocalizationExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaFailureEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaSuccessEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\LuaComponent.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\LuaFileInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
@@ -307,6 +309,7 @@
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCheckVersion.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureCity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureLaunch.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureLoadLua.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureMenu.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedurePreload.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureSplash.cs" />
@@ -320,6 +323,7 @@
     <Compile Include="Assets\GameMain\Scripts\UI\Data\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\LoadingForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\LuaForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MenuForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UGuiGroupHelper.cs" />
@@ -328,6 +332,35 @@
     <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\GameUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
+    <Compile Include="Assets\XLua\Gen\BaseConfigComponentWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\DelegatesGensBridge.cs" />
+    <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\GameManagerWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\PackUnpack.cs" />
+    <Compile Include="Assets\XLua\Gen\WrapPusher.cs" />
+    <Compile Include="Assets\XLua\Gen\XLuaGenAutoRegister.cs" />
+    <Compile Include="Assets\XLua\Src\CodeEmit.cs" />
+    <Compile Include="Assets\XLua\Src\CopyByValue.cs" />
+    <Compile Include="Assets\XLua\Src\DelegateBridge.cs" />
+    <Compile Include="Assets\XLua\Src\GenAttributes.cs" />
+    <Compile Include="Assets\XLua\Src\InternalGlobals.cs" />
+    <Compile Include="Assets\XLua\Src\LuaBase.cs" />
+    <Compile Include="Assets\XLua\Src\LuaDLL.cs" />
+    <Compile Include="Assets\XLua\Src\LuaEnv.cs" />
+    <Compile Include="Assets\XLua\Src\LuaException.cs" />
+    <Compile Include="Assets\XLua\Src\LuaFunction.cs" />
+    <Compile Include="Assets\XLua\Src\LuaTable.cs" />
+    <Compile Include="Assets\XLua\Src\MethodWarpsCache.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectCasters.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectPool.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectTranslator.cs" />
+    <Compile Include="Assets\XLua\Src\ObjectTranslatorPool.cs" />
+    <Compile Include="Assets\XLua\Src\RawObject.cs" />
+    <Compile Include="Assets\XLua\Src\SignatureLoader.cs" />
+    <Compile Include="Assets\XLua\Src\StaticLuaCallbacks.cs" />
+    <Compile Include="Assets\XLua\Src\TemplateEngine\TemplateEngine.cs" />
+    <Compile Include="Assets\XLua\Src\TypeExtensions.cs" />
+    <Compile Include="Assets\XLua\Src\Utils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameFramework\Configs\AssetBundleBuilder.xml" />
@@ -339,7 +372,26 @@
     <None Include="Assets\GameMain\Config\ServerConfig.txt" />
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
+    <None Include="Assets\XLua\CHANGELOG.txt" />
+    <None Include="Assets\XLua\Gen\link.xml" />
+    <None Include="Assets\XLua\Resources\Manager\LuaWindowManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\main.lua.txt" />
+    <None Include="Assets\XLua\Resources\perf\memory.lua.txt" />
+    <None Include="Assets\XLua\Resources\perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\xlua\util.lua.txt" />
+    <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

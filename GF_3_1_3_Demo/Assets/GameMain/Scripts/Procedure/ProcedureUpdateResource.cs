@@ -36,6 +36,8 @@ public class ProcedureUpdateResource : GameProcedureBase
 
         if(m_IsUpdateAllComplete)
         {
+            Log.Info("更新后，最新当前资源适用游戏版本: ApplicableGameVersion : {0}.", GameManager.Resource.ApplicableGameVersion);
+            Log.Info("更新后，最新内部资源版本号: {0}.", GameManager.Resource.InternalResourceVersion);
             ChangeState<ProcedurePreload>(procedureOwner);
         }
     }

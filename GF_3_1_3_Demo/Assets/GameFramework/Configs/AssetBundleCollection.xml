@@ -5,6 +5,7 @@
       <AssetBundle Name="ChineseLocalization" LoadType="0" Packed="False" />
       <AssetBundle Name="DataTables" LoadType="0" Packed="False" />
       <AssetBundle Name="EnglishLocalization" LoadType="0" Packed="False" />
+      <AssetBundle Name="Lua" LoadType="0" Packed="False" />
       <AssetBundle Name="Scene1" LoadType="0" Packed="False" />
       <AssetBundle Name="UIForms" LoadType="0" Packed="False" />
     </AssetBundles>
@@ -13,6 +14,11 @@
       <Asset Guid="14869ac0d4433f04db1704e39d03412e" AssetBundleName="EnglishLocalization" />
       <Asset Guid="2b23bf14be376f14084faac3352c32f9" AssetBundleName="UIForms" />
       <Asset Guid="3d1a2849397dffc4ba599380170fa793" AssetBundleName="DataTables" />
+      <Asset Guid="4397ec772c2d41e46a9766cf46b8bec6" AssetBundleName="Lua" />
+      <Asset Guid="4841b87b13a684649aab9de0e72132b7" AssetBundleName="Lua" />
+      <Asset Guid="4c3588f440f743941a8a1752a7b71502" AssetBundleName="Lua" />
+      <Asset Guid="518a0716b92f219428bf69face873bf9" AssetBundleName="Lua" />
+      <Asset Guid="6a5cba5df35473342b614686c15f8a4c" AssetBundleName="Lua" />
       <Asset Guid="70d21757bb132684bbed6d3f2c7aad07" AssetBundleName="DataTables" />
       <Asset Guid="77cbb7c5404c10242ab59953e0746314" AssetBundleName="ChineseLocalization" />
       <Asset Guid="809d5922cff253743a3696f4bc24a601" AssetBundleName="UIForms" />

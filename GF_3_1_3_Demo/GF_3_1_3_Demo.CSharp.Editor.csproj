@@ -176,6 +176,11 @@
     <Compile Include="Assets\GameFramework\Scripts\Editor\Misc\LogRedirection.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\Misc\OpenFolder.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\Misc\Type.cs" />
+    <Compile Include="Assets\XLua\Src\Editor\Generator.cs" />
+    <Compile Include="Assets\XLua\Src\Editor\Hotfix.cs" />
+    <Compile Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.cs" />
+    <Compile Include="Assets\XLua\Src\Editor\StaticConfig\XLuaStaticConfig.cs" />
+    <Compile Include="Assets\XLua\Src\Editor\TemplateRef.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\GameFramework\Configs\AssetBundleBuilder.xml" />
@@ -187,6 +192,26 @@
     <None Include="Assets\GameMain\Config\ServerConfig.txt" />
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
+    <None Include="Assets\XLua\CHANGELOG.txt" />
+    <None Include="Assets\XLua\Gen\link.xml" />
+    <None Include="Assets\XLua\Resources\Manager\LuaWindowManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\main.lua.txt" />
+    <None Include="Assets\XLua\Resources\perf\memory.lua.txt" />
+    <None Include="Assets\XLua\Resources\perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\xlua\util.lua.txt" />
+    <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateBridge.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaDelegateWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrap.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaEnumWrapGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaInterfaceBridge.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaRegister.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaRegisterGCM.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\LuaWrapPusher.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
+    <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

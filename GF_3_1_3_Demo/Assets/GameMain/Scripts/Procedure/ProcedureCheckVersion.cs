@@ -79,6 +79,9 @@ public class ProcedureCheckVersion : GameProcedureBase
         {
             Log.Info("资源是最新的，无需更新。");
             m_IsUpdateVersionListComplete = true;
+
+            Log.Info("最新当前资源适用游戏版本: ApplicableGameVersion : {0}.", GameManager.Resource.ApplicableGameVersion);
+            Log.Info("最新内部资源版本号: {0}.", GameManager.Resource.InternalResourceVersion);
             return;
         }
 

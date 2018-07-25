@@ -43,8 +43,8 @@ def gen_version_json():
 	resource_zip_hashcode = android_info.getAttribute("ZipHashCode")
 
 	json_dict = collections.OrderedDict()
-	json_dict["LatestGameVersion"] = "1.0"
-	json_dict["ApplicableGameVersion"] = [applicable_game_version]
+	json_dict["LatestGameVersion"] = applicable_game_version
+	json_dict["ApplicableGameVersion"] = applicable_game_version
 	json_dict["LatestInternalResourceVersion"] = latest_internal_resourceVersion
 	json_dict["ResourceUpdateUrl"] = "http://192.168.1.104/GF_Demo/Full"
 	json_dict["ResourceLength"] = resource_length

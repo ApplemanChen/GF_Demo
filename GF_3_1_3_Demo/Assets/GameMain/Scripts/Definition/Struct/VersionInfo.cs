@@ -19,7 +19,7 @@ public class VersionInfo
     /// <summary>
     /// 最新资源适用的游戏版本列表
     /// </summary>
-    public string[] ApplicableGameVersion;
+    public string ApplicableGameVersion;
     /// <summary>
     /// 最新内部资源版本号
     /// </summary>

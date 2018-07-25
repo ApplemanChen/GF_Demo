@@ -1,5 +1,5 @@
 ManifestFileVersion: 0
-CRC: 2367055208
+CRC: 1794359509
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
@@ -12,8 +12,11 @@ AssetBundleManifest:
       Name: englishlocalization
       Dependencies: {}
     Info_3:
-      Name: scene1
+      Name: lua
       Dependencies: {}
     Info_4:
+      Name: scene1
+      Dependencies: {}
+    Info_5:
       Name: uiforms
       Dependencies: {}

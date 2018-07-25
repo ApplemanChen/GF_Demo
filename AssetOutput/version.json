@@ -1,12 +1,10 @@
 {
     "LatestGameVersion": "1.0",
-    "ApplicableGameVersion": [
-        "1.0"
-    ],
-    "LatestInternalResourceVersion": "8",
+    "ApplicableGameVersion": "1.0",
+    "LatestInternalResourceVersion": "10",
     "ResourceUpdateUrl": "http://192.168.1.104/GF_Demo/Full",
-    "ResourceLength": "813",
-    "ResourceHashCode": "981367601",
-    "ResourceZipLength": "598",
-    "ResourceZipHashCode": "2054724924"
+    "ResourceLength": "1075",
+    "ResourceHashCode": "-1203900211",
+    "ResourceZipLength": "752",
+    "ResourceZipHashCode": "407221044"
 }
