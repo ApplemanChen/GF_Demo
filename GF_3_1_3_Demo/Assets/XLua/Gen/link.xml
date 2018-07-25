@@ -1,0 +1,11 @@
+﻿
+
+<linker>
+
+	<assembly fullname="Assembly-CSharp">
+	    <type fullname="GameManager" preserve="all"/>
+		<type fullname="BaseConfigComponent" preserve="all"/>
+		
+	</assembly>
+
+</linker>

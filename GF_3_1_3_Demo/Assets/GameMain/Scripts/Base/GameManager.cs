@@ -108,6 +108,13 @@ public class GameManager : MonoBehaviour
         get;
     }
 
+    public static LuaComponent Lua
+    {
+        private set;
+        get;
+    }
+
+
     #endregion
 
 
@@ -128,6 +135,7 @@ public class GameManager : MonoBehaviour
         Scene = GameEntry.GetComponent<SceneComponent>();
         WebRequest = GameEntry.GetComponent<WebRequestComponent>();
         BaseConfig = GameEntry.GetComponent<BaseConfigComponent>();
+        Lua = GameEntry.GetComponent<LuaComponent>();
     }
 
     private void InitCustomComponents()

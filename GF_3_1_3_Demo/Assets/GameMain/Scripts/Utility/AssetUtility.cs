@@ -101,4 +101,14 @@ public static class AssetUtility {
     {
         return string.Format("Assets/GameMain/Localization/{0}/Fonts/{1}.ttf", GameManager.Localization.Language.ToString(), assetName);
     }
+
+    /// <summary>
+    /// Lua资源
+    /// </summary>
+    /// <param name="assetName">资源名</param>
+    /// <returns></returns>
+    public static string GetLuaAsset(string assetName)
+    {
+        return string.Format("Assets/XLua/Resources/{0}.lua.txt",assetName);
+    }
 }

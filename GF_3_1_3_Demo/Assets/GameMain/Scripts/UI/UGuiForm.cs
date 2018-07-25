@@ -56,7 +56,6 @@ public abstract class UGuiForm : UIFormLogic
 
         if (ignoreFade)
         {
-            Log.Debug("1111 serialId:"+UIForm.SerialId);
             GameManager.UI.CloseUIForm(this);
         }
         else
@@ -176,6 +175,11 @@ public abstract class UGuiForm : UIFormLogic
             canvases[i].sortingOrder += deltaDepth;
         }
     }
+    
+    protected virtual void OnOpenComplete()
+    {
+
+    }
 
     private IEnumerator PlayCloseTween(float duration)
     {
@@ -209,7 +213,7 @@ public abstract class UGuiForm : UIFormLogic
             case UITweenType.Fade:
                 {
                     m_CanvasGroup.alpha = 0f;
-                    StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+                    StartCoroutine(OpenByAlpha());
                 }
                 break;
             case UITweenType.Scale:
@@ -217,10 +221,22 @@ public abstract class UGuiForm : UIFormLogic
                     if (m_BackgroundRectTrans)
                     {
                         m_BackgroundRectTrans.localScale = Vector3.one * 0.1f;
-                        StartCoroutine(m_BackgroundRectTrans.FadeToScale(Vector3.one, FadeTime));
+                        StartCoroutine(OpenByScale());
                     }
                 }
                 break;
         }
+    }
+
+    private IEnumerator OpenByAlpha()
+    {
+        yield return  m_CanvasGroup.FadeToAlpha(1f, FadeTime);
+        OnOpenComplete();
+    }
+
+    private IEnumerator OpenByScale()
+    {
+        yield return m_BackgroundRectTrans.FadeToScale(Vector3.one, FadeTime);
+        OnOpenComplete();
     }
 }

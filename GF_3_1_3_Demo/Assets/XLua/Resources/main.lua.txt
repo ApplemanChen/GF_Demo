@@ -1,0 +1,5 @@
+function main(  )
+	print("main.lua is running...")
+end
+
+main()

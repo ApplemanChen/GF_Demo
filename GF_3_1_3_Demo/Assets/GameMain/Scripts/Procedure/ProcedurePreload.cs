@@ -53,7 +53,7 @@ public class ProcedurePreload : GameProcedureBase
             }
         }
 
-        ChangeState<ProcedureMenu>(procedureOwner);
+        ChangeState<ProcedureLoadLua>(procedureOwner);
     }
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

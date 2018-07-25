@@ -58,10 +58,5 @@ public class LoadingForm : UGuiForm
         LoadSceneUpdateEventArgs ne = (LoadSceneUpdateEventArgs)e;
 
         UpdatePercent(ne.Progress);
-
-        //if(ne.Progress >= 1f)
-        //{
-        //    Close();
-        //}
     }
 }
