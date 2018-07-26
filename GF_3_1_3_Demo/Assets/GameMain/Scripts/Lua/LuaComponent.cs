@@ -59,6 +59,7 @@ public class LuaComponent : GameFrameworkComponent
         if(m_LuaEnv != null)
         {
             m_LuaEnv.Dispose();
+            m_LuaEnv = null;
         }
     }
 

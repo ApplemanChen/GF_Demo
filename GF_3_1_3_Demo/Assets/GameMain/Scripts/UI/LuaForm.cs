@@ -14,16 +14,16 @@ using XLua;
 /// </summary>
 public class LuaForm : UGuiForm
 {
-    private string luaManager = "Manager/LuaFormManager";
-    private string managerClass = "LuaFormManager";
-    private string formName = "";
+    private string m_FormManagerName = "Manager/LuaFormManager";
+    private string m_ManagerClass = "LuaFormManager";
+    private string m_FormName = "";
     private LuaTable m_FormManagerLuaTable;
 
     protected internal override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        formName = Name;
+        m_FormName = Name;
     }
 
     protected internal override void OnOpen(object userData)
@@ -31,16 +31,16 @@ public class LuaForm : UGuiForm
         base.OnOpen(userData);
 
         //先执行界面Lua，将Form注册到LuaFormManager中
-        LuaTable luaTable = GameManager.Lua.GetLuaTable(luaManager, managerClass, "FormIDToLuaName");
-        string luaName = luaTable.Get<string>(formName);
+        LuaTable luaTable = GameManager.Lua.GetLuaTable(m_FormManagerName, m_ManagerClass, "FormIDToLuaName");
+        string luaName = luaTable.Get<string>(m_FormName);
         GameManager.Lua.DoLuaFile(luaName);
         luaTable.Dispose();
 
         //再调用LuaFormManager的方法
-        m_FormManagerLuaTable = GameManager.Lua.GetClassLuaTable(luaManager, managerClass);
+        m_FormManagerLuaTable = GameManager.Lua.GetClassLuaTable(m_FormManagerName, m_ManagerClass);
         if(m_FormManagerLuaTable != null)
         {
-            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable,"Open",formName,CachedTransform);
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable,"Open",m_FormName,CachedTransform);
         }
     }
 
@@ -50,7 +50,7 @@ public class LuaForm : UGuiForm
 
         if (m_FormManagerLuaTable != null)
         {
-            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnUpdate",formName, elapseSeconds, realElapseSeconds);
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnUpdate",m_FormName, elapseSeconds, realElapseSeconds);
         }
     }
 
@@ -60,7 +60,7 @@ public class LuaForm : UGuiForm
 
         if (m_FormManagerLuaTable != null)
         {
-            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnClose", formName);
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnClose", m_FormName);
         }
     }
 
@@ -70,7 +70,7 @@ public class LuaForm : UGuiForm
 
         if (m_FormManagerLuaTable != null)
         {
-            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnOpenComplete", formName);
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnOpenComplete", m_FormName);
         }
     }
 }
