@@ -117,9 +117,9 @@ public static class AssetUtility {
     /// <summary>
     /// 获取指定目录下所有指定后缀资源名的文件路径
     /// </summary>
-    /// <param name="parentPath"></param>
-    /// <param name="suffix"></param>
-    /// <param name="fileList"></param>
+    /// <param name="rootPath">根路径</param>
+    /// <param name="suffix">后缀名</param>
+    /// <param name="fileList">得到的文件列表</param>
     public static void GetSuffixAssetPaths(string rootPath, string suffix, ref List<string> fileList)
     {
         string[] dirs = Directory.GetDirectories(rootPath);

@@ -58,7 +58,7 @@ public sealed class LoadLuaSuccessEventArgs : GameEventArgs
         LuaName = default(string);
     }
 
-    public LoadLuaSuccessEventArgs Filll(string assetName,string luaName,string luaString)
+    public LoadLuaSuccessEventArgs Fill(string assetName,string luaName,string luaString)
     {
         AssetName = assetName;
         LuaName = luaName;

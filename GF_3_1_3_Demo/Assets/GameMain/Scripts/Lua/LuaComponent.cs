@@ -93,7 +93,7 @@ public class LuaComponent : GameFrameworkComponent
 
         if(m_CacheLuaDict.ContainsKey(luaName))
         {
-            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Filll(assetName, luaName, m_CacheLuaDict[luaName]));
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName, luaName, m_CacheLuaDict[luaName]));
             return;
         }
 
@@ -199,7 +199,7 @@ public class LuaComponent : GameFrameworkComponent
         m_CacheLuaDict.Add(luaName, textAsset.text);
 
         Log.Info("Load lua '{0}' success.",luaName);
-        m_EventComponent.Fire(this,ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Filll(assetName,luaName,textAsset.text));
+        m_EventComponent.Fire(this,ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName,luaName,textAsset.text));
     }
 
     private void OnLoadLuaAssetFailure(string assetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)
