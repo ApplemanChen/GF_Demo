@@ -88,6 +88,9 @@ public abstract class UGuiForm : UIFormLogic
     {
         base.OnInit(userData);
 
+        //界面命名
+        Name = CachedTransform.name.Replace("(Clone)","");
+
         m_CachedCanvas = gameObject.GetOrAddComponent<Canvas>();
         m_CachedCanvas.overrideSorting = true;
         OriginalDepth = m_CachedCanvas.sortingOrder;

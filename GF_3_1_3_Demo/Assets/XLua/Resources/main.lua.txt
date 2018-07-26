@@ -6,15 +6,16 @@
 -- 	"perf/profiler",
 -- 	"",	
 -- }
-require "xlua/util"
-require "perf/memory"
-require "perf/profiler"
-require "Manager.LuaWindowManager"
+require "Util/util"
+require "Perf/memory"
+require "Perf/profiler"
+require "Base/class"
+require "Manager.LuaFormManager"
 
 function main(  )
 	print("main.lua running...")
 
-	LuaWindowManager:Init()
+	LuaFormManager:Init()
 end
 
 main()

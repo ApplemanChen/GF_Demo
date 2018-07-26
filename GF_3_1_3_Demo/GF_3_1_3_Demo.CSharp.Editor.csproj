@@ -114,6 +114,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\GameEditor\Editor\GTLua.cs" />
+    <Compile Include="Assets\GameEditor\Editor\GameTools.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzer.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzerController.CircularDependencyChecker.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzerController.Stamp.cs" />
@@ -194,11 +196,14 @@
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
     <None Include="Assets\XLua\CHANGELOG.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
-    <None Include="Assets\XLua\Resources\Manager\LuaWindowManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\Base\class.lua.txt" />
+    <None Include="Assets\XLua\Resources\Forms\Login\LoginForm.lua.txt" />
+    <None Include="Assets\XLua\Resources\Forms\Login\LoginItem.lua.txt" />
+    <None Include="Assets\XLua\Resources\Manager\LuaFormManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\Perf\memory.lua.txt" />
+    <None Include="Assets\XLua\Resources\Perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\Util\util.lua.txt" />
     <None Include="Assets\XLua\Resources\main.lua.txt" />
-    <None Include="Assets\XLua\Resources\perf\memory.lua.txt" />
-    <None Include="Assets\XLua\Resources\perf\profiler.lua.txt" />
-    <None Include="Assets\XLua\Resources\xlua\util.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />

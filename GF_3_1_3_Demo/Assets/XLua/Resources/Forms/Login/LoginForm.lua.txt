@@ -1,0 +1,16 @@
+﻿require "Forms.Login.LoginItem"
+
+LoginForm = class("LoginForm")
+LuaFormManager.formClassDict["LoginForm"] = LoginForm
+
+local this = LoginForm
+
+function this:ctor( transform )
+	print("LoginForm Opened.")
+
+	local item = LoginItem.New(nil)
+end
+
+function this:OnOpenComplete(  )
+	print("LoginForm OnOpenComplete")
+end

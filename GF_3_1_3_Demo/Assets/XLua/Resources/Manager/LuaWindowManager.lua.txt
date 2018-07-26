@@ -1,5 +1,0 @@
-LuaWindowManager = {}
-
-function LuaWindowManager:Init(  )
-	print("LuaWindowManager init....")
-end

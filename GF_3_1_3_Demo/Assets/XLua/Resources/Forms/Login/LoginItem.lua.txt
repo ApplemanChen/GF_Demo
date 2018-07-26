@@ -1,0 +1,7 @@
+LoginItem = class("LoginItem")
+
+local this = LoginItem
+
+function this:ctor( transform )
+	print("loginItem = New.")
+end

@@ -2,6 +2,7 @@
 /// <summary>
 /// 资源路径工具类
 /// </summary>
+using System.Collections.Generic;
 public static class AssetUtility {
 
     /// <summary>
@@ -111,4 +112,15 @@ public static class AssetUtility {
     {
         return string.Format("Assets/XLua/Resources/{0}.lua.txt",assetName);
     }
+
+    ///// <summary>
+    ///// 获取指定目录下所有指定后缀资源名的文件路径
+    ///// </summary>
+    ///// <param name="parentPath"></param>
+    ///// <param name="suffix"></param>
+    ///// <param name="returnPathList"></param>
+    //public static void GetSuffixAssetPaths(string parentPath,string suffix,out List<string> returnPathList)
+    //{
+        
+    //}
 }

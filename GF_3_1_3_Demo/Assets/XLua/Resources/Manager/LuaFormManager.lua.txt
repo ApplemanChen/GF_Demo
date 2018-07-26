@@ -1,0 +1,68 @@
+-- Lua界面管理器
+LuaFormManager = {}
+
+local this = LuaFormManager
+
+-- 配置界面id对应LuaName
+this.FormIDToLuaName = 
+{
+	["LoginForm"] = "Forms/Login/LoginForm",
+}
+
+-- 需要在每个界面类里面注册在这里
+this.formClassDict = {}
+-- 生成的类实例
+this.formInstanceDict = {}
+
+function LuaFormManager:Init(  )
+	print("LuaFormManager init....")
+
+end
+
+-- 开始打开界面
+function LuaFormManager.Open( formName,transform )
+	local self = this
+	for className,formClass in pairs(self.formClassDict) do
+		if className == formName then
+			local form = formClass.New()
+			self.formInstanceDict[className] = form
+		end
+	end
+end
+
+-- 打开完成
+function LuaFormManager.OnOpenComplete( formName)
+	local self = this
+	for className,form in pairs(self.formInstanceDict) do
+		if className == formName then
+			if self.formInstanceDict[className].OnOpenComplete then
+				self.formInstanceDict[className]:OnOpenComplete()
+			end
+		end
+	end
+end
+
+-- 更新
+function LuaFormManager.OnUpdate( formName,elapseSeconds, realElapseSeconds)
+	local self = this
+	for className,form in pairs(self.formInstanceDict) do
+		if className == formName then
+			if self.formInstanceDict[className].OnUpdate then
+				self.formInstanceDict[className]:OnUpdate(elapseSeconds, realElapseSeconds)
+			end
+		end
+	end
+end
+
+-- 开始关闭界面
+function LuaFormManager.OnClose( formName )
+	local self = this
+	for className,form in pairs(self.formInstanceDict) do
+		if className == formName then
+			if self.formInstanceDict[className].OnClose then
+				self.formInstanceDict[className]:OnClose()
+			end
+			self.formInstanceDict[className] = nil
+		end
+	end
+end

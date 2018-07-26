@@ -30,4 +30,9 @@ public enum UIFormId
     /// 关于。
     /// </summary>
     AboutForm = 100103,
+
+    /// <summary>
+    /// 登录
+    /// </summary>
+    LoginForm = 100104,
 }

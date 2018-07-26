@@ -9,7 +9,7 @@ using System.Collections.Generic;
 using XLua;
 
 /// <summary>
-/// XLua静态配置类
+/// XLua静态Wrap配置类
 /// </summary>
 public static class XLuaStaticConfig
 {

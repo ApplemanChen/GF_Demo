@@ -4,6 +4,7 @@
 // Email: 1184923569@qq.com
 //------------------------------------------------------------
 
+using UnityEngine;
 using GameFramework;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
@@ -15,8 +16,7 @@ using GameFramework.Event;
 /// </summary>
 public class ProcedureLoadLua : GameProcedureBase
 {
-    private List<LuaFileInfo> m_LuaFileInfos = new List<LuaFileInfo>();
-    private string LuaRootPath = "Assets/XLua/Resources/";
+    private List<LuaFileInfo> m_LuaFileInfos = LuaFilesConfig.FilesConfigList;
     private Dictionary<string, bool> m_loadedFlag = new Dictionary<string, bool>();
 
     protected override void OnEnter(ProcedureOwner procedureOwner)
@@ -24,8 +24,6 @@ public class ProcedureLoadLua : GameProcedureBase
         base.OnEnter(procedureOwner);
 
         GameManager.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
-
-        m_LuaFileInfos.Add(new LuaFileInfo("main"));
 
         for (int i = 0; i < m_LuaFileInfos.Count;i++ )
         {
@@ -48,6 +46,7 @@ public class ProcedureLoadLua : GameProcedureBase
         }
 
         GameManager.Lua.DoLuaFile("main");
+        GameManager.Lua.DoLuaFile("Manager/LuaFormManager");
 
         ChangeState<ProcedureMenu>(procedureOwner);
     }

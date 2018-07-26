@@ -289,6 +289,7 @@
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaSuccessEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaFileInfo.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\LuaFilesConfig.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkChannelHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\NetworkExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
@@ -374,11 +375,14 @@
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
     <None Include="Assets\XLua\CHANGELOG.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
-    <None Include="Assets\XLua\Resources\Manager\LuaWindowManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\Base\class.lua.txt" />
+    <None Include="Assets\XLua\Resources\Forms\Login\LoginForm.lua.txt" />
+    <None Include="Assets\XLua\Resources\Forms\Login\LoginItem.lua.txt" />
+    <None Include="Assets\XLua\Resources\Manager\LuaFormManager.lua.txt" />
+    <None Include="Assets\XLua\Resources\Perf\memory.lua.txt" />
+    <None Include="Assets\XLua\Resources\Perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\Util\util.lua.txt" />
     <None Include="Assets\XLua\Resources\main.lua.txt" />
-    <None Include="Assets\XLua\Resources\perf\memory.lua.txt" />
-    <None Include="Assets\XLua\Resources\perf\profiler.lua.txt" />
-    <None Include="Assets\XLua\Resources\xlua\util.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrap.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\LuaClassWrapGCM.tpl.txt" />

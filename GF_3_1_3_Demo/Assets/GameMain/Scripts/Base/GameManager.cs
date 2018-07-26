@@ -3,7 +3,7 @@ using UnityGameFramework.Runtime;
 
 /// <summary>
 /// 游戏全局入口
-/// 接管GF的GameEntry入口
+/// 接管UGF的GameEntry入口
 /// </summary>
 public class GameManager : MonoBehaviour
 {
