@@ -458,10 +458,24 @@ namespace XLua
 
         public bool AllDelegateBridgeReleased()
         {
+            int aliveDelegateCount = 0;
+            foreach(var kv in delegate_bridges)
+            {
+                if(kv.Value.IsAlive)
+                {
+                    aliveDelegateCount++;
+                }
+            }
+            if(aliveDelegateCount > 0)
+            {
+                UnityEngine.Debug.LogError(string.Format("ObjectTranslator: ==> 还有{0}个委托没有释放！",aliveDelegateCount));
+            }
+
             foreach (var kv in delegate_bridges)
             {
                 if (kv.Value.IsAlive)
                 {
+                    //UnityEngine.Debug.LogError(string.Format("ObjectTranslator: ==> {0}！", aliveDelegateCount));
                     return false;
                 }
             }

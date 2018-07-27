@@ -142,10 +142,16 @@ public static class UIExtension
         CloseUIForm(uiComponent,formId);
     }
 
-    public static void CloseUIForm(this UIComponent uiComponent,UIFormId uiFormId)
+    public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId)
     {
         UGuiForm uiForm = uiComponent.GetUIForm(uiFormId);
         uiComponent.CloseUIForm(uiForm);
+    }
+
+    public static int? OpenUIForm(this UIComponent uiComponent,string uiFormId,object userData = null)
+    {
+        UIFormId formId = (UIFormId)Enum.Parse(typeof(UIFormId), uiFormId);
+        return uiComponent.OpenUIForm(formId,userData);
     }
 
     public static int? OpenUIForm(this UIComponent uiComponent, UIFormId uiFormId, object userData = null)

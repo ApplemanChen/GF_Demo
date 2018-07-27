@@ -27,6 +27,8 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(LuaCallStatic), LuaCallStaticWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(DialogParams), DialogParamsWrap.__Register);
+				
 				translator.DelayWrapLoader(typeof(UIExtension), UIExtensionWrap.__Register);
 				
 				

@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using XLua;
 using UnityGameFramework.Runtime;
 using UnityEditor;
+using GameFramework;
 
 /// <summary>
 /// XLua静态Wrap配置类
@@ -21,12 +22,14 @@ public static class XLuaStaticConfig
         typeof(GameManager),
         typeof(BaseConfigComponent),
         typeof(LuaCallStatic),
+        typeof(DialogParams),
     };
 
     [CSharpCallLua]
     public static List<Type> cshapCallLuaTypeList = new List<Type>()
     {
         typeof(UnityEngine.Events.UnityAction),
+        typeof(GameFrameworkAction<object>),
     };
 
     /// <summary>

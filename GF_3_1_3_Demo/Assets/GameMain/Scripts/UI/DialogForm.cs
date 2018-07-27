@@ -29,7 +29,7 @@ public class DialogForm : UGuiForm
         _dialogParams = (DialogParams)userData;
         _userData = _dialogParams.UserData;
 
-        for (int i = 1; i < 3;i++ )
+        for (int i = 1; i <=3;i++ )
         {
             GameObject go = CachedTransform.Find("Mask/Background/ButtonGroup" + i).gameObject;
             go.SetActive(i==_dialogParams.Mode);

@@ -336,6 +336,7 @@
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
     <Compile Include="Assets\XLua\Gen\BaseConfigComponentWrap.cs" />
     <Compile Include="Assets\XLua\Gen\DelegatesGensBridge.cs" />
+    <Compile Include="Assets\XLua\Gen\DialogParamsWrap.cs" />
     <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
     <Compile Include="Assets\XLua\Gen\GameManagerWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaCallStaticWrap.cs" />

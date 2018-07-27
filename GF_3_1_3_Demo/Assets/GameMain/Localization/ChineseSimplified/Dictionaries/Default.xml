@@ -12,7 +12,7 @@
     <String Key="Menu.QuitButton" Value="退出" />
     <String Key="Dialog.ConfirmButton" Value="确定" />
     <String Key="Dialog.CancelButton" Value="取消" />
-    <String Key="Dialog.OtherButton" Value="" />
+    <String Key="Dialog.OtherButton" Value="其他" />
     <String Key="ForceUpdate.Title" Value="强制更新" />
     <String Key="ForceUpdate.Message" Value="当前游戏版本过旧，是否前往更新？" />
     <String Key="ForceUpdate.UpdateButton" Value="更新" />

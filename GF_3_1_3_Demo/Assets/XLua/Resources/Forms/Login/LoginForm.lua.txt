@@ -5,27 +5,34 @@ LuaFormManager.formClassDict["LoginForm"] = LoginForm
 
 local this = LoginForm
 
+local LuaCall = CS.LuaCallStatic
+
 function this:ctor( transform )
 	print("LoginForm Opened.")
 
-	self.btn = transform:Find("Panel/Button"):GetComponent("Button")
+	self.btn = transform:Find("Panel/Button").gameObject
 
 	self.OnBtnClick = function (  )
-		self:RemoveEvent()
-		CS.LuaCallStatic.LuaCloseForm("LoginForm")
+		-- LuaCall.LuaCloseForm("LoginForm")
+		local dialogParam = CS.DialogParams()
+		dialogParam.Mode = 3
+		dialogParam.Title = "Title"
+		dialogParam.Message = "This is Message"
+
+		LuaCall.LuaOpenForm("DialogForm",dialogParam)
 	end
 
-	self.btn.onClick:AddListener(self.OnBtnClick)
+	LuaCall.AddButtonClick(self.btn,self.OnBtnClick)
+end
+
+function this:RemoveEvent(  )
+	LuaCall.RemoveButtonClick(self.btn,self.OnBtnClick)
 end
 
 function this:OnOpenComplete(  )
 	print("LoginForm OnOpenComplete")
 end
 
-function this:RemoveEvent(  )
-	self.btn.onClick:RemoveListener(self.OnBtnClick)
-end
-
-function this:OnDestroy(  )
+function this:OnClose(  )
 	self:RemoveEvent()
 end

@@ -8,6 +8,7 @@ using UnityEngine;
 using GameFramework;
 using UnityGameFramework.Runtime;
 using XLua;
+using System.Collections.Generic;
 
 /// <summary>
 /// Lua界面
@@ -18,6 +19,8 @@ public class LuaForm : UGuiForm
     private string m_ManagerClass = "LuaFormManager";
     private string m_FormName = "";
     private LuaTable m_FormManagerLuaTable;
+
+
 
     protected internal override void OnInit(object userData)
     {

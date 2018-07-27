@@ -12,7 +12,7 @@
     <String Key="Menu.QuitButton" Value="QUIT" />
     <String Key="Dialog.ConfirmButton" Value="OK" />
     <String Key="Dialog.CancelButton" Value="CANCEL" />
-    <String Key="Dialog.OtherButton" Value="" />
+    <String Key="Dialog.OtherButton" Value="OTHER" />
     <String Key="ForceUpdate.Title" Value="OUT OF DATE" />
     <String Key="ForceUpdate.Message" Value="The current game version is out-of-date. Would you like to go for update now?" />
     <String Key="ForceUpdate.UpdateButton" Value="UPDATE" />
