@@ -35,6 +35,7 @@ public class LuaForm : UGuiForm
         string luaName = luaTable.Get<string>(m_FormName);
         GameManager.Lua.DoLuaFile(luaName);
         luaTable.Dispose();
+        luaTable = null;
 
         //再调用LuaFormManager的方法
         m_FormManagerLuaTable = GameManager.Lua.GetClassLuaTable(m_FormManagerName, m_ManagerClass);
@@ -73,4 +74,16 @@ public class LuaForm : UGuiForm
             GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnOpenComplete", m_FormName);
         }
     }
+
+    public void OnDestroy()
+    {
+        if (m_FormManagerLuaTable != null)
+        {
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable, "OnDestroy", m_FormName);
+        }
+        m_FormManagerLuaTable.Dispose();
+        m_FormManagerLuaTable = null;
+    }
+
+
 }

@@ -8,9 +8,24 @@ local this = LoginForm
 function this:ctor( transform )
 	print("LoginForm Opened.")
 
-	local item = LoginItem.New(nil)
+	self.btn = transform:Find("Panel/Button"):GetComponent("Button")
+
+	self.OnBtnClick = function (  )
+		self:RemoveEvent()
+		CS.LuaCallStatic.LuaCloseForm("LoginForm")
+	end
+
+	self.btn.onClick:AddListener(self.OnBtnClick)
 end
 
 function this:OnOpenComplete(  )
 	print("LoginForm OnOpenComplete")
+end
+
+function this:RemoveEvent(  )
+	self.btn.onClick:RemoveListener(self.OnBtnClick)
+end
+
+function this:OnDestroy(  )
+	self:RemoveEvent()
 end

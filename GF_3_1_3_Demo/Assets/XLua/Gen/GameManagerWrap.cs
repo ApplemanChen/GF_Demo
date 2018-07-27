@@ -31,7 +31,7 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 2, 16, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 2, 17, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "ShutDown", _m_ShutDown_xlua_st_);
             
 			
@@ -52,6 +52,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "WebRequest", _g_get_WebRequest);
             Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Camera", _g_get_Camera);
             Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "BaseConfig", _g_get_BaseConfig);
+            Utils.RegisterFunc(L, Utils.CLS_GETTER_IDX, "Lua", _g_get_Lua);
             
 			
 			
@@ -303,6 +304,18 @@ namespace XLua.CSObjectWrap
 		    try {
                 ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
 			    translator.Push(L, GameManager.BaseConfig);
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            return 1;
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _g_get_Lua(RealStatePtr L)
+        {
+		    try {
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+			    translator.Push(L, GameManager.Lua);
             } catch(System.Exception gen_e) {
                 return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
             }

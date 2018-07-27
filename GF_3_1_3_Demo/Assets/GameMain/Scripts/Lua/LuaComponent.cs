@@ -136,6 +136,8 @@ public class LuaComponent : GameFrameworkComponent
         {
             LuaTable classLuaTable = m_LuaEnv.Global.Get<LuaTable>(className);
             LuaTable luaTable = classLuaTable.Get<LuaTable>(tableName);
+            classLuaTable.Dispose();
+            classLuaTable = null;
             return luaTable;
         }
         else
@@ -156,6 +158,7 @@ public class LuaComponent : GameFrameworkComponent
             LuaFunction luaFunction = luaTable.Get<LuaFunction>(funcName);
             luaFunction.Call(param);
             luaFunction.Dispose();
+            luaFunction = null;
         }else
         {
             Log.Error("LuaTable is invalid.");
@@ -178,6 +181,8 @@ public class LuaComponent : GameFrameworkComponent
            luaFunc.Call(parms);
            classLuaTable.Dispose();
            luaFunc.Dispose();
+           classLuaTable = null;
+           luaFunc = null;
         }
        else
        {

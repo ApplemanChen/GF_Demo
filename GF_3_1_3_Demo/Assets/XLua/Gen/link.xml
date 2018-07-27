@@ -5,6 +5,8 @@
 	<assembly fullname="Assembly-CSharp">
 	    <type fullname="GameManager" preserve="all"/>
 		<type fullname="BaseConfigComponent" preserve="all"/>
+		<type fullname="LuaCallStatic" preserve="all"/>
+		<type fullname="UIExtension" preserve="all"/>
 		
 	</assembly>
 

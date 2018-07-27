@@ -8,11 +8,13 @@ using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Procedure;
 using GameFramework.UI;
+using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
 
+[XLua.LuaCallCSharp]
 public static class UIExtension
 {
     public static IEnumerator FadeToAlpha(this CanvasGroup canvasGroup, float alpha, float duration)
@@ -131,6 +133,13 @@ public static class UIExtension
     public static void CloseUIForm(this UIComponent uiComponent, UGuiForm uiForm)
     {
         uiComponent.CloseUIForm(uiForm.UIForm);
+    }
+
+    public static void CloseUIForm(this UIComponent uiComponent,string uiFormId)
+    {
+        UIFormId formId = (UIFormId)Enum.Parse(typeof(UIFormId), uiFormId);
+
+        CloseUIForm(uiComponent,formId);
     }
 
     public static void CloseUIForm(this UIComponent uiComponent,UIFormId uiFormId)

@@ -24,7 +24,7 @@ function LuaFormManager.Open( formName,transform )
 	local self = this
 	for className,formClass in pairs(self.formClassDict) do
 		if className == formName then
-			local form = formClass.New()
+			local form = formClass.New(transform)
 			self.formInstanceDict[className] = form
 		end
 	end
@@ -61,6 +61,18 @@ function LuaFormManager.OnClose( formName )
 		if className == formName then
 			if self.formInstanceDict[className].OnClose then
 				self.formInstanceDict[className]:OnClose()
+			end
+		end
+	end
+end
+
+-- 销毁界面
+function LuaFormManager.OnDestroy( formName )
+	local self = this
+	for className,form in pairs(self.formInstanceDict) do
+		if className == formName then
+			if self.formInstanceDict[className].OnDestroy then
+				self.formInstanceDict[className]:OnDestroy()
 			end
 			self.formInstanceDict[className] = nil
 		end

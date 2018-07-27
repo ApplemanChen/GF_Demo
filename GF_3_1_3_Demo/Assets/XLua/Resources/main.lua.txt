@@ -1,11 +1,3 @@
--- Lua_Files = 
--- {
--- 	"main",
--- 	"xlua/util",
--- 	"perf/memory",
--- 	"perf/profiler",
--- 	"",	
--- }
 require "Util/util"
 require "Perf/memory"
 require "Perf/profiler"

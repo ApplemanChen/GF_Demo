@@ -25,6 +25,10 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(BaseConfigComponent), BaseConfigComponentWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(LuaCallStatic), LuaCallStaticWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIExtension), UIExtensionWrap.__Register);
+				
 				
 				
 			});
