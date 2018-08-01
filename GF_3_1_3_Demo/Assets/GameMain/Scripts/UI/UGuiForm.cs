@@ -113,15 +113,20 @@ public abstract class UGuiForm : UIFormLogic
 
         gameObject.GetOrAddComponent<GraphicRaycaster>();
 
-        Text[] texts = GetComponentsInChildren<Text>(true);
-        for (int i = 0; i < texts.Length; i++)
+        //打开启动界面时，由于字体还未加载出来，使用默认字体
+        if(Name !=UIFormId.LaunchForm.ToString())
         {
-            texts[i].font = s_MainFont;
-            if (!string.IsNullOrEmpty(texts[i].text))
+            Text[] texts = GetComponentsInChildren<Text>(true);
+            for (int i = 0; i < texts.Length; i++)
             {
-                texts[i].text = GameManager.Localization.GetString(texts[i].text);
+                texts[i].font = s_MainFont;
+                if (!string.IsNullOrEmpty(texts[i].text))
+                {
+                    texts[i].text = GameManager.Localization.GetString(texts[i].text);
+                }
             }
         }
+
     }
 
     protected internal override void OnOpen(object userData)

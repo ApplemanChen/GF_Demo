@@ -1,3 +1,4 @@
+{"Id": 100, "AssetName": "LaunchForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": true}
 {"Id": 10101, "AssetName": "DialogForm", "UIGroupName": "Dialog", "AllowMultiInstance": false, "PauseCoveredUIForm": true}
 {"Id": 100101, "AssetName": "MenuForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": true}
 {"Id": 100102, "AssetName": "LoadingForm", "UIGroupName": "UI", "AllowMultiInstance": false, "PauseCoveredUIForm": false}

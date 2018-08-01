@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -324,6 +326,8 @@
     <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\Data\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Events\LaunchFormUpdateTipsEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\LaunchForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\LoadingForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\LuaForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MenuForm.cs" />
@@ -401,5 +405,6 @@
     <None Include="Assets\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

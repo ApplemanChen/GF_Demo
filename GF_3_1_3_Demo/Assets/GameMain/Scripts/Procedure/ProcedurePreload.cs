@@ -33,11 +33,6 @@ public class ProcedurePreload : GameProcedureBase
 
         SubscribeEvents();
 
-        if(!GameManager.Base.EditorResourceMode && GameManager.Resource.ResourceMode == ResourceMode.Package)
-        {
-            GameManager.Resource.InitResources();
-        }
-
         PreloadResources();
     }
 
@@ -64,17 +59,24 @@ public class ProcedurePreload : GameProcedureBase
         base.OnLeave(procedureOwner, isShutdown);
     }
 
+    private void UpdateLaunchTips(string tips)
+    {
+        GameManager.Event.Fire(this, ReferencePool.Acquire<LaunchFormUpdateTipsEventArgs>().Fill(tips));
+    }
+
     /// <summary>
     /// 预加载资源
     /// </summary>
     private void PreloadResources()
     {
+        UpdateLaunchTips("正在预加载配置表资源...");
         LoadDatable("UIForm");
         LoadDatable("Music");
         LoadDatable("Scene");
 
+        UpdateLaunchTips("正在预加载语言字典资源...");
         LoadDictionary("Default");
-
+        UpdateLaunchTips("正在预加载字体资源...");
         LoadFont("MainFont");
     }
 
@@ -139,6 +141,8 @@ public class ProcedurePreload : GameProcedureBase
 
         string flagKey = string.Format("Datable.{0}", evt.DataTableName);
         m_LoadResFlag[flagKey] = true;
+
+        Log.Info("Preload asset {0} success.",flagKey);
     }
     private void OnLoadDataTableFailure(object sender, GameEventArgs e)
     {
@@ -153,6 +157,7 @@ public class ProcedurePreload : GameProcedureBase
 
         string flagKey = string.Format("Dictionary.{0}", evt.DictionaryName);
         m_LoadResFlag[flagKey] = true;
+        Log.Info("Preload asset {0} success.", flagKey);
     }
 
     private void InitNetwork()

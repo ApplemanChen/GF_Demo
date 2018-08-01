@@ -15,6 +15,7 @@ using UnityEngine;
 
 /// <summary>
 /// 启动流程
+/// 打开LaunchForm -> 初始化配置
 /// </summary>
 public class ProcedureLaunch:GameProcedureBase
 {
@@ -32,12 +33,13 @@ public class ProcedureLaunch:GameProcedureBase
 
         SubscribeEvents();
 
+        //单机模式下（非编辑器模式）需要初始化资源
         if(!GameManager.Base.EditorResourceMode && GameManager.Resource.ResourceMode == ResourceMode.Package)
         {
             GameManager.Resource.InitResources();
         }else
         {
-            InitAll();
+            OpenLaunchForm();
         }
     }
 
@@ -61,21 +63,34 @@ public class ProcedureLaunch:GameProcedureBase
     private void SubscribeEvents()
     {
         GameManager.Event.Subscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId,OnResourceInitComplete);
+        GameManager.Event.Subscribe(UnityGameFramework.Runtime.OpenUIFormSuccessEventArgs.EventId,OnOpenLaunchFormSuccess);
     }
 
-
-    private void UnsubscribEvents()
-    {
-        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId, OnResourceInitComplete);
-    }
-
-    private void OnResourceInitComplete(object sender, GameFramework.Event.GameEventArgs e)
+    private void OnOpenLaunchFormSuccess(object sender, GameFramework.Event.GameEventArgs e)
     {
         InitAll();
     }
 
+    private void UnsubscribEvents()
+    {
+        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId, OnResourceInitComplete);
+        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.OpenUIFormSuccessEventArgs.EventId, OnOpenLaunchFormSuccess);
+    }
+
+    private void OnResourceInitComplete(object sender, GameFramework.Event.GameEventArgs e)
+    {
+        OpenLaunchForm();
+    }
+
+    private void OpenLaunchForm()
+    {
+        //由于启动界面打开时，界面配置还未加载完成，所以必须用这种方法打开，否则会报错！
+        GameManager.UI.OpenUIForm(AssetUtility.GetUIFormAsset(UIFormId.LaunchForm.ToString()), "UI");
+    }
+
     private void InitAll()
     {
+        //基础配置
         InitBaseConfig();
         //语言配置初始化
         InitLanguageSetting();
@@ -86,13 +101,20 @@ public class ProcedureLaunch:GameProcedureBase
         //TODO:其他初始化工作
     }
 
+    private void UpdateLaunchTips(string tips)
+    {
+        GameManager.Event.Fire(this, ReferencePool.Acquire<LaunchFormUpdateTipsEventArgs>().Fill(tips));
+    }
+
     /// <summary>
     /// 初始化基础配置
     /// </summary>
     private void InitBaseConfig()
     {
+        UpdateLaunchTips("正在进行基础配置...");
         GameManager.BaseConfig.InitBuildConfig();
         GameManager.BaseConfig.InitServerConfig();
+        Log.Info("Launch => Base config init complete.");
     }
 
 
@@ -133,7 +155,8 @@ public class ProcedureLaunch:GameProcedureBase
         GameManager.Localization.Language = language;
 
         _isLanguageInitComplete = true;
-        Log.Info("PrecedureLaunch ==> Language setting init complete!");
+        UpdateLaunchTips("语言配置完成！");
+        Log.Info("Launch => Language init complete.");
     }
 
     /// <summary>
@@ -147,7 +170,8 @@ public class ProcedureLaunch:GameProcedureBase
         QualitySettings.SetQualityLevel(settingQuality);
 
         _isQualityInitComplete = true;
-        Log.Info("PrecedureLaunch ==> Quality setting init complete!");
+        UpdateLaunchTips("画质配置完成！");
+        Log.Info("Launch => Quality init complete.");
     }
 
     /// <summary>
@@ -167,6 +191,7 @@ public class ProcedureLaunch:GameProcedureBase
         GameManager.Sound.SetVolume("UISound", GameManager.Setting.GetFloat(Const.SettingKey.UISoundVolume,1f));
 
         _isSoundInitComplete = true;
-        Log.Info("PrecedureLaunch ==> Sound setting init complete!");
+        //Log.Info("PrecedureLaunch ==> Sound setting init complete!");
+        UpdateLaunchTips("声音配置完成！");
     }
 }

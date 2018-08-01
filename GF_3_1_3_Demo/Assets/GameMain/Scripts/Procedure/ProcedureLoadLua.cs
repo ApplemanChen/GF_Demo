@@ -23,6 +23,8 @@ public class ProcedureLoadLua : GameProcedureBase
     {
         base.OnEnter(procedureOwner);
 
+        UpdateLaunchTips("正在加载Lua资源...");
+
         GameManager.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
 
         for (int i = 0; i < m_LuaFileInfos.Count;i++ )
@@ -45,6 +47,9 @@ public class ProcedureLoadLua : GameProcedureBase
             }
         }
 
+        UpdateLaunchTips("资源预加载完成。");
+        GameManager.UI.CloseUIForm(UIFormId.LaunchForm);
+
         GameManager.Lua.DoLuaFile("main");
         GameManager.Lua.DoLuaFile("Manager/LuaFormManager");
 
@@ -63,5 +68,10 @@ public class ProcedureLoadLua : GameProcedureBase
         LoadLuaSuccessEventArgs evt = (LoadLuaSuccessEventArgs)e;
 
         m_loadedFlag[evt.LuaName] = true;
+    }
+
+    private void UpdateLaunchTips(string tips)
+    {
+        GameManager.Event.Fire(this, ReferencePool.Acquire<LaunchFormUpdateTipsEventArgs>().Fill(tips));
     }
 }
