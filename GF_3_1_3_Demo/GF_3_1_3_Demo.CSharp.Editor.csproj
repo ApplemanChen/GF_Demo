@@ -202,6 +202,7 @@
     <None Include="Assets\XLua\Resources\Manager\LuaFormManager.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\memory.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\Util\Functions.lua.txt" />
     <None Include="Assets\XLua\Resources\Util\util.lua.txt" />
     <None Include="Assets\XLua\Resources\main.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />

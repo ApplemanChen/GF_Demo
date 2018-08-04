@@ -31,11 +31,14 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 5, 0, 0);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 8, 0, 0);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "LuaCloseForm", _m_LuaCloseForm_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "LuaOpenForm", _m_LuaOpenForm_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "AddButtonClick", _m_AddButtonClick_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "RemoveButtonClick", _m_RemoveButtonClick_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "SubscribeEvent", _m_SubscribeEvent_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "UnsubcribeEvent", _m_UnsubcribeEvent_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "FireEvent", _m_FireEvent_xlua_st_);
             
 			
             
@@ -182,6 +185,88 @@ namespace XLua.CSObjectWrap
                     UnityEngine.Events.UnityAction _onBtnClick = translator.GetDelegate<UnityEngine.Events.UnityAction>(L, 2);
                     
                     LuaCallStatic.RemoveButtonClick( _go, _onBtnClick );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SubscribeEvent_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _eventId = LuaAPI.xlua_tointeger(L, 1);
+                    System.EventHandler<GameFramework.Event.GameEventArgs> _onEventHandler = translator.GetDelegate<System.EventHandler<GameFramework.Event.GameEventArgs>>(L, 2);
+                    
+                    LuaCallStatic.SubscribeEvent( _eventId, _onEventHandler );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_UnsubcribeEvent_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _eventId = LuaAPI.xlua_tointeger(L, 1);
+                    System.EventHandler<GameFramework.Event.GameEventArgs> _onEventHandler = translator.GetDelegate<System.EventHandler<GameFramework.Event.GameEventArgs>>(L, 2);
+                    
+                    LuaCallStatic.UnsubcribeEvent( _eventId, _onEventHandler );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_FireEvent_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _eventId = LuaAPI.xlua_tointeger(L, 1);
+                    string _sender = LuaAPI.lua_tostring(L, 2);
+                    object[] _param = (object[])translator.GetObject(L, 3, typeof(object[]));
+                    
+                    LuaCallStatic.FireEvent( _eventId, _sender, _param );
                     
                     
                     

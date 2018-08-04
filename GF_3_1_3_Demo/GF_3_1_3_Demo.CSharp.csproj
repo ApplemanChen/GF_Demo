@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -282,6 +280,7 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ServerConfigKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.SettingKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CameraLayer.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LuaEventId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
@@ -289,6 +288,7 @@
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaFailureEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaSuccessEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\Events\LuaSendEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaCallStatic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaFileInfo.cs" />
@@ -344,6 +344,8 @@
     <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
     <Compile Include="Assets\XLua\Gen\GameManagerWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaCallStaticWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\LuaEventIdWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\LuaSendEventArgsWrap.cs" />
     <Compile Include="Assets\XLua\Gen\PackUnpack.cs" />
     <Compile Include="Assets\XLua\Gen\UIExtensionWrap.cs" />
     <Compile Include="Assets\XLua\Gen\WrapPusher.cs" />
@@ -389,6 +391,7 @@
     <None Include="Assets\XLua\Resources\Manager\LuaFormManager.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\memory.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\Util\Functions.lua.txt" />
     <None Include="Assets\XLua\Resources\Util\util.lua.txt" />
     <None Include="Assets\XLua\Resources\main.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
@@ -405,6 +408,5 @@
     <None Include="Assets\XLua\Src\Editor\Template\PackUnpack.tpl.txt" />
     <None Include="Assets\XLua\Src\Editor\Template\TemplateCommon.lua.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\SyntaxTree\UnityVS\2013\UnityVS.CSharp.targets" />
 </Project>

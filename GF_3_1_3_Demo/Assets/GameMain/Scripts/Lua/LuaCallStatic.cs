@@ -5,10 +5,13 @@
 //------------------------------------------------------------
 
 using GameFramework;
+using GameFramework.Event;
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
+using XLua;
 
 /// <summary>
 /// Lua调用的常用方法 ( 需要Wrap!)
@@ -50,5 +53,20 @@ public class LuaCallStatic
         {
             Log.Error("Form => GameObject '{0}' not have Button Component !", go.name);
         }
+    }
+
+    public static void SubscribeEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
+    {
+        GameManager.Event.Subscribe(eventId, onEventHandler);
+    }
+
+    public static void UnsubcribeEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
+    {
+        GameManager.Event.Unsubscribe(eventId, onEventHandler);
+    }
+
+    public static void FireEvent(int eventId,string sender,object[] param)
+    {
+        GameManager.Event.Fire(sender, ReferencePool.Acquire<LuaSendEventArgs>().Fill(eventId,sender,param));
     }
 }

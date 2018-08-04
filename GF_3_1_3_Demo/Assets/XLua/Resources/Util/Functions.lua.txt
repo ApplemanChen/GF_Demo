@@ -1,0 +1,152 @@
+--[[
+
+Copyright (c) 2011-2015 chukong-inc.com
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+
+]]
+
+local tostring = tostring
+local tonumber = tonumber
+
+local assert = assert
+local error = error
+local type = type
+local pairs = pairs
+local ipairs = ipairs
+local pcall = pcall
+local ngx = ngx
+local ngx_log = nil
+if ngx then ngx_log = ngx.log end
+local table_insert = table.insert
+local table_remove = table.remove
+local table_format = string.format
+
+--string在之后被C#的string替换
+local string_len = string.len
+local string_rep = string.rep
+local string_gsub = string.gsub
+local string_sub = string.sub
+local string_find = string.find
+
+local debug_traceback = debug.traceback
+
+local function _dump_value(v)
+    if type(v) == "string" then
+        v = "\"" .. v .. "\""
+    end
+    return tostring(v)
+end
+
+function string_trim(input)
+    input = string_gsub(input, "^[ \t\n\r]+", "")
+    return string_gsub(input, "[ \t\n\r]+$", "")
+end
+
+function string_split(input, delimiter)
+    input = tostring(input)
+    delimiter = tostring(delimiter)
+    if (delimiter=='') then return false end
+    local pos,arr = 0, {}
+    for st,sp in function() return string_find(input, delimiter, pos, true) end do
+        table_insert(arr, string_sub(input, pos, st - 1))
+        pos = sp + 1
+    end
+    table_insert(arr, string_sub(input, pos))
+    return arr
+end
+
+function string_replace( input, origin, replace )
+   return string_gsub(input, origin, replace)
+end
+
+function dump(value, desciption, nesting)
+    if type(nesting) ~= "number" then nesting = 3 end
+
+    local lookup = {}
+    local result = {}
+    local traceback = string_split(debug_traceback("", 2), "\n")
+    print("dump from: " .. string_trim(traceback[3]))
+
+    local function _dump(value, desciption, indent, nest, keylen)
+        desciption = desciption or "<var>"
+        local spc = ""
+        if type(keylen) == "number" then
+            spc = string_rep(" ", keylen - string_len(_dump_value(desciption)))
+        end
+        if type(value) ~= "table" then
+            result[#result +1 ] = table_format("%s%s%s = %s", indent, _dump_value(desciption), spc, _dump_value(value))
+        elseif lookup[tostring(value)] then
+            result[#result +1 ] = table_format("%s%s%s = *REF*", indent, _dump_value(desciption), spc)
+        else
+            lookup[tostring(value)] = true
+            if nest > nesting then
+                result[#result +1 ] = table_format("%s%s = *MAX NESTING*", indent, _dump_value(desciption))
+            else
+                result[#result +1 ] = table_format("%s%s = {", indent, _dump_value(desciption))
+                local indent2 = indent.."    "
+                local keys = {}
+                local keylen = 0
+                local values = {}
+                for k, v in pairs(value) do
+                    keys[#keys + 1] = k
+                    local vk = _dump_value(k)
+                    local vkl = string_len(vk)
+                    if vkl > keylen then keylen = vkl end
+                    values[k] = v
+                end
+                table.sort(keys, function(a, b)
+                    if type(a) == "number" and type(b) == "number" then
+                        return a < b
+                    else
+                        return tostring(a) < tostring(b)
+                    end
+                end)
+                for i, k in ipairs(keys) do
+                    _dump(values[k], k, indent2, nest + 1, keylen)
+                end
+                result[#result +1] = table_format("%s}", indent)
+            end
+        end
+    end
+    _dump(value, desciption, "- ", 1)
+
+    for i, line in ipairs(result) do
+        print(line)
+    end
+end
+
+function clone(object)
+    local lookup = {}
+    local function _copy(object)
+        if type(object) ~= "table" then
+            return object
+        elseif lookup[object] then
+            return lookup[object]
+        end
+        local newObject = {}
+        lookup[object] = newObject
+        for key, value in pairs(object) do
+            newObject[_copy(key)] = _copy(value)
+        end
+        return setmetatable(newObject, getmetatable(object))
+    end
+    return _copy(object)
+end
+

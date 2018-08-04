@@ -69,6 +69,62 @@ namespace XLua
 #endif
 		}
         
+		public void __Gen_Delegate_Imp2(object p0, GameFramework.Event.GameEventArgs p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int err_func =LuaAPI.load_error_func(L, errorFuncRef);
+                ObjectTranslator translator = luaEnv.translator;
+                
+                LuaAPI.lua_getref(L, luaReference);
+                
+                translator.PushAny(L, p0);
+                translator.Push(L, p1);
+                
+                int __gen_error = LuaAPI.lua_pcall(L, 2, 0, err_func);
+                if (__gen_error != 0)
+                    luaEnv.ThrowExceptionFromError(err_func - 1);
+                
+                
+                
+                LuaAPI.lua_settop(L, err_func - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
+		public void __Gen_Delegate_Imp3(object p0, LuaSendEventArgs p1)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int err_func =LuaAPI.load_error_func(L, errorFuncRef);
+                ObjectTranslator translator = luaEnv.translator;
+                
+                LuaAPI.lua_getref(L, luaReference);
+                
+                translator.PushAny(L, p0);
+                translator.Push(L, p1);
+                
+                int __gen_error = LuaAPI.lua_pcall(L, 2, 0, err_func);
+                if (__gen_error != 0)
+                    luaEnv.ThrowExceptionFromError(err_func - 1);
+                
+                
+                
+                LuaAPI.lua_settop(L, err_func - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
         
 		static DelegateBridge()
 		{
@@ -86,6 +142,16 @@ namespace XLua
 		    if (type == typeof(GameFramework.GameFrameworkAction<object>))
 			{
 			    return new GameFramework.GameFrameworkAction<object>(__Gen_Delegate_Imp1);
+			}
+		
+		    if (type == typeof(System.EventHandler<GameFramework.Event.GameEventArgs>))
+			{
+			    return new System.EventHandler<GameFramework.Event.GameEventArgs>(__Gen_Delegate_Imp2);
+			}
+		
+		    if (type == typeof(System.EventHandler<LuaSendEventArgs>))
+			{
+			    return new System.EventHandler<LuaSendEventArgs>(__Gen_Delegate_Imp3);
 			}
 		
 		    return null;
