@@ -1,7 +1,8 @@
-require "Util/util"
-require "Perf/memory"
-require "Perf/profiler"
-require "Base/class"
+require "Util.Functions"
+require "Util.util"
+require "Perf.memory"
+require "Perf.profiler"
+require "Base.class"
 require "Manager.LuaFormManager"
 
 function main(  )

@@ -13,16 +13,25 @@ function this:ctor( transform )
 	self.btn = transform:Find("Panel/Button").gameObject
 
 	self.OnBtnClick = function (  )
-		-- LuaCall.LuaCloseForm("LoginForm")
-		local dialogParam = CS.DialogParams()
-		dialogParam.Mode = 3
-		dialogParam.Title = "Title"
-		dialogParam.Message = "This is Message"
+		-- local dialogParam = CS.DialogParams()
+		-- dialogParam.Mode = 3
+		-- dialogParam.Title = "Title"
+		-- dialogParam.Message = "This is Message"
 
-		LuaCall.LuaOpenForm("DialogForm",dialogParam)
+		-- LuaCall.LuaOpenForm("DialogForm",dialogParam)
+
+		LuaCall.FireEvent(CS.LuaEventId.TestLuaEvent,"LoginForm",{1,2,3})
+	end
+
+	self.OnTestLuaEvent = function ( sender, args )
+		print("TestLuaEvent ==> SubscribeEvent is OK!")
+		print(sender)
+		print(args.EventId)
+		print(args.Param[0])
 	end
 
 	LuaCall.AddButtonClick(self.btn,self.OnBtnClick)
+	LuaCall.SubscribeEvent(CS.LuaEventId.TestLuaEvent,self.OnTestLuaEvent)
 end
 
 function this:RemoveEvent(  )

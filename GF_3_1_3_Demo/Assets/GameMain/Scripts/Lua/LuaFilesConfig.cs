@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 /// <summary>
 /// 所有Lua文件配置
 /// 由编辑器自动生成，不要修改！
@@ -13,6 +13,7 @@ public static class LuaFilesConfig
 		new LuaFileInfo("Manager/LuaFormManager"),
 		new LuaFileInfo("Perf/memory"),
 		new LuaFileInfo("Perf/profiler"),
+		new LuaFileInfo("Util/Functions"),
 		new LuaFileInfo("Util/util"),
 		new LuaFileInfo("main"),
 

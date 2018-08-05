@@ -12,6 +12,11 @@ public enum UIFormId
     Undefined = 0,
 
     /// <summary>
+    /// 启动界面
+    /// </summary>
+    LaunchForm = 100,
+
+    /// <summary>
     /// 弹出框。
     /// </summary>
     DialogForm = 10101,

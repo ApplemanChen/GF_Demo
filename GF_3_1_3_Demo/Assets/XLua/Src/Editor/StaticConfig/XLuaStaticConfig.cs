@@ -10,6 +10,7 @@ using XLua;
 using UnityGameFramework.Runtime;
 using UnityEditor;
 using GameFramework;
+using GameFramework.Event;
 
 /// <summary>
 /// XLua静态Wrap配置类
@@ -23,6 +24,8 @@ public static class XLuaStaticConfig
         typeof(BaseConfigComponent),
         typeof(LuaCallStatic),
         typeof(DialogParams),
+        typeof(LuaSendEventArgs),
+        typeof(LuaEventId),
     };
 
     [CSharpCallLua]
@@ -30,6 +33,8 @@ public static class XLuaStaticConfig
     {
         typeof(UnityEngine.Events.UnityAction),
         typeof(GameFrameworkAction<object>),
+        typeof(EventHandler<GameEventArgs>),
+        typeof(EventHandler<LuaSendEventArgs>),
     };
 
     /// <summary>

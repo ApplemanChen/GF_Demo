@@ -280,6 +280,7 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ServerConfigKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.SettingKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CameraLayer.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LuaEventId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
@@ -287,6 +288,7 @@
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaFailureEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaSuccessEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Lua\Events\LuaSendEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaCallStatic.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\LuaFileInfo.cs" />
@@ -324,6 +326,8 @@
     <Compile Include="Assets\GameMain\Scripts\Sound\SoundExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\Data\DialogParams.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\DialogForm.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\Events\LaunchFormUpdateTipsEventArgs.cs" />
+    <Compile Include="Assets\GameMain\Scripts\UI\LaunchForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\LoadingForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\LuaForm.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\MenuForm.cs" />
@@ -340,6 +344,8 @@
     <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
     <Compile Include="Assets\XLua\Gen\GameManagerWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaCallStaticWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\LuaEventIdWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\LuaSendEventArgsWrap.cs" />
     <Compile Include="Assets\XLua\Gen\PackUnpack.cs" />
     <Compile Include="Assets\XLua\Gen\UIExtensionWrap.cs" />
     <Compile Include="Assets\XLua\Gen\WrapPusher.cs" />
@@ -385,6 +391,7 @@
     <None Include="Assets\XLua\Resources\Manager\LuaFormManager.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\memory.lua.txt" />
     <None Include="Assets\XLua\Resources\Perf\profiler.lua.txt" />
+    <None Include="Assets\XLua\Resources\Util\Functions.lua.txt" />
     <None Include="Assets\XLua\Resources\Util\util.lua.txt" />
     <None Include="Assets\XLua\Resources\main.lua.txt" />
     <None Include="Assets\XLua\Src\Editor\LinkXmlGen\LinkXmlGen.tpl.txt" />
