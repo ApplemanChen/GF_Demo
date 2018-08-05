@@ -14,7 +14,7 @@ using UnityGameFramework.Runtime;
 public abstract class UGuiForm : UIFormLogic
 {
     public const int DepthFactor = 100;
-    private const float FadeTime = 0.2f;
+    private const float FadeTime = 0.5f;
 
     private static Font s_MainFont = null;
     private Canvas m_CachedCanvas = null;
@@ -145,7 +145,6 @@ public abstract class UGuiForm : UIFormLogic
     {
         base.OnResume();
 
-        PlayOpenTween();
     }
 
     protected internal override void OnCover()
@@ -182,7 +181,15 @@ public abstract class UGuiForm : UIFormLogic
     
     protected virtual void OnOpenComplete()
     {
-
+        switch(m_TweenType)
+        {
+            case UITweenType.Fade:
+                m_CanvasGroup.alpha = 1f;
+                break;
+            case UITweenType.Scale:
+                m_BackgroundRectTrans.localScale = Vector3.one;
+                break;
+        }
     }
 
     private IEnumerator PlayCloseTween(float duration)
