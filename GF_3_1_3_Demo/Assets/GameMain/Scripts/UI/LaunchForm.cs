@@ -11,17 +11,17 @@ using UnityEngine.UI;
 /// <summary>
 /// 启动窗口
 /// </summary>
-public class LaunchForm : UGuiForm
+public class LaunchForm : NGuiForm
 {
-    private Text m_Text;
+    private UILabel m_Text;
 
     protected internal override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        m_TweenType = UITweenType.None;
+        TweenType = UITweenType.None;
 
-        m_Text = CachedTransform.Find("Mask/Panel/Text").GetComponent<Text>();
+        m_Text = CachedTransform.Find("Label").GetComponent<UILabel>();
     }
 
     private void OnUpdateTips(object sender, GameFramework.Event.GameEventArgs e)

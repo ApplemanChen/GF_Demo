@@ -77,7 +77,8 @@ public class ProcedurePreload : GameProcedureBase
         UpdateLaunchTips("正在预加载语言字典资源...");
         LoadDictionary("Default");
         UpdateLaunchTips("正在预加载字体资源...");
-        LoadFont("MainFont");
+        //LoadUGUIFont("MainFont");
+        LoadNGUIFont("UIFont");
     }
 
     //加载数据表
@@ -95,14 +96,32 @@ public class ProcedurePreload : GameProcedureBase
     }
 
     //加载字体
-    private void LoadFont(string fontName)
+    //private void LoadUGUIFont(string fontName)
+    //{
+    //    m_LoadResFlag.Add(string.Format("Font.{0}", fontName), false);
+    //    GameManager.Resource.LoadAsset(AssetUtility.GetFontAsset(fontName), new LoadAssetCallbacks(
+    //        (assetName, asset, duration, userData) =>
+    //        {
+    //            m_LoadResFlag[string.Format("Font.{0}", fontName)] = true;
+    //            UGuiForm.SetMainFont((Font)asset);
+    //            Log.Info("Load font '{0}' OK.", fontName);
+    //        },
+
+    //        (assetName, status, errorMessage, userData) =>
+    //        {
+    //            Log.Error("Can not load font '{0}' from '{1}' with error message '{2}'.", fontName, assetName, errorMessage);
+    //        }));
+    //}
+
+    private void LoadNGUIFont(string fontName)
     {
         m_LoadResFlag.Add(string.Format("Font.{0}", fontName), false);
         GameManager.Resource.LoadAsset(AssetUtility.GetFontAsset(fontName), new LoadAssetCallbacks(
             (assetName, asset, duration, userData) =>
             {
                 m_LoadResFlag[string.Format("Font.{0}", fontName)] = true;
-                UGuiForm.SetMainFont((Font)asset);
+                GameObject fontAtlas = (GameObject)asset;
+                NGuiForm.SetMainFont(fontAtlas.GetComponent<UIFont>());
                 Log.Info("Load font '{0}' OK.", fontName);
             },
 

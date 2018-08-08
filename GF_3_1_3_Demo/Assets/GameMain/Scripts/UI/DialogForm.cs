@@ -10,10 +10,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogForm : UGuiForm
+/// <summary>
+/// 通用对话框
+/// </summary>
+public class DialogForm : NGuiForm
 {
-    private Text _titleText;
-    private Text _messageText;
+    private UILabel _titleText;
+    private UILabel _messageText;
     private GameObject _curShowBtnGroup;
 
     //数据
@@ -24,14 +27,15 @@ public class DialogForm : UGuiForm
     {
         base.OnInit(userData);
 
-        m_TweenType = UITweenType.Scale;
+        TweenType = UITweenType.Scale;
+        
 
         _dialogParams = (DialogParams)userData;
         _userData = _dialogParams.UserData;
 
         for (int i = 1; i <=3;i++ )
         {
-            GameObject go = CachedTransform.Find("Mask/Background/ButtonGroup" + i).gameObject;
+            GameObject go = CachedTransform.Find("Background/ButtonGroup" + i).gameObject;
             go.SetActive(i==_dialogParams.Mode);
             if(i == _dialogParams.Mode)
             {
@@ -39,8 +43,8 @@ public class DialogForm : UGuiForm
             }
         }
 
-        _titleText = CachedTransform.Find("Mask/Background/TitleBar/Text").GetComponent<Text>();
-        _messageText = CachedTransform.Find("Mask/Background/Message").GetComponent<Text>();
+        _titleText = CachedTransform.Find("Background/TitleBar/Label").GetComponent<UILabel>();
+        _messageText = CachedTransform.Find("Background/Message").GetComponent<UILabel>();
     }
 
     protected internal override void OnOpen(object userData)
@@ -67,9 +71,9 @@ public class DialogForm : UGuiForm
 
         if(btnConfirm!= null)
         {
-            btnConfirm.GetComponent<Button>().onClick.AddListener(OnBtnConfirmClick);
+            UIEventListener.Get(btnConfirm.gameObject).onClick = OnBtnConfirmClick;
 
-            Text txtConfirm = btnConfirm.transform.Find("Text").GetComponent<Text>();
+            UILabel txtConfirm = btnConfirm.transform.Find("Label").GetComponent<UILabel>();
             if(string.IsNullOrEmpty(_dialogParams.ConfirmText))
             {
                 txtConfirm.text = GameManager.Localization.GetString("Dialog.ConfirmButton");
@@ -81,9 +85,9 @@ public class DialogForm : UGuiForm
 
         if (btnCancel != null)
         {
-            btnCancel.GetComponent<Button>().onClick.AddListener(OnBtnCancelClick);
+            UIEventListener.Get(btnCancel.gameObject).onClick = OnBtnCancelClick;
 
-            Text txtCancel = btnCancel.transform.Find("Text").GetComponent<Text>();
+            UILabel txtCancel = btnCancel.transform.Find("Label").GetComponent<UILabel>();
             if (string.IsNullOrEmpty(_dialogParams.CancelText))
             {
                 txtCancel.text = GameManager.Localization.GetString("Dialog.CancelButton");
@@ -96,9 +100,9 @@ public class DialogForm : UGuiForm
 
         if (btnOther != null)
         {
-            btnOther.GetComponent<Button>().onClick.AddListener(OnBtnOtherClick);
+            UIEventListener.Get(btnOther.gameObject).onClick = OnBtnOtherClick;
 
-            Text txtOther = btnOther.transform.Find("Text").GetComponent<Text>();
+            UILabel txtOther = btnOther.transform.Find("Label").GetComponent<UILabel>();
             if (string.IsNullOrEmpty(_dialogParams.OtherText))
             {
                 txtOther.text = GameManager.Localization.GetString("Dialog.OtherButton");
@@ -110,7 +114,7 @@ public class DialogForm : UGuiForm
         }
     }
 
-    private void OnBtnConfirmClick()
+    private void OnBtnConfirmClick(GameObject go)
     {
         Close();
 
@@ -120,7 +124,7 @@ public class DialogForm : UGuiForm
         }
     }
 
-    private void OnBtnCancelClick()
+    private void OnBtnCancelClick(GameObject go)
     {
         Close();
 
@@ -130,7 +134,7 @@ public class DialogForm : UGuiForm
         }
     }
 
-    private void OnBtnOtherClick()
+    private void OnBtnOtherClick(GameObject go)
     {
         Close();
 

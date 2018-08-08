@@ -88,12 +88,7 @@ public static class UIExtension
         return uiGroup.HasUIForm(assetName);
     }
 
-    public static UGuiForm GetUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
-    {
-        return uiComponent.GetUIForm((int)uiFormId, uiGroupName);
-    }
-
-    public static UGuiForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
+    public static NGuiForm GetUIForm(this UIComponent uiComponent, int uiFormId, string uiGroupName = null)
     {
         IDataTable<DRUIForm> dtUIForm = GameManager.DataTable.GetDataTable<DRUIForm>();
         DRUIForm drUIForm = dtUIForm.GetDataRow(uiFormId);
@@ -109,10 +104,11 @@ public static class UIExtension
             uiForm = uiComponent.GetUIForm(assetName);
             if (uiForm == null)
             {
+                Log.Info("Null11");
                 return null;
             }
 
-            return (UGuiForm)uiForm.Logic;
+            return (NGuiForm)uiForm.Logic;
         }
 
         IUIGroup uiGroup = uiComponent.GetUIGroup(uiGroupName);
@@ -127,12 +123,24 @@ public static class UIExtension
             return null;
         }
 
-        return (UGuiForm)uiForm.Logic;
+        return (NGuiForm)uiForm.Logic;
     }
 
-    public static void CloseUIForm(this UIComponent uiComponent, UGuiForm uiForm)
+    public static NGuiForm GetUIForm(this UIComponent uiComponent, UIFormId uiFormId, string uiGroupName = null)
+    {
+        return uiComponent.GetUIForm((int)uiFormId, uiGroupName);
+    }
+
+    public static void CloseUIForm(this UIComponent uiComponent, NGuiForm uiForm)
     {
         uiComponent.CloseUIForm(uiForm.UIForm);
+    }
+
+
+    public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId)
+    {
+        NGuiForm uiForm = uiComponent.GetUIForm(uiFormId);
+        uiComponent.CloseUIForm(uiForm);
     }
 
     public static void CloseUIForm(this UIComponent uiComponent,string uiFormId)
@@ -142,11 +150,6 @@ public static class UIExtension
         CloseUIForm(uiComponent,formId);
     }
 
-    public static void CloseUIForm(this UIComponent uiComponent, UIFormId uiFormId)
-    {
-        UGuiForm uiForm = uiComponent.GetUIForm(uiFormId);
-        uiComponent.CloseUIForm(uiForm);
-    }
 
     public static int? OpenUIForm(this UIComponent uiComponent,string uiFormId,object userData = null)
     {

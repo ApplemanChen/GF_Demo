@@ -101,7 +101,10 @@ public static class AssetUtility {
     /// <returns></returns>
     public static string GetFontAsset(string assetName)
     {
-        return string.Format("Assets/GameMain/Localization/{0}/Fonts/{1}.ttf", GameManager.Localization.Language.ToString(), assetName);
+        //UGUI 字体
+        //return string.Format("Assets/GameMain/Localization/{0}/Fonts/{1}.ttf", GameManager.Localization.Language.ToString(), assetName);
+        //NGUI的UIFont
+        return string.Format("Assets/GameMain/Res/UI/Atlas/Font/{0}.prefab",assetName);
     }
 
     /// <summary>

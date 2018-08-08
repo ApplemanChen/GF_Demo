@@ -134,12 +134,12 @@ public class GameManager : MonoBehaviour
         Entity = GameEntry.GetComponent<EntityComponent>();
         Scene = GameEntry.GetComponent<SceneComponent>();
         WebRequest = GameEntry.GetComponent<WebRequestComponent>();
-        BaseConfig = GameEntry.GetComponent<BaseConfigComponent>();
-        Lua = GameEntry.GetComponent<LuaComponent>();
     }
 
     private void InitCustomComponents()
     {
+        BaseConfig = GameEntry.GetComponent<BaseConfigComponent>();
+        Lua = GameEntry.GetComponent<LuaComponent>();
         Camera = GameEntry.GetComponent<CameraComponent>();
     }
 

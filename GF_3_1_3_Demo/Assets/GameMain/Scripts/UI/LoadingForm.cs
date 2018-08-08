@@ -12,29 +12,25 @@ using GameFramework.Event;
 /// <summary>
 /// 加载界面
 /// </summary>
-public class LoadingForm : UGuiForm
+public class LoadingForm : NGuiForm
 {
-    private Slider m_Slider;
-    private Text m_PercentText;
+    private UISlider m_Slider;
 
     protected internal override void OnInit(object userData)
     {
         base.OnInit(userData);
 
-        m_TweenType = UITweenType.None;
+        TweenType = UITweenType.None;
 
         GameManager.Event.Subscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
 
-        m_Slider = CachedTransform.Find("Panel/Slider").GetComponent<Slider>();
+        m_Slider = CachedTransform.Find("Slider").GetComponent<UISlider>();
         m_Slider.value = 0;
-        m_PercentText = CachedTransform.Find("Panel/Percent").GetComponent<Text>();
     }
 
     protected internal override void OnOpen(object userData)
     {
         base.OnOpen(userData);
-
-        m_PercentText.text = "";
     }
 
     protected internal override void OnClose(object userData)
@@ -42,14 +38,11 @@ public class LoadingForm : UGuiForm
         GameManager.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
 
         m_Slider = null;
-        m_PercentText = null;
-
         base.OnClose(userData);
     }
 
     public void UpdatePercent(float value)
     {
-        m_PercentText.text = GameManager.Localization.GetString("Loading.Progress", value.ToString("P2"));
         m_Slider.value = value;
     }
 

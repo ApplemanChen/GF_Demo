@@ -68,6 +68,9 @@ public class ProcedureLaunch:GameProcedureBase
 
     private void OnOpenLaunchFormSuccess(object sender, GameFramework.Event.GameEventArgs e)
     {
+        string assetName = AssetUtility.GetUIFormAsset(UIFormId.LaunchForm.ToString());
+        UIForm form = GameManager.UI.GetUIForm(assetName);
+        Log.Info("launch: ==> form:{0}", form);
         InitAll();
     }
 
@@ -85,7 +88,8 @@ public class ProcedureLaunch:GameProcedureBase
     private void OpenLaunchForm()
     {
         //由于启动界面打开时，界面配置还未加载完成，所以必须用这种方法打开，否则会报错！
-        GameManager.UI.OpenUIForm(AssetUtility.GetUIFormAsset(UIFormId.LaunchForm.ToString()), "UI");
+        string assetName = AssetUtility.GetUIFormAsset(UIFormId.LaunchForm.ToString());
+        GameManager.UI.OpenUIForm(assetName, "UI");
     }
 
     private void InitAll()

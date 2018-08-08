@@ -29,7 +29,7 @@ public class ProcedureMenu : GameProcedureBase
         base.OnEnter(procedureOwner);
 
         m_IsEnterScene = false;
-        GameManager.UI.OpenUIForm(UIFormId.LoginForm, this);
+        GameManager.UI.OpenUIForm(UIFormId.MenuForm, this);
     }
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
@@ -43,7 +43,7 @@ public class ProcedureMenu : GameProcedureBase
         
         if(m_IsEnterScene)
         {
-            GameManager.UI.CloseUIForm(UIFormId.LoginForm);
+            GameManager.UI.CloseUIForm(UIFormId.MenuForm);
 
             procedureOwner.SetData<VarInt>(Const.ProcedureDataKey.NextSceneId,(int)SceneId.Scene1);
             ChangeState<ProcedureChangeScene>(procedureOwner);

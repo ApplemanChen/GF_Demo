@@ -4,6 +4,8 @@
 // Email: 1184923569@qq.com
 //------------------------------------------------------------
 
+#if UGUI
+
 using GameFramework;
 using System.Collections;
 using UnityEngine;
@@ -256,3 +258,5 @@ public abstract class UGuiForm : UIFormLogic
         OnOpenComplete();
     }
 }
+
+#endif

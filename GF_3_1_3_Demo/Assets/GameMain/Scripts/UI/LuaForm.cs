@@ -13,7 +13,7 @@ using System.Collections.Generic;
 /// <summary>
 /// Lua界面
 /// </summary>
-public class LuaForm : UGuiForm
+public class LuaForm : NGuiForm
 {
     private string m_FormManagerName = "Manager/LuaFormManager";
     private string m_ManagerClass = "LuaFormManager";

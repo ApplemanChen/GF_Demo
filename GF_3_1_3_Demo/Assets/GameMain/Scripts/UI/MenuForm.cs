@@ -14,9 +14,9 @@ using UnityEngine.Events;
 /// <summary>
 /// 菜单界面
 /// </summary>
-public class MenuForm : UGuiForm
+public class MenuForm : NGuiForm
 {
-    private Button _btn;
+    private UIButton _btn;
     private ProcedureMenu _procedure;
 
     protected internal override void OnInit(object userData)
@@ -25,13 +25,13 @@ public class MenuForm : UGuiForm
 
         _procedure = (ProcedureMenu)userData;
 
-        _btn = CachedTransform.Find("Panel/Button").GetComponent<Button>();
-        _btn.onClick.AddListener(OnBtnClick);
+        _btn = CachedTransform.Find("Button").GetComponent<UIButton>();
+        UIEventListener.Get(_btn.gameObject).onClick = OnBtnClick;
     }
 
-    private void OnBtnClick()
+    private void OnBtnClick(GameObject go)
     {
-        GameManager.UI.OpenDialog(new DialogParams() 
+        GameManager.UI.OpenDialog(new DialogParams()
         {
             Mode = 2,
             Title = GameManager.Localization.GetString("Dialog.Title"),

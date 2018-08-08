@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using GameFramework.Event;
+using GameFramework.DataTable;
 
 /// <summary>
 /// 加载Lua流程
@@ -48,7 +49,6 @@ public class ProcedureLoadLua : GameProcedureBase
         }
 
         UpdateLaunchTips("资源预加载完成。");
-        GameManager.UI.CloseUIForm(UIFormId.LaunchForm);
 
         GameManager.Lua.DoLuaFile("main");
         GameManager.Lua.DoLuaFile("Manager/LuaFormManager");
@@ -58,7 +58,9 @@ public class ProcedureLoadLua : GameProcedureBase
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
     {
-        GameManager.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);        
+        GameManager.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
+
+        GameManager.UI.CloseUIForm(UIFormId.LaunchForm);
 
         base.OnLeave(procedureOwner, isShutdown);
     }
