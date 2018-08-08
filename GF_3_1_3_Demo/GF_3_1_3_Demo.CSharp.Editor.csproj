@@ -328,7 +328,7 @@
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
     <None Include="Assets\XLua\CHANGELOG.txt" />
-    <None Include="Assets\XLua\Doc\Gen\link.xml" />
+    <None Include="Assets\XLua\Gen\link.xml" />
     <None Include="Assets\XLua\Resources\Base\class.lua.txt" />
     <None Include="Assets\XLua\Resources\Forms\Login\LoginForm.lua.txt" />
     <None Include="Assets\XLua\Resources\Forms\Login\LoginItem.lua.txt" />
