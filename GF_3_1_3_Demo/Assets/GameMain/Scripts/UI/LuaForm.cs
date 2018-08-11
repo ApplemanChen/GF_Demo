@@ -44,7 +44,7 @@ public class LuaForm : NGuiForm
         m_FormManagerLuaTable = GameManager.Lua.GetClassLuaTable(m_FormManagerName, m_ManagerClass);
         if(m_FormManagerLuaTable != null)
         {
-            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable,"Open",m_FormName,CachedTransform);
+            GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable,"Open",m_FormName,CachedTransform, userData);
         }
     }
 

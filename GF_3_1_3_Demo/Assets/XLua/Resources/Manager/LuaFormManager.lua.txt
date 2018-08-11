@@ -20,11 +20,11 @@ function LuaFormManager:Init(  )
 end
 
 -- 开始打开界面
-function LuaFormManager.Open( formName,transform )
+function LuaFormManager.Open( formName,transform,objs)
 	local self = this
 	for className,formClass in pairs(self.formClassDict) do
 		if className == formName then
-			local form = formClass.New(transform)
+			local form = formClass.New(transform,objs)
 			self.formInstanceDict[className] = form
 		end
 	end

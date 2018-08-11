@@ -23,8 +23,6 @@ namespace XLua.CSObjectWrap
 			    
 				translator.DelayWrapLoader(typeof(GameManager), GameManagerWrap.__Register);
 				
-				translator.DelayWrapLoader(typeof(BaseConfigComponent), BaseConfigComponentWrap.__Register);
-				
 				translator.DelayWrapLoader(typeof(LuaCallStatic), LuaCallStaticWrap.__Register);
 				
 				translator.DelayWrapLoader(typeof(DialogParams), DialogParamsWrap.__Register);
@@ -32,6 +30,14 @@ namespace XLua.CSObjectWrap
 				translator.DelayWrapLoader(typeof(LuaSendEventArgs), LuaSendEventArgsWrap.__Register);
 				
 				translator.DelayWrapLoader(typeof(LuaEventId), LuaEventIdWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UILabel), UILabelWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIInput), UIInputWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIButton), UIButtonWrap.__Register);
+				
+				translator.DelayWrapLoader(typeof(UIScrollView), UIScrollViewWrap.__Register);
 				
 				translator.DelayWrapLoader(typeof(UIExtension), UIExtensionWrap.__Register);
 				

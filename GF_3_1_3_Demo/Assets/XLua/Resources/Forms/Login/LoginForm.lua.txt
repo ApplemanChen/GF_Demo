@@ -7,10 +7,14 @@ local this = LoginForm
 
 local LuaCall = CS.LuaCallStatic
 
-function this:ctor( transform )
+function this:ctor( transform,objs )
 	print("LoginForm Opened.")
 
-	self.btn = transform:Find("Panel/Button").gameObject
+	for i=0,objs.Length-1 do
+		print(objs[i])
+	end
+
+	-- self.btn = transform:Find("Panel/Button").gameObject
 
 	self.OnBtnClick = function (  )
 		-- local dialogParam = CS.DialogParams()
@@ -20,7 +24,7 @@ function this:ctor( transform )
 
 		-- LuaCall.LuaOpenForm("DialogForm",dialogParam)
 
-		LuaCall.FireEvent(CS.LuaEventId.TestLuaEvent,"LoginForm",{1,2,3})
+		-- LuaCall.FireEvent(CS.LuaEventId.TestLuaEvent,"LoginForm",{1,2,3})
 	end
 
 	self.OnTestLuaEvent = function ( sender, args )
@@ -30,12 +34,16 @@ function this:ctor( transform )
 		print(args.Param[0])
 	end
 
-	LuaCall.AddButtonClick(self.btn,self.OnBtnClick)
-	LuaCall.SubscribeEvent(CS.LuaEventId.TestLuaEvent,self.OnTestLuaEvent)
+	-- LuaCall.AddButtonClick(self.btn,self.OnBtnClick)
+	-- LuaCall.AddEvent(CS.LuaEventId.TestLuaEvent,self.OnTestLuaEvent)
+
+
+	LuaCall.FireEvent(CS.LuaEventId.TestLuaEvent,"LoginForm",{1,2,3})
 end
 
 function this:RemoveEvent(  )
-	LuaCall.RemoveButtonClick(self.btn,self.OnBtnClick)
+	-- LuaCall.RemoveButtonClick(self.btn,self.OnBtnClick)
+	LuaCall.RemoveEvent(CS.LuaEventId.TestLuaEvent,self.OnTestLuaEvent)
 end
 
 function this:OnOpenComplete(  )

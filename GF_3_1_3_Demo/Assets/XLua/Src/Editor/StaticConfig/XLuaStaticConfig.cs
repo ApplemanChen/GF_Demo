@@ -18,14 +18,17 @@ using GameFramework.Event;
 public static class XLuaStaticConfig
 {
     [LuaCallCSharp]
-    public static List<Type> luaCallCshapTypeList = new List<Type>() 
+    public static List<Type> luaCallCshapTypeList = new List<Type>()
     {
         typeof(GameManager),
-        typeof(BaseConfigComponent),
         typeof(LuaCallStatic),
         typeof(DialogParams),
         typeof(LuaSendEventArgs),
         typeof(LuaEventId),
+        typeof(UILabel),
+        typeof(UIInput),
+        typeof(UIButton),
+        typeof(UIScrollView),
     };
 
     [CSharpCallLua]
@@ -35,6 +38,7 @@ public static class XLuaStaticConfig
         typeof(GameFrameworkAction<object>),
         typeof(EventHandler<GameEventArgs>),
         typeof(EventHandler<LuaSendEventArgs>),
+        typeof(UIEventListener.VoidDelegate),
     };
 
     /// <summary>

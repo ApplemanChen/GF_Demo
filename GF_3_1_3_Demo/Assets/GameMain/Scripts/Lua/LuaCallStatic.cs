@@ -28,6 +28,16 @@ public class LuaCallStatic
         GameManager.UI.OpenUIForm(uiFormId,userData);
     }
 
+    public static void AddButtonClick(GameObject go, UIEventListener.VoidDelegate onBtnClick)
+    {
+        UIEventListener.Get(go).onClick += onBtnClick;
+    }
+
+    public static void RemoveButtonClick(GameObject go, UIEventListener.VoidDelegate onBtnClick)
+    {
+        UIEventListener.Get(go).onClick -= onBtnClick; 
+    }
+
     public static void AddButtonClick(GameObject go, UnityAction onBtnClick)
     {
         Button btn = go.GetComponent<Button>();
@@ -37,7 +47,7 @@ public class LuaCallStatic
         }
         else
         {
-            Log.Error("Form => GameObject '{0}' not have Button Component !", go.name);
+            Log.Error("LuaCallStatic => GameObject '{0}' not have Button Component !", go.name);
         }
     }
 
@@ -51,16 +61,16 @@ public class LuaCallStatic
         }
         else
         {
-            Log.Error("Form => GameObject '{0}' not have Button Component !", go.name);
+            Log.Error("LuaCallStatic => GameObject '{0}' not have Button Component !", go.name);
         }
     }
 
-    public static void SubscribeEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
+    public static void AddEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
     {
         GameManager.Event.Subscribe(eventId, onEventHandler);
     }
 
-    public static void UnsubcribeEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
+    public static void RemoveEvent(int eventId, EventHandler<GameEventArgs> onEventHandler)
     {
         GameManager.Event.Unsubscribe(eventId, onEventHandler);
     }

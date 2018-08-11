@@ -125,6 +125,33 @@ namespace XLua
 #endif
 		}
         
+		public void __Gen_Delegate_Imp4(UnityEngine.GameObject p0)
+		{
+#if THREAD_SAFE || HOTFIX_ENABLE
+            lock (luaEnv.luaEnvLock)
+            {
+#endif
+                RealStatePtr L = luaEnv.rawL;
+                int err_func =LuaAPI.load_error_func(L, errorFuncRef);
+                ObjectTranslator translator = luaEnv.translator;
+                
+                LuaAPI.lua_getref(L, luaReference);
+                
+                translator.Push(L, p0);
+                
+                int __gen_error = LuaAPI.lua_pcall(L, 1, 0, err_func);
+                if (__gen_error != 0)
+                    luaEnv.ThrowExceptionFromError(err_func - 1);
+                
+                
+                
+                LuaAPI.lua_settop(L, err_func - 1);
+                
+#if THREAD_SAFE || HOTFIX_ENABLE
+            }
+#endif
+		}
+        
         
 		static DelegateBridge()
 		{
@@ -152,6 +179,11 @@ namespace XLua
 		    if (type == typeof(System.EventHandler<LuaSendEventArgs>))
 			{
 			    return new System.EventHandler<LuaSendEventArgs>(__Gen_Delegate_Imp3);
+			}
+		
+		    if (type == typeof(UIEventListener.VoidDelegate))
+			{
+			    return new UIEventListener.VoidDelegate(__Gen_Delegate_Imp4);
 			}
 		
 		    return null;
