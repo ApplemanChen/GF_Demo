@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -539,15 +541,15 @@
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\CSPacketBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\PacketBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\Packet\ProtoGen\PacketId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\ProtoGen\login.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCHeartBeat.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\Packet\SCPacketBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\LoginHandlers.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\PacketHandlerBase.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\PacketHandler\SCLoginPacketHandler.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHeader\CSPacketHeader.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHeader\PacketHeaderBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketHeader\SCPacketHeader.cs" />
-    <Compile Include="Assets\GameMain\Scripts\Network\PacketId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Network\PacketType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\GameProcedureBase.cs" />
     <Compile Include="Assets\GameMain\Scripts\Procedure\ProcedureChangeScene.cs" />

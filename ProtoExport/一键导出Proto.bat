@@ -1,4 +1,10 @@
 rem 生成proto输出文件
+cd py
+python gen_templates.py
+
+cd ..
+
+cd protobuftools
 python run.py
 
 rem 生成的cs输出路径
