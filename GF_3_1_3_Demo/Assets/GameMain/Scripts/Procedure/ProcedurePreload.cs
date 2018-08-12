@@ -6,15 +6,10 @@
 
 using GameFramework;
 using GameFramework.Network;
-using ProtoBuf;
-using System.Net;
-using System.IO;
 using System.Collections.Generic;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using GameFramework.Event;
-using System;
-using network;
 using GameFramework.Resource;
 using UnityEngine;
 
@@ -177,24 +172,5 @@ public class ProcedurePreload : GameProcedureBase
         string flagKey = string.Format("Dictionary.{0}", evt.DictionaryName);
         m_LoadResFlag[flagKey] = true;
         Log.Info("Preload asset {0} success.", flagKey);
-    }
-
-    private void InitNetwork()
-    {
-        GameManager.Event.Subscribe(UnityGameFramework.Runtime.NetworkConnectedEventArgs.EventId, OnNetworkConneted);
-
-        NetworkChannelHelper helper = new NetworkChannelHelper();
-        channel = GameManager.Network.CreateNetworkChannel(Const.ServerConfigKey.GameServerIP, helper);
-        channel.Connect(IPAddress.Parse(NetworkExtension.GameServerIP), NetworkExtension.GameServerPort);
-    }
-
-    private void OnNetworkConneted(object sender, GameEventArgs e)
-    {
-        Log.Info("连接上服务器~~~");
-
-        cs_login loginInfo = new cs_login();
-        loginInfo.account = "1234";
-        loginInfo.password = "abc";
-        GameManager.Network.Send<cs_login>(loginInfo);
     }
 }

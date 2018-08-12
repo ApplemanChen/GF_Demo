@@ -138,8 +138,9 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
 
             if(packetType != null)
             {
-                packet = (Packet)RuntimeTypeModel.Default.DeserializeWithLengthPrefix(source, ReferencePool.Acquire(packetType), packetType, PrefixStyle.Fixed32, 0);
-            }else
+                packet = (Packet)RuntimeTypeModel.Default.Deserialize(source, ReferencePool.Acquire(packetType), packetType);
+            }
+            else
             {
                 Log.Warning("Can't deserialize packet id '{0}'.",packetHeaderImpl.Id);
             }
@@ -188,8 +189,8 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
             header.Id = packet.Id;
             header.PacketLength = (int)stream.Length - PacketHeaderLength;
 
-            Log.Info("序列化的id:" + header.Id);
-            Log.Info("序列化的包体长度：" + header.PacketLength);
+            //Log.Info("序列化的id:" + header.Id);
+            //Log.Info("序列化的包体长度：" + header.PacketLength);
 
             //方式1：直接写入字节数据id+packetLen
             stream.Write(BitConverter.GetBytes(header.Id), 0, 4);
@@ -197,15 +198,6 @@ public class NetworkChannelHelper : GameFramework.Network.INetworkChannelHelper
             //方式2：用头部结构体序列化进去（暂时没测通过）
             //Serializer.SerializeWithLengthPrefix(stream, header, PrefixStyle.Fixed32);
             ReferencePool.Release<CSPacketHeader>(header);
-
-            //打印发送的字节数据
-            //byte[] data = stream.ToArray();
-            //string str = "";
-            //for (int i = 0; i < data.Length;i++ )
-            //{
-            //    str = str + string.Format("data[{0}]:{1} ,",i,data[i]);
-            //}
-            //Log.Info(str);
 
             return stream.ToArray();
         }

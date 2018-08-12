@@ -8,7 +8,7 @@ def close():
 def start():
 	global server
 	server = socket.socket()
-	server.bind(('localhost',4455))
+	server.bind(('localhost',12345))
 
 	server.listen(5)
 	print("Start Connet Client ----------")
@@ -34,7 +34,7 @@ def start():
 			print(send_data)
 			print("len(body_data):",len(body_data))
 
-			conn.sendall(send_data)
+			conn.send(send_data)
 			break
 			if len(data) <0:
 				close()

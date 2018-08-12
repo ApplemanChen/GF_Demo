@@ -12,6 +12,9 @@ using GameFramework.Localization;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 using UnityEngine;
+using GameFramework.Event;
+using System.Net;
+using network;
 
 /// <summary>
 /// 启动流程
@@ -22,6 +25,7 @@ public class ProcedureLaunch:GameProcedureBase
     private bool _isLanguageInitComplete = false;
     private bool _isQualityInitComplete = false;
     private bool _isSoundInitComplete = false;
+    private bool _isNetworkInitComplete = false;
 
     protected override void OnEnter(ProcedureOwner procedureOwner)
     {
@@ -30,6 +34,7 @@ public class ProcedureLaunch:GameProcedureBase
         _isLanguageInitComplete = false;
         _isQualityInitComplete = false;
         _isSoundInitComplete = false;
+        _isNetworkInitComplete = false;
 
         SubscribeEvents();
 
@@ -47,7 +52,7 @@ public class ProcedureLaunch:GameProcedureBase
     {
         base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-        if( _isLanguageInitComplete && _isQualityInitComplete && _isSoundInitComplete)
+        if( _isLanguageInitComplete && _isQualityInitComplete && _isSoundInitComplete && _isNetworkInitComplete)
         {
             ChangeState<ProcedureSplash>(procedureOwner);
         }
@@ -64,20 +69,16 @@ public class ProcedureLaunch:GameProcedureBase
     {
         GameManager.Event.Subscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId,OnResourceInitComplete);
         GameManager.Event.Subscribe(UnityGameFramework.Runtime.OpenUIFormSuccessEventArgs.EventId,OnOpenLaunchFormSuccess);
-    }
-
-    private void OnOpenLaunchFormSuccess(object sender, GameFramework.Event.GameEventArgs e)
-    {
-        string assetName = AssetUtility.GetUIFormAsset(UIFormId.LaunchForm.ToString());
-        UIForm form = GameManager.UI.GetUIForm(assetName);
-        Log.Info("launch: ==> form:{0}", form);
-        InitAll();
+        GameManager.Event.Subscribe(UnityGameFramework.Runtime.NetworkConnectedEventArgs.EventId, OnNetworkConneted);
+        GameManager.Event.Subscribe(UnityGameFramework.Runtime.NetworkErrorEventArgs.EventId,OnNetworkError);
     }
 
     private void UnsubscribEvents()
     {
         GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.ResourceInitCompleteEventArgs.EventId, OnResourceInitComplete);
         GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.OpenUIFormSuccessEventArgs.EventId, OnOpenLaunchFormSuccess);
+        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.NetworkConnectedEventArgs.EventId, OnNetworkConneted);
+        GameManager.Event.Unsubscribe(UnityGameFramework.Runtime.NetworkErrorEventArgs.EventId, OnNetworkError);
     }
 
     private void OnResourceInitComplete(object sender, GameFramework.Event.GameEventArgs e)
@@ -92,6 +93,11 @@ public class ProcedureLaunch:GameProcedureBase
         GameManager.UI.OpenUIForm(assetName, "UI");
     }
 
+    private void OnOpenLaunchFormSuccess(object sender, GameFramework.Event.GameEventArgs e)
+    {
+        InitAll();
+    }
+
     private void InitAll()
     {
         //基础配置
@@ -102,7 +108,8 @@ public class ProcedureLaunch:GameProcedureBase
         InitQualitySetting();
         //声音配置初始化
         InitSoundSetting();
-        //TODO:其他初始化工作
+        //网络初始化
+        InitNetwork();
     }
 
     private void UpdateLaunchTips(string tips)
@@ -197,5 +204,31 @@ public class ProcedureLaunch:GameProcedureBase
         _isSoundInitComplete = true;
         //Log.Info("PrecedureLaunch ==> Sound setting init complete!");
         UpdateLaunchTips("声音配置完成！");
+    }
+
+    /// <summary>
+    /// 初始化网络
+    /// </summary>
+    private void InitNetwork()
+    {
+        GameManager.Network.CreateNetworkChannel(Const.ServerConfigKey.GameServerIP);
+        GameManager.Network.ConnectGameChannel();
+    }
+
+    private void OnNetworkConneted(object sender, GameEventArgs e)
+    {
+        Log.Info("连接上服务器~~~");
+        _isNetworkInitComplete = true;
+
+        cs_login loginInfo = new cs_login();
+        loginInfo.account = "1234";
+        loginInfo.password = "abc";
+        GameManager.Network.Send<cs_login>(loginInfo);
+    }
+
+    private void OnNetworkError(object sender, GameEventArgs e)
+    {
+        Log.Error("网络连接错误！");
+        UpdateLaunchTips("网络链接错误！！");
     }
 }
