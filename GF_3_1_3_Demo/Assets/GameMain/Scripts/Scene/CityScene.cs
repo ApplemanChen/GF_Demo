@@ -35,7 +35,8 @@ public class CityScene : SceneBase
 
     protected override void OnEnter()
     {
-
+        //TODO:加载主角
+        //GameManager.Entity.Add
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
@@ -73,6 +74,8 @@ public class CityScene : SceneBase
         mainCamera.transform.localRotation = m_SceneCamera.transform.localRotation;
         mainCamera.nearClipPlane = m_SceneCamera.nearClipPlane;
         mainCamera.farClipPlane = m_SceneCamera.farClipPlane;
+        mainCamera.orthographicSize = m_SceneCamera.orthographicSize;
+        mainCamera.orthographic = m_SceneCamera.orthographic;
 
         //禁用场景内的摄像机
         m_SceneCamera.gameObject.SetActive(false);

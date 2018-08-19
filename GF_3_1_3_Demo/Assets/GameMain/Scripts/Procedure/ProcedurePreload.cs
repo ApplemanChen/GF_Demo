@@ -18,7 +18,6 @@ using UnityEngine;
 /// </summary>
 public class ProcedurePreload : GameProcedureBase
 {
-    private INetworkChannel channel;
     //加载资源标识
     private Dictionary<string, bool> m_LoadResFlag = new Dictionary<string, bool>();
 

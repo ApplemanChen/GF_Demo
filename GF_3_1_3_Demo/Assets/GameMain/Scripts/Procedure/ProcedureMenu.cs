@@ -45,7 +45,7 @@ public class ProcedureMenu : GameProcedureBase
         {
             GameManager.UI.CloseUIForm(UIFormId.MenuForm);
 
-            procedureOwner.SetData<VarInt>(Const.ProcedureDataKey.NextSceneId,(int)SceneId.Scene1);
+            procedureOwner.SetData<VarInt>(Const.ProcedureDataKey.NextSceneId,(int)SceneId.MainScene);
             ChangeState<ProcedureChangeScene>(procedureOwner);
         }
     }

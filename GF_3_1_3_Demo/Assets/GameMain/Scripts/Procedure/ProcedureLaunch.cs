@@ -109,7 +109,8 @@ public class ProcedureLaunch:GameProcedureBase
         //声音配置初始化
         InitSoundSetting();
         //网络初始化
-        InitNetwork();
+        //InitNetwork();
+        _isNetworkInitComplete = true;
     }
 
     private void UpdateLaunchTips(string tips)

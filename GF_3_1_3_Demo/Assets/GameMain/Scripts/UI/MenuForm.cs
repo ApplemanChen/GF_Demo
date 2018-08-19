@@ -28,36 +28,33 @@ public class MenuForm : NGuiForm
         _btn = CachedTransform.Find("Button").GetComponent<UIButton>();
         UIEventListener.Get(_btn.gameObject).onClick = OnBtnClick;
 
-        GameManager.Event.Subscribe(LuaEventId.TestLuaEvent,OnLuaEventSend);
+        //GameManager.Event.Subscribe(LuaEventId.TestLuaEvent,OnLuaEventSend);
     }
 
-    private void OnLuaEventSend(object sender, GameEventArgs e)
-    {
-        LuaSendEventArgs evt = (LuaSendEventArgs)e;
+    //private void OnLuaEventSend(object sender, GameEventArgs e)
+    //{
+    //    LuaSendEventArgs evt = (LuaSendEventArgs)e;
 
-        Log.Info("C# receive:{0}",evt.Sender);
-        Log.Info("C# receive:{0}", evt.Param[1]);
-    }
+    //    Log.Info("C# receive:{0}",evt.Sender);
+    //    Log.Info("C# receive:{0}", evt.Param[1]);
+    //}
 
     protected internal override void OnOpen(object userData)
     {
         base.OnOpen(userData);
 
-        GameManager.UI.OpenUIForm(UIFormId.LoginForm,new object[] { "aaa","bbb"});
+        //GameManager.UI.OpenUIForm(UIFormId.LoginForm,new object[] { "aaa","bbb"});
     }
 
     private void OnBtnClick(GameObject go)
     {
-        //GameManager.UI.OpenDialog(new DialogParams()
-        //{
-        //    Mode = 2,
-        //    Title = GameManager.Localization.GetString("Dialog.Title"),
-        //    Message = GameManager.Localization.GetString("Dialog.EnterMessage"),
-        //    OnClickConfirm = OnDialogConfirm,
-        //});
-
-        //抛出Lua方事件，C#方也可同样注册该id的事件
-        //LuaCallStatic.FireEvent(LuaEventId.TestLuaEvent, Name, new object[] { 1, 2, 3 });
+        GameManager.UI.OpenDialog(new DialogParams()
+        {
+            Mode = 2,
+            Title = GameManager.Localization.GetString("Dialog.Title"),
+            Message = GameManager.Localization.GetString("Dialog.EnterMessage"),
+            OnClickConfirm = OnDialogConfirm,
+        });
     }
 
     private void OnDialogConfirm(object userData)

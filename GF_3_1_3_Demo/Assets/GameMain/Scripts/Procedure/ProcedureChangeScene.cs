@@ -57,6 +57,7 @@ public class ProcedureChangeScene : GameProcedureBase
         GameManager.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
         GameManager.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
         GameManager.Event.Unsubscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
+        GameManager.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
 
         base.OnLeave(procedureOwner, isShutdown);
     }

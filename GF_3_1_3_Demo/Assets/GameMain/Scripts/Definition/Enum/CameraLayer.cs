@@ -17,8 +17,4 @@ public enum CameraLayer
     /// UI相机
     /// </summary>
     UI,
-    /// <summary>
-    /// UI模型相机
-    /// </summary>
-    UIModel,
 }

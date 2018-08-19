@@ -8,4 +8,5 @@ public enum SceneId
 {
     Undefined,
     Scene1 = 100101,
+    MainScene = 100102,
 }

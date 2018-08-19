@@ -30,6 +30,8 @@ public class ProcedureCity : GameProcedureBase
         int sceneId = procedureOwner.GetData<VarInt>(Const.ProcedureDataKey.NextSceneId).Value;
         m_Scene = new CityScene(sceneId);
         m_Scene.Enter();
+
+        //GameManager.UI.OpenUIForm(UIFormId.MenuForm);
     }
 
     protected override void OnUpdate(ProcedureOwner procedureOwner, float elapseSeconds, float realElapseSeconds)
