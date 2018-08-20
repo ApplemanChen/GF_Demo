@@ -67,6 +67,7 @@ public class ProcedurePreload : GameProcedureBase
         LoadDatable("UIForm");
         LoadDatable("Music");
         LoadDatable("Scene");
+        LoadDatable("Entity");
 
         UpdateLaunchTips("正在预加载语言字典资源...");
         LoadDictionary("Default");

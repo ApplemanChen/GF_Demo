@@ -36,7 +36,7 @@ public class CityScene : SceneBase
     protected override void OnEnter()
     {
         //TODO:加载主角
-        //GameManager.Entity.Add
+        GameManager.Entity.ShowPlayer(new PlayerData(GameManager.Entity.GenerateSerialId(), 10001));
     }
 
     protected override void OnUpdate(float elapseSeconds, float realElapseSeconds)
