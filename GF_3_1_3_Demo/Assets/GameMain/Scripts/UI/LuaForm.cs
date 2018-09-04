@@ -31,8 +31,6 @@ public class LuaForm : NGuiForm
 
     protected internal override void OnOpen(object userData)
     {
-        base.OnOpen(userData);
-
         //先执行界面Lua，将Form注册到LuaFormManager中
         LuaTable luaTable = GameManager.Lua.GetLuaTable(m_FormManagerName, m_ManagerClass, "FormIDToLuaName");
         string luaName = luaTable.Get<string>(m_FormName);
@@ -46,6 +44,8 @@ public class LuaForm : NGuiForm
         {
             GameManager.Lua.CallLuaFunction(m_FormManagerLuaTable,"Open",m_FormName,CachedTransform, userData);
         }
+
+        base.OnOpen(userData);
     }
 
     protected internal override void OnUpdate(float elapseSeconds, float realElapseSeconds)

@@ -10,9 +10,11 @@ local LuaCall = CS.LuaCallStatic
 function this:ctor( transform,objs )
 	print("LoginForm Opened.")
 
-	for i=0,objs.Length-1 do
-		print(objs[i])
-	end
+	if objs then
+		for i=0,objs.Length-1 do
+			print(objs[i])
+		end
+	end	
 
 	-- self.btn = transform:Find("Panel/Button").gameObject
 
@@ -48,6 +50,7 @@ end
 
 function this:OnOpenComplete(  )
 	print("LoginForm OnOpenComplete")
+
 end
 
 function this:OnClose(  )

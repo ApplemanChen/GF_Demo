@@ -10,6 +10,7 @@ using GameFramework;
 using GameFramework.Resource;
 using UnityGameFramework.Runtime;
 using XLua;
+using System;
 
 /// <summary>
 /// Lua组件
@@ -71,10 +72,16 @@ public class LuaComponent : GameFrameworkComponent
     {
         if(m_CacheLuaDict.ContainsKey(luaName))
         {
-            if(m_LuaEnv != null)
+            try
             {
-                string luaString = m_CacheLuaDict[luaName];
-                m_LuaEnv.DoString(luaString);
+                if(m_LuaEnv != null)
+                {
+                    string luaString = m_CacheLuaDict[luaName];
+                    m_LuaEnv.DoString(luaString);
+                }
+            }catch(Exception exception)
+            {
+                Log.Error(exception.Message);
             }
         }else
         {
@@ -155,10 +162,16 @@ public class LuaComponent : GameFrameworkComponent
     {
         if(luaTable != null)
         {
-            LuaFunction luaFunction = luaTable.Get<LuaFunction>(funcName);
-            luaFunction.Call(param);
-            luaFunction.Dispose();
-            luaFunction = null;
+            try
+            {
+                LuaFunction luaFunction = luaTable.Get<LuaFunction>(funcName);
+                luaFunction.Call(param);
+                luaFunction.Dispose();
+                luaFunction = null;
+            }catch(Exception exception)
+            {
+                Log.Error(exception.Message);
+            }
         }else
         {
             Log.Error("LuaTable is invalid.");
@@ -176,13 +189,19 @@ public class LuaComponent : GameFrameworkComponent
     {
        if(m_CacheLuaDict.ContainsKey(luaName))
         {
-            LuaTable classLuaTable = m_LuaEnv.Global.Get<LuaTable>(className);
-            LuaFunction luaFunc = classLuaTable.Get<LuaFunction>(funcName);
-           luaFunc.Call(parms);
-           classLuaTable.Dispose();
-           luaFunc.Dispose();
-           classLuaTable = null;
-           luaFunc = null;
+           try
+           {
+               LuaTable classLuaTable = m_LuaEnv.Global.Get<LuaTable>(className);
+               LuaFunction luaFunc = classLuaTable.Get<LuaFunction>(funcName);
+               luaFunc.Call(parms);
+               classLuaTable.Dispose();
+               luaFunc.Dispose();
+               classLuaTable = null;
+               luaFunc = null;
+           }catch(Exception exception)
+           {
+               Log.Error(exception.Message);
+           }
         }
        else
        {
