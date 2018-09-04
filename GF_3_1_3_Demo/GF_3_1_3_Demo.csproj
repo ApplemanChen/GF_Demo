@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -512,6 +514,7 @@
     <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\Camera\CameraComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\CustomDataTableHelper.cs" />
+    <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRMusic.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRScene.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DRUIForm.cs" />
@@ -525,6 +528,11 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\PlayerData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Player.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\GameEntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\LocalizationExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaFailureEventArgs.cs" />
