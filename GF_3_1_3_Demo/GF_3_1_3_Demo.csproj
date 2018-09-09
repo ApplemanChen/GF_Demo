@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -512,6 +510,9 @@
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestSuccessEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameManager.cs" />
     <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\IAttribute.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\IBuff.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\IBuffOwner.cs" />
     <Compile Include="Assets\GameMain\Scripts\Camera\CameraComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\CustomDataTableHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
@@ -523,10 +524,13 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ProcedureDataKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.ServerConfigKey.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Const\Const.SettingKey.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\AttributeType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\BuffType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\CameraLayer.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\LuaEventId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\QualityLevel.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Definition\Enum\ValueType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
     <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\PlayerData.cs" />
@@ -587,6 +591,7 @@
     <Compile Include="Assets\GameMain\Scripts\UI\UIExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\UI\UIFormId.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\AssetUtility.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Utility\BuffUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\GameUtility.cs" />
     <Compile Include="Assets\GameMain\Scripts\Utility\WebUtility.cs" />
     <Compile Include="Assets\XLua\Gen\DelegatesGensBridge.cs" />

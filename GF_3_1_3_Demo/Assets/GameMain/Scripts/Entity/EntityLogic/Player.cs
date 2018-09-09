@@ -7,6 +7,10 @@ using UnityGameFramework.Runtime;
 /// </summary>
 public class Player : GameEntity
 {
+    private const string IsWalking = "IsWalking";
+    private const string IsAttacking = "IsAttacking";
+    private const string IsRunning = "IsRunning";
+
     public Player()
     {
 
@@ -38,19 +42,19 @@ public class Player : GameEntity
     {
         base.OnUpdate(elapseSeconds, realElapseSeconds);
 
-        if(Input.GetKeyUp(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A))
         {
-            CachedAnimator.Play("Walk");
+            CachedAnimator.SetBool(IsWalking,true);
         }
 
-        if(Input.GetKeyUp(KeyCode.B))
+        if(Input.GetKeyDown(KeyCode.B))
         {
-            CachedAnimator.Play("Run");
+            CachedAnimator.SetBool(IsRunning,true);
         }
 
-        if (Input.GetKeyUp(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
         {
-            CachedAnimator.Play("Attack1");
+            CachedAnimator.SetBool(IsAttacking,true);
         }
     }
 }
