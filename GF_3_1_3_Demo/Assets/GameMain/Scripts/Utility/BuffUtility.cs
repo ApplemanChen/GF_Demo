@@ -12,8 +12,6 @@ using System.Collections.Generic;
 /// </summary>
 public static class BuffUtility
 {
-    private static int s_BuffTypeDepth = 1000000;
-    private static int s_BuffSubTypeDepth = 10000;
     /// <summary>
     /// 全局临时BuffId
     /// </summary>
@@ -22,17 +20,9 @@ public static class BuffUtility
     /// <summary>
     /// 生成BuffId
     /// </summary>
-    /// <param name="buffType"></param>
-    /// <param name="buffSubType"></param>
     /// <returns></returns>
-    public static int GenerateBuffId(int buffType)
+    public static int GenerateBuffId()
     {
-        s_TempBuffId++;
-        //临时值达到子类型深度最大值，重置0
-        if (s_TempBuffId >= s_BuffSubTypeDepth)
-        {
-            s_TempBuffId = 0;
-        }
-        return buffType * s_BuffTypeDepth + s_TempBuffId;
+        return ++s_TempBuffId;
     }
 }

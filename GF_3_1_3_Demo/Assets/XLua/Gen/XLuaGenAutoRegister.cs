@@ -39,6 +39,8 @@ namespace XLua.CSObjectWrap
 				
 				translator.DelayWrapLoader(typeof(UIScrollView), UIScrollViewWrap.__Register);
 				
+				translator.DelayWrapLoader(typeof(LuaComponent), LuaComponentWrap.__Register);
+				
 				translator.DelayWrapLoader(typeof(UIExtension), UIExtensionWrap.__Register);
 				
 				

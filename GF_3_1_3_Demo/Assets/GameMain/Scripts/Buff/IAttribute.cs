@@ -13,6 +13,11 @@ using GameFramework;
 public interface IAttribute
 {
     /// <summary>
+    /// 属性名
+    /// </summary>
+    string Key { get; }
+
+    /// <summary>
     /// 设置数据
     /// </summary>
     /// <typeparam name="T">数据类型</typeparam>

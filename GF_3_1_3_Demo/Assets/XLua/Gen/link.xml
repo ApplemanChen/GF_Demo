@@ -12,6 +12,7 @@
 		<type fullname="UIInput" preserve="all"/>
 		<type fullname="UIButton" preserve="all"/>
 		<type fullname="UIScrollView" preserve="all"/>
+		<type fullname="LuaComponent" preserve="all"/>
 		<type fullname="UIExtension" preserve="all"/>
 		
 	</assembly>

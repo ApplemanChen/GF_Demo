@@ -12,10 +12,6 @@ using System;
 public interface IBuff
 {
     /// <summary>
-    /// 初始化
-    /// </summary>
-    void OnInit();
-    /// <summary>
     /// 开始
     /// </summary>
     void OnEnter();

@@ -5,22 +5,33 @@
 //------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 
 /// <summary>
-/// 基础Buff类型
+/// Buff数据
 /// </summary>
-public enum BuffType
+public class BuffData
 {
+    public BuffData()
+    {
+        
+    }
+
     /// <summary>
-    /// 改变属性值
+    /// 类型
     /// </summary>
-    ChangeValue,
+    public BuffType BuffType
+    {
+        get;
+        set;
+    }
+
     /// <summary>
-    /// 限时类
+    /// 生命周期
     /// </summary>
-    LimtTime,
-    /// <summary>
-    /// 组合类
-    /// </summary>
-    Composite,
+    public float LifeTime
+    {
+        get;
+        set;
+    }
 }

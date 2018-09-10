@@ -43,7 +43,7 @@ public class ProcedureMenu : GameProcedureBase
         
         if(m_IsEnterScene)
         {
-            //GameManager.UI.CloseUIForm(UIFormId.LoginForm);
+            GameManager.UI.CloseUIForm(UIFormId.LoginForm);
 
             procedureOwner.SetData<VarInt>(Const.ProcedureDataKey.NextSceneId,(int)SceneId.MainScene);
             ChangeState<ProcedureChangeScene>(procedureOwner);

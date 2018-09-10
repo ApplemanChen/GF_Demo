@@ -13,20 +13,15 @@ using System.Collections.Generic;
 public interface IBuffOwner
 {
     /// <summary>
-    /// 所有Buff列表
-    /// </summary>
-    IList<IBuff> BuffList { get; }
-
-    /// <summary>
     /// 添加Buff
     /// </summary>
     /// <param name="buff"></param>
-    void AddBuff(IBuff buff);
+    void AddBuff(BuffBase buff);
 
     /// <summary>
     /// 移除Buff
     /// </summary>
     /// <param name="buff"></param>
-    void RemoveBuff(IBuff buff);
+    void RemoveBuff(BuffBase buff);
 }
 

@@ -29,6 +29,7 @@ public static class XLuaStaticConfig
         typeof(UIInput),
         typeof(UIButton),
         typeof(UIScrollView),
+        typeof(LuaComponent),
     };
 
     [CSharpCallLua]
