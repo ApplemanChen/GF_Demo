@@ -17,7 +17,7 @@
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>Android:13</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>GameMain</RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -510,9 +510,16 @@
     <Compile Include="Assets\GameFramework\Scripts\Runtime\WebRequest\WebRequestSuccessEventArgs.cs" />
     <Compile Include="Assets\GameMain\Scripts\Base\GameManager.cs" />
     <Compile Include="Assets\GameMain\Scripts\BaseConfig\BaseConfigComponent.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffBase.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffComposite.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffContainer.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffFrencucy.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\BuffLimitTime.cs" />
     <Compile Include="Assets\GameMain\Scripts\Buff\IAttribute.cs" />
     <Compile Include="Assets\GameMain\Scripts\Buff\IBuff.cs" />
     <Compile Include="Assets\GameMain\Scripts\Buff\IBuffOwner.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Buff\TestPlayer.cs" />
     <Compile Include="Assets\GameMain\Scripts\Camera\CameraComponent.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\CustomDataTableHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\DataTable\DREntity.cs" />
@@ -532,6 +539,11 @@
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\UITweenType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Enum\ValueType.cs" />
     <Compile Include="Assets\GameMain\Scripts\Definition\Struct\VersionInfo.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\EntityData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityData\PlayerData.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityExtension.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\EntityLogic\Player.cs" />
+    <Compile Include="Assets\GameMain\Scripts\Entity\GameEntity.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\LocalizationExtension.cs" />
     <Compile Include="Assets\GameMain\Scripts\Localization\XmlLocalizationHelper.cs" />
     <Compile Include="Assets\GameMain\Scripts\Lua\Events\LoadLuaFailureEventArgs.cs" />
@@ -594,6 +606,7 @@
     <Compile Include="Assets\XLua\Gen\EnumWrap.cs" />
     <Compile Include="Assets\XLua\Gen\GameManagerWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaCallStaticWrap.cs" />
+    <Compile Include="Assets\XLua\Gen\LuaComponentWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaEventIdWrap.cs" />
     <Compile Include="Assets\XLua\Gen\LuaSendEventArgsWrap.cs" />
     <Compile Include="Assets\XLua\Gen\PackUnpack.cs" />
@@ -631,6 +644,7 @@
     <None Include="Assets\3rd\DOTween\DOTween.XML" />
     <None Include="Assets\3rd\DOTween\Editor\DOTweenEditor.XML" />
     <None Include="Assets\3rd\DOTween\readme.txt" />
+    <None Include="Assets\3rd\JsonNet-Lite\JsonNet-Lite.unitypackage.json" />
     <None Include="Assets\3rd\NGUI\Examples\Atlases\Fantasy\Fantasy Font - Normal.txt" />
     <None Include="Assets\3rd\NGUI\Examples\Atlases\Refractive\Refractive Font - Header.txt" />
     <None Include="Assets\3rd\NGUI\Examples\Atlases\Refractive\Refractive Font - Normal.txt" />
@@ -673,20 +687,31 @@
     <None Include="Assets\3rd\NGUI\Resources\Shaders\Unlit - Transparent Packed 3.shader" />
     <None Include="Assets\3rd\NGUI\Resources\Shaders\Unlit - Transparent Packed.shader" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Dragon\dragon.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Dragon\dragon.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Dragon\license.txt" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Eyes\eyes.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Eyes\eyes.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\FootSoldier\Equipment\Equipment.atlas.txt" />
     <None Include="Assets\3rd\Spine\Examples\Spine\FootSoldier\FS_White.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\FootSoldier\FootSoldier.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\FootSoldier\license.txt" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Gauge\Gauge.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Gauge\Gauge.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Goblins\goblins.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Goblins\goblins.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Hero\hero-mesh.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Hero\hero-mesh.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Hero\license.txt" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Raggedy Spineboy\Raggedy Spineboy.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Raptor\raptor.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Raptor\raptor.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Spineboy\spineboy.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Spineboy\spineboy.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Spineunitygirl\Doi.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Spineunitygirl\Doi.json" />
     <None Include="Assets\3rd\Spine\Examples\Spine\Strechyman\stretchyman-diffuse-pma.atlas.txt" />
+    <None Include="Assets\3rd\Spine\Examples\Spine\Strechyman\stretchyman.json" />
     <None Include="Assets\3rd\Spine\spine-unity\Editor\Resources\SpineAssetDatabaseMarker.txt" />
     <None Include="Assets\3rd\Spine\spine-unity\Modules\CustomMaterials\SkeletonRendererCustomMaterials.txt" />
     <None Include="Assets\3rd\Spine\spine-unity\Modules\Ghost\Shaders\SkeletonGhost.shader" />
@@ -723,6 +748,10 @@
     <None Include="Assets\GameMain\Config\ServerConfig.txt" />
     <None Include="Assets\GameMain\Localization\ChineseSimplified\Dictionaries\Default.xml" />
     <None Include="Assets\GameMain\Localization\English\Dictionaries\Default.xml" />
+    <None Include="Assets\GameMain\Res\DataTables\Entity.json" />
+    <None Include="Assets\GameMain\Res\DataTables\Music.json" />
+    <None Include="Assets\GameMain\Res\DataTables\Scene.json" />
+    <None Include="Assets\GameMain\Res\DataTables\UIForm.json" />
     <None Include="Assets\XLua\CHANGELOG.txt" />
     <None Include="Assets\XLua\Gen\link.xml" />
     <None Include="Assets\XLua\Resources\Base\class.lua.txt" />
