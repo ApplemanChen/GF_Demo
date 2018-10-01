@@ -108,6 +108,15 @@ public static class AssetUtility {
     }
 
     /// <summary>
+    /// Lua列表文件
+    /// </summary>
+    /// <returns></returns>
+    public static string GetLuaFileConfig()
+    {
+        return string.Format("Assets/GameMain/Config/LuaFilesConfig.json");
+    }
+
+    /// <summary>
     /// Lua资源
     /// </summary>
     /// <param name="assetName">资源名</param>

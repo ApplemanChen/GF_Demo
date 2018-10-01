@@ -23,4 +23,15 @@ public static class GameUtility
     {
         return JsonConvert.DeserializeObject<T>(json);
     }
+
+    /// <summary>
+    /// 序列化json
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="obj"></param>
+    /// <returns></returns>
+    public static string SerializeObject<T>(T obj)
+    {
+        return JsonConvert.SerializeObject(obj);
+    }
 }

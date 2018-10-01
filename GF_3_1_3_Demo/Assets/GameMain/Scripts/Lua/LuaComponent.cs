@@ -65,6 +65,16 @@ public class LuaComponent : GameFrameworkComponent
     }
 
     /// <summary>
+    /// 加载lua文件列表
+    /// </summary>
+    public void LoadLuaFilesConfig()
+    {
+        LoadAssetCallbacks callBacks = new LoadAssetCallbacks(OnLoadLuaFilesConfigSuccess, OnLoadLuaFilesConfigFailure);
+        string assetName = AssetUtility.GetLuaFileConfig();
+        m_ResourceComponent.LoadAsset(assetName, callBacks);
+    }
+
+    /// <summary>
     /// 执行lua文件
     /// </summary>
     /// <param name="luaName"></param>
@@ -207,6 +217,19 @@ public class LuaComponent : GameFrameworkComponent
        {
            Log.Error("Lua file '{0}' is not load,please execute LoadLuaFile() first.", luaName);
        }
+    }
+
+    private void OnLoadLuaFilesConfigFailure(string assetName, LoadResourceStatus status, string errorMessage, object userData)
+    {
+        Log.Info("Load LuaFilesConfig: '{0}' failure.", assetName);
+        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigFailureEventArgs>().Fill(assetName, errorMessage));
+    }
+
+    private void OnLoadLuaFilesConfigSuccess(string assetName, object asset, float duration, object userData)
+    {
+        TextAsset textAsset = (TextAsset)asset;
+        Log.Info("Load LuaFilesConfig: '{0}' success.", assetName);
+        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, textAsset.text));
     }
 
     private void OnLoadLuaAssetSuccess(string assetName, object asset, float duration, object userData)

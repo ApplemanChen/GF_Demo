@@ -1,0 +1,9 @@
+{"LuaName":"Base/class","AssetName":"Assets/XLua/Resources/Base/class.lua.txt"}
+{"LuaName":"Forms/Login/LoginForm","AssetName":"Assets/XLua/Resources/Forms/Login/LoginForm.lua.txt"}
+{"LuaName":"Forms/Login/LoginItem","AssetName":"Assets/XLua/Resources/Forms/Login/LoginItem.lua.txt"}
+{"LuaName":"Manager/LuaFormManager","AssetName":"Assets/XLua/Resources/Manager/LuaFormManager.lua.txt"}
+{"LuaName":"Perf/memory","AssetName":"Assets/XLua/Resources/Perf/memory.lua.txt"}
+{"LuaName":"Perf/profiler","AssetName":"Assets/XLua/Resources/Perf/profiler.lua.txt"}
+{"LuaName":"Util/Functions","AssetName":"Assets/XLua/Resources/Util/Functions.lua.txt"}
+{"LuaName":"Util/util","AssetName":"Assets/XLua/Resources/Util/util.lua.txt"}
+{"LuaName":"main","AssetName":"Assets/XLua/Resources/main.lua.txt"}

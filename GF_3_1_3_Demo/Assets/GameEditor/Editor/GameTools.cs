@@ -15,7 +15,7 @@ namespace GT
             Debug.Log("作者：一条猪儿虫，^_^, Email:1184923569@qq.com");
         }
 
-        [MenuItem("GameTools/生成所有Lua文件信息配置LuaFilesConfig.cs")]
+        [MenuItem("GameTools/生成所有Lua文件信息配置LuaFilesConfig.json")]
         public static void GenerateLuaFilesConfig()
         {
             GTLua luaTool = new GTLua();

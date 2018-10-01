@@ -4,6 +4,9 @@
 // Email: 1184923569@qq.com
 //------------------------------------------------------------
 
+using System;
+
+[Serializable]
 public class LuaFileInfo
 {
     public LuaFileInfo(string luaName)

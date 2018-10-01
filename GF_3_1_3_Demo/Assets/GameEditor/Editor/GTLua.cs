@@ -11,11 +11,11 @@ using GameFramework;
 public class GTLua
 {
     private List<string> m_fileList = new List<string>();
-    private string m_filesConfigFile = Application.dataPath+"/GameMain/Scripts/Lua/LuaFilesConfig.cs";
+    private string m_filesConfigFile = Application.dataPath + "/GameMain/Config/LuaFilesConfig.json";
 
     public GTLua()
     {
-        Debug.Log("m_filesConfigFile:"+m_filesConfigFile);
+
     }
 
     /// <summary>
@@ -27,32 +27,26 @@ public class GTLua
         string suffix = ".lua.txt";
         CollectFilesWithSuffix(rootPath, ".lua.txt", ref m_fileList);
 
-        using (StreamWriter sw = new StreamWriter(File.Open(m_filesConfigFile, FileMode.Create),new UTF8Encoding()))
-        {
-            sw.Write(@"using System.Collections.Generic;");
-            sw.Write(@"
-/// <summary>
-/// 所有Lua文件配置
-/// 由编辑器自动生成，不要修改！
-/// </summary>
-public static class LuaFilesConfig
-{
-    public static List<LuaFileInfo> FilesConfigList = new List<LuaFileInfo>() 
-    {");
-            sw.Write("\n");
-            foreach (string file in m_fileList)
-            {
-               string path = Utility.Path.GetRegularPath(file);
-               string tempName = path.Substring(path.IndexOf("Resources")+10);
-               string luaName = tempName.Substring(0, tempName.Length - suffix.Length);
-               sw.Write("\t\t");
-               sw.Write(string.Format("new LuaFileInfo(\"{0}\"),\n", luaName));
-            }
-            sw.Write(@"
-    };
-}");     
+        StringBuilder sb = new StringBuilder();
 
+        foreach(string file in m_fileList)
+        {
+            string path = Utility.Path.GetRegularPath(file);
+            string tempName = path.Substring(path.IndexOf("Resources") + 10);
+            string luaName = tempName.Substring(0, tempName.Length - suffix.Length);
+            string json = GameUtility.SerializeObject<LuaFileInfo>(new LuaFileInfo(luaName));
+            Debug.Log("json:"+json);
+            sb.Append(json);
+            
+            sb.Append("\n");
+        }
+
+        using (FileStream stream = new FileStream(m_filesConfigFile,FileMode.Create))
+        {
+            StreamWriter sw = new StreamWriter(stream);
+            sw.Write(sb.ToString());
             sw.Flush();
+            sw.Close();
         }
 
         AssetDatabase.Refresh();
