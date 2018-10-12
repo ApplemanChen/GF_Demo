@@ -24,6 +24,18 @@ public class LuaComponent : GameFrameworkComponent
     private ResourceComponent m_ResourceComponent;
     private EventComponent m_EventComponent;
     private Dictionary<string, string> m_CacheLuaDict;
+    private List<LuaFileInfo> m_LuaFileInfos;
+
+    /// <summary>
+    /// Lua文件列表信息
+    /// </summary>
+    public List<LuaFileInfo> LuaFileInfos
+    {
+        get
+        {
+            return m_LuaFileInfos;
+        }
+    }
 
     protected override void Awake()
     {
@@ -43,6 +55,7 @@ public class LuaComponent : GameFrameworkComponent
 
         m_CacheLuaDict = new Dictionary<string, string>();
         m_LuaEnv = new LuaEnv();
+        m_LuaFileInfos = new List<LuaFileInfo>();
     }
 
     private void Update()
@@ -72,6 +85,26 @@ public class LuaComponent : GameFrameworkComponent
         LoadAssetCallbacks callBacks = new LoadAssetCallbacks(OnLoadLuaFilesConfigSuccess, OnLoadLuaFilesConfigFailure);
         string assetName = AssetUtility.GetLuaFileConfig();
         m_ResourceComponent.LoadAsset(assetName, callBacks);
+    }
+
+    /// <summary>
+    /// 解析Lua文件配置列表
+    /// </summary>
+    /// <param name="content">配置列表内容</param>
+    public void ParseLuaFilesConfig(string content)
+    {
+        m_LuaFileInfos.Clear();
+        string[] contentLines = content.Split('\n');
+        int len = contentLines.Length;
+        for (int i = 0; i < len; i++)
+        {
+            if (!string.IsNullOrEmpty(contentLines[i]))
+            {
+                LuaFileInfo info = GameUtility.DeserializeObject<LuaFileInfo>(contentLines[i]);
+                m_LuaFileInfos.Add(info);
+            }
+        }
+
     }
 
     /// <summary>
@@ -229,7 +262,12 @@ public class LuaComponent : GameFrameworkComponent
     {
         TextAsset textAsset = (TextAsset)asset;
         Log.Info("Load LuaFilesConfig: '{0}' success.", assetName);
-        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, textAsset.text));
+
+        string content = textAsset.text;
+        //开始解析Lua配置文件列表
+        ParseLuaFilesConfig(content);
+
+        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFilesConfigSuccessEventArgs>().Fill(assetName, content));
     }
 
     private void OnLoadLuaAssetSuccess(string assetName, object asset, float duration, object userData)
@@ -255,4 +293,15 @@ public class LuaComponent : GameFrameworkComponent
         string errorMessage = string.Format("Load lua file failed. The file is {0}. ", assetName);
         m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFailureEventArgs>().Fill(assetName, luaName, errorMessage));
     }
+
+    #region 编辑器模式下
+    public void ReloadLua()
+    {
+        for (int i = 0; i < m_LuaFileInfos.Count; i++)
+        {
+            //m_loadedFlag.Add(m_LuaFileInfos[i].LuaName, false);
+            GameManager.Lua.LoadLuaFile(m_LuaFileInfos[i].LuaName, m_LuaFileInfos[i].AssetName);
+        }
+    }
+    #endregion
 }

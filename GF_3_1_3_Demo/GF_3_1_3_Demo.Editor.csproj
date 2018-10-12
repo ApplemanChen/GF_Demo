@@ -13,7 +13,8 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Full v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>5.4.1f1</UnityVersion>
@@ -229,6 +230,7 @@
     <Compile Include="Assets\GameEditor\Editor\GTAssetPostcessor.cs" />
     <Compile Include="Assets\GameEditor\Editor\GTLua.cs" />
     <Compile Include="Assets\GameEditor\Editor\GameTools.cs" />
+    <Compile Include="Assets\GameEditor\Editor\GTUtility.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzer.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzerController.CircularDependencyChecker.cs" />
     <Compile Include="Assets\GameFramework\Scripts\Editor\AssetBundleAnalyzer\AssetBundleAnalyzerController.Stamp.cs" />

@@ -18,7 +18,7 @@ using System;
 /// </summary>
 public class ProcedureLoadLua : GameProcedureBase
 {
-    private List<LuaFileInfo> m_LuaFileInfos = new List<LuaFileInfo>();
+    private List<LuaFileInfo> m_LuaFileInfos;
     private Dictionary<string, bool> m_loadedFlag = new Dictionary<string, bool>();
     private bool m_IsLoadedFilesConfig = false;
 
@@ -68,10 +68,7 @@ public class ProcedureLoadLua : GameProcedureBase
 
     private void OnLoadLuaFilesConfgSuccess(object sender, GameEventArgs e)
     {
-        LoadLuaFilesConfigSuccessEventArgs evt = (LoadLuaFilesConfigSuccessEventArgs)e;
-
-        //解析lua文件列表
-        ParseLuaFilesConfig(evt.Content);
+        m_LuaFileInfos = GameManager.Lua.LuaFileInfos;
 
         //开始加载lua文件
         StartLoadLua();
@@ -84,23 +81,6 @@ public class ProcedureLoadLua : GameProcedureBase
         LoadLuaSuccessEventArgs evt = (LoadLuaSuccessEventArgs)e;
 
         m_loadedFlag[evt.LuaName] = true;
-    }
-
-    private void ParseLuaFilesConfig(string content)
-    {
-        m_LuaFileInfos.Clear();
-        string[] contentLines = content.Split('\n');
-        int len = contentLines.Length;
-        for (int i = 0; i < len; i++)
-        {
-            if (!string.IsNullOrEmpty(contentLines[i]))
-            {
-                LuaFileInfo info = GameUtility.DeserializeObject<LuaFileInfo>(contentLines[i]);
-                m_LuaFileInfos.Add(info);
-            }
-        }
-
-        Log.Info("m_LuaFileInfos.Count:"+m_LuaFileInfos.Count);
     }
 
     private void StartLoadLua()

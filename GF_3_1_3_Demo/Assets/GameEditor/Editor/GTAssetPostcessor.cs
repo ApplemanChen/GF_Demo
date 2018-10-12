@@ -50,6 +50,12 @@ public class GTAssetPostcessor : AssetPostprocessor {
         if(luaList.Count > 0)
         {
             GT.GameTools.GenerateLuaFilesConfig();
+
+            //编辑器运行模式下，可直接修改lua,并直接运行检测，不用重新运行一次游戏！
+            if(Application.isPlaying)
+            {
+                GT.GameTools.ReloadLuaOnPlaying();
+            }
         }
     }
 }

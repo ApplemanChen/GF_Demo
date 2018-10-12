@@ -4,75 +4,130 @@ using UnityEditor;
 using System.Text;
 using System.IO;
 using GameFramework;
+using GameFramework.Event;
 
-/// <summary>
-/// Lua相关工具
-/// </summary>
-public class GTLua
+namespace GT
 {
-    private List<string> m_fileList = new List<string>();
-    private string m_filesConfigFile = Application.dataPath + "/GameMain/Config/LuaFilesConfig.json";
-
-    public GTLua()
-    {
-
-    }
-
     /// <summary>
-    /// 生成Lua文件配置CS
+    /// Lua相关工具
     /// </summary>
-    public void GenerateLuaFileConfig()
+    public class GTLua
     {
-        string rootPath = Application.dataPath + "/XLua/Resources/";
-        string suffix = ".lua.txt";
-        CollectFilesWithSuffix(rootPath, ".lua.txt", ref m_fileList);
+        private List<string> m_fileList = new List<string>();
+        private string m_filesConfigFile = Application.dataPath + "/GameMain/Config/LuaFilesConfig.json";
+        private Dictionary<string, bool> m_loadedFlag;
 
-        StringBuilder sb = new StringBuilder();
-
-        foreach(string file in m_fileList)
+        public GTLua()
         {
-            string path = Utility.Path.GetRegularPath(file);
-            string tempName = path.Substring(path.IndexOf("Resources") + 10);
-            string luaName = tempName.Substring(0, tempName.Length - suffix.Length);
-            string json = GameUtility.SerializeObject<LuaFileInfo>(new LuaFileInfo(luaName));
-            Debug.Log("json:"+json);
-            sb.Append(json);
-            
-            sb.Append("\n");
+
         }
 
-        using (FileStream stream = new FileStream(m_filesConfigFile,FileMode.Create))
+        private void AddEvent()
         {
-            StreamWriter sw = new StreamWriter(stream);
-            sw.Write(sb.ToString());
-            sw.Flush();
-            sw.Close();
+            GameManager.Event.Subscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
+            GameManager.Event.Subscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfgSuccess);
         }
 
-        AssetDatabase.Refresh();
-    }
-
-    /// <summary>
-    /// 收集指定目录下指定后缀名的所有文件
-    /// </summary>
-    /// <param name="rootPath"></param>
-    /// <param name="suffix"></param>
-    /// <param name="fileList"></param>
-    private void CollectFilesWithSuffix(string rootPath,string suffix,ref List<string> fileList)
-    {
-        string[]    dirs = Directory.GetDirectories(rootPath);
-        foreach(string path in dirs)
+        private void RemoveEvent()
         {
-            CollectFilesWithSuffix(path,suffix,ref fileList);
+            GameManager.Event.Unsubscribe(LoadLuaSuccessEventArgs.EventId, OnLoadLuaSuccess);
+            GameManager.Event.Unsubscribe(LoadLuaFilesConfigSuccessEventArgs.EventId, OnLoadLuaFilesConfgSuccess);
         }
 
-        string[] files = Directory.GetFiles(rootPath);
-        foreach(string filePath in files)
+        /// <summary>
+        /// 运行模式下，重新加载lua
+        /// </summary>
+        public void ReloadLuaOnPlaying()
         {
-            if (filePath.Substring(filePath.IndexOf(".")) == suffix)
+            //编辑器模式下
+            if (GameManager.Base.EditorResourceMode)
             {
-                fileList.Add(filePath);
+                EditorUtility.DisplayProgressBar("正在重新加载Lua文件","正在加载...",0);
+
+                AddEvent();
+
+                //加载Lua配置文件
+                GameManager.Lua.LoadLuaFilesConfig();
             }
+        }
+
+        private void StartLoadLua()
+        {
+            m_loadedFlag = new Dictionary<string, bool>();
+
+            List<LuaFileInfo> m_LuaFileInfos = GameManager.Lua.LuaFileInfos;
+            for (int i = 0; i < m_LuaFileInfos.Count; i++)
+            {
+                m_loadedFlag[m_LuaFileInfos[i].LuaName] = false;
+                GameManager.Lua.LoadLuaFile(m_LuaFileInfos[i].LuaName, m_LuaFileInfos[i].AssetName);
+            }
+        }
+
+        private void OnLoadLuaFilesConfgSuccess(object sender, GameEventArgs e)
+        {
+            //开始加载lua文件
+            StartLoadLua();
+        }
+
+        private void OnLoadLuaSuccess(object sender, GameEventArgs e)
+        {
+            LoadLuaSuccessEventArgs evt = (LoadLuaSuccessEventArgs)e;
+
+            m_loadedFlag[evt.LuaName] = true;
+
+            if (CheckIsAllLoaded())
+            {
+                RemoveEvent();
+                EditorUtility.ClearProgressBar();
+                Debug.Log("All lua files is reloaded !");
+            }
+        }
+
+        private bool CheckIsAllLoaded()
+        {
+            foreach(bool value in m_loadedFlag.Values)
+            {
+                if(value==false)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 生成Lua文件配置
+        /// </summary>
+        public void GenerateLuaFileConfig()
+        {
+            string rootPath = Application.dataPath + "/XLua/Resources/";
+            string suffix = ".lua.txt";
+            GTUtility.CollectFilesWithSuffix(rootPath, ".lua.txt", ref m_fileList);
+
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string file in m_fileList)
+            {
+                string path = Utility.Path.GetRegularPath(file);
+                string tempName = path.Substring(path.IndexOf("Resources") + 10);
+                string luaName = tempName.Substring(0, tempName.Length - suffix.Length);
+                string json = GameUtility.SerializeObject<LuaFileInfo>(new LuaFileInfo(luaName));
+                //Debug.Log("json:" + json);
+                sb.Append(json);
+
+                sb.Append("\n");
+            }
+
+            using (FileStream stream = new FileStream(m_filesConfigFile, FileMode.Create))
+            {
+                StreamWriter sw = new StreamWriter(stream);
+                sw.Write(sb.ToString());
+                sw.Flush();
+                sw.Close();
+            }
+
+            AssetDatabase.Refresh();
         }
     }
 }
