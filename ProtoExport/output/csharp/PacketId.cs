@@ -9,7 +9,7 @@
 /// </summary>
 public enum PacketId
 {
-	SC_LOGIN=1002,
 	CS_LOGIN=1001,
+	SC_LOGIN=1002,
 	
 }

@@ -1,5 +1,6 @@
 import os
 import shutil
+import json
 
 global proto_path
 global output_path
@@ -37,18 +38,28 @@ def export_py():
 
 	pass
 
-# 导出pb(protobuf的二进制)文件
+# 导出pb(protobuf的二进制)文件,用txt做后缀,便于Unity识别
 def export_pb():
 	global proto_path
 	global output_path
 	global protoc_path
 
+	file_name_list = []
+
 	for file in os.listdir(proto_path):
+		# 收集文件列表
+		if file[-6:] == ".proto":
+			file_name_list.append(file[:-6])
+
 		if file[-6:] == ".proto" and os.path.isfile(os.path.join(proto_path,file)):
-			pb_file = os.path.join(output_path,"pb",file.replace("proto","pb")) 
+			pb_file = os.path.join(output_path,"pb",file.replace("proto","txt")) 
 			proto_file = os.path.join(proto_path,file)
 			cmd = "{0} --proto_path={1} -o {2} {3}".format(protoc_path,proto_path,pb_file,proto_file)
 			os.system(cmd)		
+
+	# 生成proto配置文件
+	with open(os.path.join(output_path,"pb","proto_list.txt"),"w",encoding="utf-8") as list_file:
+		list_file.write(json.dumps(file_name_list,ensure_ascii=False))
 
 	pass
 
@@ -56,8 +67,8 @@ def main():
 	global proto_path,output_path,protoc_path
 	proto_path = os.path.abspath(os.path.dirname(os.getcwd()))+"/proto/"
 	output_path = os.path.abspath(os.path.dirname(os.getcwd()))+"/output/"
-	print(proto_path)
-	print(output_path)
+	print("proto_path:"+proto_path)
+	print("output_path:"+output_path)
 	protoc_path = os.getcwd()+"/protoc"
 	# export_cs()
 	# export_py()
