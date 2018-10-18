@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'UNITY_INSTANCE_ID' with 'UNITY_VERTEX_INPUT_INSTANCE_ID'
+
 #ifndef SPRITE_LIGHTING_INCLUDED
 #define SPRITE_LIGHTING_INCLUDED
 
@@ -26,7 +28,7 @@ struct VertexInput
 #if defined(_NORMALMAP)
 	float4 tangent : TANGENT;
 #endif // _NORMALMAP
-	UNITY_INSTANCE_ID
+	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
 ////////////////////////////////////////

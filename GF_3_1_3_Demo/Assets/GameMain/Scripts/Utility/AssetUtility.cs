@@ -127,6 +127,26 @@ public static class AssetUtility {
     }
 
     /// <summary>
+    /// Proto资源
+    /// </summary>
+    /// <param name="proto"></param>
+    /// <returns></returns>
+    public static string GetProtoAsset(string proto)
+    {
+        return string.Format("Assets/XLua/Resources/3rd/proto/{0}.lua.txt",proto);
+    }
+
+    /// <summary>
+    /// Proto.pb资源
+    /// </summary>
+    /// <param name="proto"></param>
+    /// <returns></returns>
+    public static string GetProtoPbAsset(string proto)
+    {
+        return string.Format("Assets/XLua/Resources/3rd/pb/{0}.txt", proto);
+    }
+
+    /// <summary>
     /// 获取指定目录下所有指定后缀资源名的文件路径
     /// </summary>
     /// <param name="rootPath">根路径</param>

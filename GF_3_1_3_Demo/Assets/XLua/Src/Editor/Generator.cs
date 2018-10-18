@@ -358,7 +358,7 @@ namespace CSObjectWrapEditor
 
             parameters.Set("getters", type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
                 
-                .Where(prop => prop.CanRead && (prop.GetGetMethod() != null)  && prop.Name != "Item" && !isObsolete(prop) && !isObsolete(prop.GetGetMethod()) && !isMemberInBlackList(prop) && !isMemberInBlackList(prop.GetGetMethod())).Select(prop => new { prop.Name, IsStatic = prop.GetGetMethod().IsStatic, ReadOnly = false, Type = prop.PropertyType })
+                .Where(prop => prop.GetIndexParameters().Length == 0 && prop.CanRead && (prop.GetGetMethod() != null)  && prop.Name != "Item" && !isObsolete(prop) && !isObsolete(prop.GetGetMethod()) && !isMemberInBlackList(prop) && !isMemberInBlackList(prop.GetGetMethod())).Select(prop => new { prop.Name, IsStatic = prop.GetGetMethod().IsStatic, ReadOnly = false, Type = prop.PropertyType })
                 .Concat(
                     type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
                     .Where(field => !isObsolete(field) && !isMemberInBlackList(field))
@@ -366,7 +366,7 @@ namespace CSObjectWrapEditor
                 ).Where(info => !IsDoNotGen(type, info.Name))/*.Where(getter => !typeof(Delegate).IsAssignableFrom(getter.Type))*/.ToList());
 
             parameters.Set("setters", type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
-                .Where(prop => prop.CanWrite && (prop.GetSetMethod() != null) && prop.Name != "Item" && !isObsolete(prop) && !isObsolete(prop.GetSetMethod()) && !isMemberInBlackList(prop) && !isMemberInBlackList(prop.GetSetMethod())).Select(prop => new { prop.Name, IsStatic = prop.GetSetMethod().IsStatic, Type = prop.PropertyType, IsProperty = true })
+                .Where(prop => prop.GetIndexParameters().Length == 0 && prop.CanWrite && (prop.GetSetMethod() != null) && prop.Name != "Item" && !isObsolete(prop) && !isObsolete(prop.GetSetMethod()) && !isMemberInBlackList(prop) && !isMemberInBlackList(prop.GetSetMethod())).Select(prop => new { prop.Name, IsStatic = prop.GetSetMethod().IsStatic, Type = prop.PropertyType, IsProperty = true })
                 .Concat(
                     type.GetFields(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
                     .Where(field => !isObsolete(field) && !isMemberInBlackList(field) && !field.IsInitOnly && !field.IsLiteral)
@@ -377,12 +377,14 @@ namespace CSObjectWrapEditor
                 .Where(method => OpMethodNames.Contains(method.Name))
                 .GroupBy(method => method.Name, (k, v) => new { Name = k, Overloads = v.Cast<MethodBase>().OrderBy(mb => mb.GetParameters().Length).ToList() }).ToList());
 
-            parameters.Set("indexers", type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
-                .Where(method => method.Name == "get_Item" && method.GetParameters().Length == 1 && !method.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
+            var indexers = type.GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly).Where(prop => prop.GetIndexParameters().Length > 0);
+
+            parameters.Set("indexers", indexers.Where(prop => prop.CanRead && (prop.GetGetMethod() != null)).Select(prop => prop.GetGetMethod())
+                .Where(method => method.GetParameters().Length == 1 && !method.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
                 .ToList());
 
-            parameters.Set("newindexers", type.GetMethods(BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly)
-                .Where(method => method.Name == "set_Item" && method.GetParameters().Length == 2 && !method.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
+            parameters.Set("newindexers", indexers.Where(prop => prop.CanWrite && (prop.GetSetMethod() != null)).Select(prop => prop.GetSetMethod())
+                .Where(method => method.GetParameters().Length == 2 && !method.GetParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
                 .ToList());
 
             parameters.Set("events", type.GetEvents(BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase | BindingFlags.DeclaredOnly).Where(e => !isObsolete(e) && !isMemberInBlackList(e))
@@ -501,12 +503,29 @@ namespace CSObjectWrapEditor
         static bool isObsolete(MemberInfo mb)
         {
             if (mb == null) return false;
-            return mb.IsDefined(typeof(System.ObsoleteAttribute), false);
+            ObsoleteAttribute oa = Attribute.GetCustomAttribute(mb, typeof(ObsoleteAttribute)) as ObsoleteAttribute;
+#if XLUA_GENERAL || XLUA_JUST_EXCLUDE_ERROR
+            return oa != null && oa.IsError;
+#else
+            return oa != null;
+#endif
+        }
+
+        static bool isObsolete(Type type)
+        {
+            if (type == null) return false;
+            if (isObsolete(type as MemberInfo))
+            {
+                return true;
+            }
+            return (type.DeclaringType != null) ? isObsolete(type.DeclaringType) : false;
         }
 
         static bool isMemberInBlackList(MemberInfo mb)
         {
             if (mb.IsDefined(typeof(BlackListAttribute), false)) return true;
+            if (mb is FieldInfo && (mb as FieldInfo).FieldType.IsPointer) return true;
+            if (mb is PropertyInfo && (mb as PropertyInfo).PropertyType.IsPointer) return true;
 
             foreach (var exclude in BlackList)
             {
@@ -522,6 +541,10 @@ namespace CSObjectWrapEditor
         static bool isMethodInBlackList(MethodBase mb)
         {
             if (mb.IsDefined(typeof(BlackListAttribute), false)) return true;
+
+            //指针目前不支持，先过滤
+            if (mb.GetParameters().Any(pInfo => pInfo.ParameterType.IsPointer)) return true;
+            if (mb is MethodInfo && (mb as MethodInfo).ReturnType.IsPointer) return false;
 
             foreach (var exclude in BlackList)
             {
@@ -851,7 +874,7 @@ namespace CSObjectWrapEditor
         {
             return (toCheck != HotfixFlag.Stateless) && ((toCheck & flag) == flag);
         }
-        
+
         static void GenDelegateBridge(IEnumerable<Type> types, string save_path, IEnumerable<Type> hotfix_check_types)
         {
             string filePath = save_path + "DelegatesGensBridge.cs";
@@ -864,27 +887,7 @@ namespace CSObjectWrapEditor
             var bindingAttrOfConstructor = BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly | BindingFlags.NonPublic;
             foreach (var type in (from type in hotfix_check_types where type.IsDefined(typeof(HotfixAttribute), false) select type))
             {
-                if (type.Name.Contains("<"))
-                {
-                    continue;
-                }
-                var hotfixType = ((type.GetCustomAttributes(typeof(HotfixAttribute), false)[0]) as HotfixAttribute).Flag;
-                if (hotfixType.HasFlag(HotfixFlag.Inline))
-                {
-                    continue;
-                }
-                bool ignoreProperty = hotfixType.HasFlag(HotfixFlag.IgnoreProperty);
-                bool ignoreNotPublic = hotfixType.HasFlag(HotfixFlag.IgnoreNotPublic);
-                //ignoreProperty = true;
-                hotfxDelegates.AddRange(type.GetMethods(bindingAttrOfMethod)
-                    .Where(method => method.GetMethodBody() != null)
-                    .Where(method => !method.Name.Contains("<"))
-                    .Where(method => !ignoreNotPublic || method.IsPublic)
-                    .Where(method => !ignoreProperty || !method.IsSpecialName || (!method.Name.StartsWith("get_") && !method.Name.StartsWith("set_")))
-                    .Cast<MethodBase>()
-                    .Concat(type.GetConstructors(bindingAttrOfConstructor).Cast<MethodBase>())
-                    .Where(method => !injectByGeneric(method, hotfixType))
-                    .Select(method => makeHotfixMethodInfoSimulation(method, hotfixType)));
+                HotfixCfg[type] = ((type.GetCustomAttributes(typeof(HotfixAttribute), false)[0]) as HotfixAttribute).Flag;
             }
             foreach (var kv in HotfixCfg)
             {
@@ -894,10 +897,16 @@ namespace CSObjectWrapEditor
                 }
                 bool ignoreProperty = kv.Value.HasFlag(HotfixFlag.IgnoreProperty);
                 bool ignoreNotPublic = kv.Value.HasFlag(HotfixFlag.IgnoreNotPublic);
+                bool ignoreCompilerGenerated = kv.Value.HasFlag(HotfixFlag.IgnoreCompilerGenerated);
+                if (ignoreCompilerGenerated && kv.Key.IsDefined(typeof(CompilerGeneratedAttribute), false))
+                {
+                    continue;
+                }
                 //ignoreProperty = true;
                 hotfxDelegates.AddRange(kv.Key.GetMethods(bindingAttrOfMethod)
                     .Where(method => method.GetMethodBody() != null)
                     .Where(method => !method.Name.Contains("<"))
+                    .Where(method => !ignoreCompilerGenerated || !method.IsDefined(typeof(CompilerGeneratedAttribute), false))
                     .Where(method => !ignoreNotPublic || method.IsPublic)
                     .Where(method => !ignoreProperty || !method.IsSpecialName || (!method.Name.StartsWith("get_") && !method.Name.StartsWith("set_")))
                     .Cast<MethodBase>()
@@ -1350,6 +1359,22 @@ namespace CSObjectWrapEditor
             }
         }
 
+        static bool IsPublic(Type type)
+        {
+            if (type.IsPublic || type.IsNestedPublic)
+            {
+                if (type.DeclaringType != null)
+                {
+                    return IsPublic(type.DeclaringType);
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         public static void GetGenConfig(IEnumerable<Type> check_types)
         {
             LuaCallCSharp = new List<Type>();
@@ -1398,19 +1423,19 @@ namespace CSObjectWrapEditor
                 }
             }
             LuaCallCSharp = LuaCallCSharp.Distinct()
-                .Where(type=>/*type.IsPublic && */!isObsolete(type) && !type.IsGenericTypeDefinition)
+                .Where(type=> IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .Where(type => !typeof(Delegate).IsAssignableFrom(type))
                 .Where(type => !type.Name.Contains("<"))
-                .ToList();//public的内嵌Enum（其它类型未测试），IsPublic为false，像是mono的bug
+                .ToList();
             CSharpCallLua = CSharpCallLua.Distinct()
-                .Where(type =>/*type.IsPublic && */!isObsolete(type) && !type.IsGenericTypeDefinition)
+                .Where(type => IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .Where(type => type != typeof(Delegate) && type != typeof(MulticastDelegate))
                 .ToList();
             GCOptimizeList = GCOptimizeList.Distinct()
-                .Where(type =>/*type.IsPublic && */!isObsolete(type) && !type.IsGenericTypeDefinition)
+                .Where(type => IsPublic(type) && !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .ToList();
             ReflectionUse = ReflectionUse.Distinct()
-                .Where(type =>/*type.IsPublic && */!isObsolete(type) && !type.IsGenericTypeDefinition)
+                .Where(type => !isObsolete(type) && !type.IsGenericTypeDefinition)
                 .ToList();
         }
 
@@ -1622,7 +1647,7 @@ namespace CSObjectWrapEditor
                 }
                 _hasGenericParameter = true;
             }
-            else if(parameterType.IsGenericType())
+            else if(parameterType.IsGenericType)
             {
                 foreach (var argument in parameterType.GetGenericArguments())
                 {
@@ -1633,8 +1658,8 @@ namespace CSObjectWrapEditor
             return true;
         }
 #if !XLUA_GENERAL
-        [UnityEditor.Callbacks.PostProcessScene]
-        public static void CheckGenrate()
+        [UnityEditor.Callbacks.PostProcessBuild(1)]
+        public static void CheckGenrate(BuildTarget target, string pathToBuiltProject)
         {
             if (EditorApplication.isCompiling || Application.isPlaying)
             {

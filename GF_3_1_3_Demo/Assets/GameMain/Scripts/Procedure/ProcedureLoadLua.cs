@@ -51,10 +51,12 @@ public class ProcedureLoadLua : GameProcedureBase
 
         UpdateLaunchTips("资源预加载完成。");
 
+        GameManager.Lua.InitLuaEnvExternalInterface();
         GameManager.Lua.DoLuaFile("main");
         GameManager.Lua.DoLuaFile("Manager/LuaFormManager");
+        GameManager.Lua.DoLuaFile("Manager/LuaNetworkManager");
 
-        ChangeState<ProcedureMenu>(procedureOwner);
+        ChangeState<ProcedureLoadProto>(procedureOwner);
     }
 
     protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

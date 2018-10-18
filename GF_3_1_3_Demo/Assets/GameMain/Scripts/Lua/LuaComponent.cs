@@ -25,6 +25,8 @@ public class LuaComponent : GameFrameworkComponent
     private EventComponent m_EventComponent;
     private Dictionary<string, string> m_CacheLuaDict;
     private List<LuaFileInfo> m_LuaFileInfos;
+    //private Dictionary<string, string> m_CacheProtoDict;
+    private Dictionary<string, byte[]> m_CacheProtoPbDict;
 
     /// <summary>
     /// Lua文件列表信息
@@ -56,6 +58,8 @@ public class LuaComponent : GameFrameworkComponent
         m_CacheLuaDict = new Dictionary<string, string>();
         m_LuaEnv = new LuaEnv();
         m_LuaFileInfos = new List<LuaFileInfo>();
+        //m_CacheProtoDict = new Dictionary<string, string>();
+        m_CacheProtoPbDict = new Dictionary<string, byte[]>();
     }
 
     private void Update()
@@ -69,6 +73,8 @@ public class LuaComponent : GameFrameworkComponent
     private void OnDestroy()
     {
         m_CacheLuaDict.Clear();
+        //m_CacheProtoDict.Clear();
+        m_CacheProtoPbDict.Clear();
 
         if(m_LuaEnv != null)
         {
@@ -105,6 +111,16 @@ public class LuaComponent : GameFrameworkComponent
             }
         }
 
+    }
+
+    /// <summary>
+    /// 初始化 Lua 环境第三方库接口
+    /// </summary>
+    public void InitLuaEnvExternalInterface()
+    {
+        m_LuaEnv.AddBuildin("rapidjson", XLua.LuaDLL.Lua.LoadRapidJson);
+        m_LuaEnv.AddBuildin("lpeg", XLua.LuaDLL.Lua.LoadLpeg);
+        m_LuaEnv.AddBuildin("pb", XLua.LuaDLL.Lua.LoadLuaProfobuf);
     }
 
     /// <summary>
@@ -148,6 +164,44 @@ public class LuaComponent : GameFrameworkComponent
         }
 
         m_ResourceComponent.LoadAsset(assetName,callBacks,luaName);
+    }
+
+    /// <summary>
+    /// (方式1)加载Proto文件
+    /// </summary>
+    /// <param name="protoName"></param>
+    //public void LoadProtoFile(string protoName)
+    //{
+    //    LoadAssetCallbacks callBacks = new LoadAssetCallbacks(OnLoadProtoAssetSuccess);
+
+    //    string assetName = AssetUtility.GetProtoAsset(protoName);
+
+    //    if (m_CacheProtoDict.ContainsKey(protoName))
+    //    {
+    //        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadProtoSuccessEventArgs>().Fill(assetName, protoName, m_CacheProtoDict[protoName]));
+    //        return;
+    //    }
+
+    //    m_ResourceComponent.LoadAsset(assetName, callBacks, protoName);
+    //}
+
+    /// <summary>
+    /// (方式2)加载ProtoPb文件
+    /// </summary>
+    /// <param name="protoName"></param>
+    public void LoadProtoPbFile(string protoName)
+    {
+        LoadAssetCallbacks callBacks = new LoadAssetCallbacks(OnLoadProtoPbAssetSuccess);
+
+        string assetName = AssetUtility.GetProtoPbAsset(protoName);
+
+        if (m_CacheProtoPbDict.ContainsKey(protoName))
+        {
+            m_EventComponent.Fire(this, ReferencePool.Acquire<LoadProtoPbSuccessEventArgs>().Fill(assetName, protoName, m_CacheProtoPbDict[protoName]));
+            return;
+        }
+
+        m_ResourceComponent.LoadAsset(assetName, callBacks, protoName);
     }
 
     /// <summary>
@@ -287,21 +341,44 @@ public class LuaComponent : GameFrameworkComponent
         m_EventComponent.Fire(this,ReferencePool.Acquire<LoadLuaSuccessEventArgs>().Fill(assetName,luaName,textAsset.text));
     }
 
+    //private void OnLoadProtoAssetSuccess(string assetName, object asset, float duration, object userData)
+    //{
+    //    string protoName = (string)userData;
+
+    //    if (m_CacheProtoDict.ContainsKey(protoName))
+    //    {
+    //        Log.Warning("CacheLuaDict has exist proto file '{0}'.", protoName);
+    //        return;
+    //    }
+
+    //    TextAsset textAsset = (TextAsset)asset;
+    //    m_CacheProtoDict.Add(protoName, textAsset.text);
+
+    //    Log.Info("Load proto '{0}' success.", protoName);
+    //    m_EventComponent.Fire(this, ReferencePool.Acquire<LoadProtoSuccessEventArgs>().Fill(assetName, protoName, textAsset.text));
+    //}
+
+    private void OnLoadProtoPbAssetSuccess(string assetName, object asset, float duration, object userData)
+    {
+        string protoName = (string)userData;
+
+        if (m_CacheProtoPbDict.ContainsKey(protoName))
+        {
+            Log.Warning("m_CacheProtoPbDict has exist proto file '{0}'.", protoName);
+            return;
+        }
+
+        TextAsset textAsset = (TextAsset)asset;
+        m_CacheProtoPbDict.Add(protoName, textAsset.bytes);
+
+        Log.Info("Load proto pb '{0}' success.", protoName);
+        m_EventComponent.Fire(this, ReferencePool.Acquire<LoadProtoPbSuccessEventArgs>().Fill(assetName, protoName,textAsset.bytes ));
+    }
+
     private void OnLoadLuaAssetFailure(string assetName, string dependencyAssetName, int loadedCount, int totalCount, object userData)
     {
         string luaName = (string)userData;
         string errorMessage = string.Format("Load lua file failed. The file is {0}. ", assetName);
         m_EventComponent.Fire(this, ReferencePool.Acquire<LoadLuaFailureEventArgs>().Fill(assetName, luaName, errorMessage));
     }
-
-    #region 编辑器模式下
-    public void ReloadLua()
-    {
-        for (int i = 0; i < m_LuaFileInfos.Count; i++)
-        {
-            //m_loadedFlag.Add(m_LuaFileInfos[i].LuaName, false);
-            GameManager.Lua.LoadLuaFile(m_LuaFileInfos[i].LuaName, m_LuaFileInfos[i].AssetName);
-        }
-    }
-    #endregion
 }

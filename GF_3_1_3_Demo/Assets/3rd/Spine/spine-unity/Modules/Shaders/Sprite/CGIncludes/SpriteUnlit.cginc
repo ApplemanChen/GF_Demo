@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'UNITY_INSTANCE_ID' with 'UNITY_VERTEX_INPUT_INSTANCE_ID'
+
 #ifndef SPRITE_UNLIT_INCLUDED
 #define SPRITE_UNLIT_INCLUDED
 
@@ -12,7 +14,7 @@ struct VertexInput
 	float4 vertex : POSITION;
 	float4 texcoord : TEXCOORD0;
 	fixed4 color : COLOR;
-	UNITY_INSTANCE_ID
+	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 
 struct VertexOutput

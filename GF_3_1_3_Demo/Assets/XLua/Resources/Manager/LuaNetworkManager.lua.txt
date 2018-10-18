@@ -1,0 +1,28 @@
+-- Lua网络管理器
+LuaNetworkManager = {}
+
+local res
+
+-- （方式1）C#调用 加载Proto到内存中
+function LuaNetworkManager.LoadProto( proto_data )
+   	assert(protoc:load(proto_data))
+    print("LuaNetworkManager => load_proto over.")
+end
+
+-- （方式2）C#调用 加载proto的pb文件字节到内存中
+function LuaNetworkManager.LoadProtoPb( bytes )
+	assert(pb.load(bytes))
+    print("LuaNetworkManager => load_proto_pb over.")
+end
+
+-- 测试函数
+function LuaNetworkManager.TestProto(  )
+	local data = {account = "1212",password="abced"}
+
+	local bytes = assert(pb.encode('network.cs_login', data))
+    print(pb.tohex(bytes))
+
+    local decode_data = pb.decode('network.cs_login',bytes)
+    dump(decode_data)
+    print("decode_data.account:"..decode_data.account)
+end

@@ -1,0 +1,18 @@
+package network;
+
+// -----
+// 账号登录
+// -----
+message cs_login{
+    // 账号信息
+	required string account = 1;		// 账号
+	required string password = 2;       // 密码
+}
+
+// -----
+// 账号登录返回
+// -----
+message sc_login{
+	required uint32 result = 1;			// 0失败 1成功
+	required string reason = 2;			// 失败原因
+}

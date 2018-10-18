@@ -390,7 +390,7 @@ namespace XLua
 
             if (!gen_interfaces.Contains(to_be_impl))
             {
-                throw new InvalidCastException("This type must add to CSharpCallLua: " + to_be_impl);
+                throw new InvalidCastException("This type must add to CSharpCallLua: " + to_be_impl.GetFriendlyName());
             }
 
             TypeBuilder impl_type_builder = CodeEmitModule.DefineType("XLuaGenInterfaceImpl" + (genID++), TypeAttributes.Public | TypeAttributes.Class, typeof(LuaBase), new Type[] { to_be_impl});
@@ -1188,7 +1188,7 @@ namespace XLua
                 var getter = prop.GetGetMethod();
                 if (getter != null && getter.IsPublic)
                 {
-                    if (prop.Name == "Item" && prop.GetIndexParameters().Length > 0)
+                    if (prop.GetIndexParameters().Length > 0)
                     {
                         if (!prop.GetIndexParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
                         {
@@ -1204,7 +1204,7 @@ namespace XLua
                 var setter = prop.GetSetMethod();
                 if (setter != null && setter.IsPublic)
                 {
-                    if (prop.Name == "Item" && prop.GetIndexParameters().Length > 0)
+                    if (prop.GetIndexParameters().Length > 0)
                     {
                         if (!prop.GetIndexParameters()[0].ParameterType.IsAssignableFrom(typeof(string)))
                         {

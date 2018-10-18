@@ -1,3 +1,5 @@
+// Upgrade NOTE: replaced 'UNITY_INSTANCE_ID' with 'UNITY_VERTEX_INPUT_INSTANCE_ID'
+
 Shader "Hidden/Sprite-CameraDepthTexture" {
 
 // Use this shader to render a Depth texture for a camera with soft edged Sprites (using camera.RenderWithShader with replacement tag "RenderType")
@@ -283,7 +285,7 @@ struct appdata {
     float4 vertex : POSITION;
     float3 normal : NORMAL;
     fixed4 color : COLOR;
-	UNITY_INSTANCE_ID
+	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 v2f vert( appdata v ) {
 	v2f o;
@@ -324,7 +326,7 @@ struct appdata {
     float3 normal : NORMAL;
     fixed4 color : COLOR;
     float4 texcoord : TEXCOORD0;
-	UNITY_INSTANCE_ID
+	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 v2f vert( appdata v ) {
 	v2f o;
@@ -367,7 +369,7 @@ struct appdata {
     float3 normal : NORMAL;
     fixed4 color : COLOR;
     float4 texcoord : TEXCOORD0;
-	UNITY_INSTANCE_ID
+	UNITY_VERTEX_INPUT_INSTANCE_ID
 };
 v2f vert( appdata v ) {
 	v2f o;
